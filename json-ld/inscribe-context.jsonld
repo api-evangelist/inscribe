@@ -1,0 +1,109 @@
+{
+  "@context": {
+    "@vocab": "https://schema.org/",
+    "inscribe": "https://www.inscribe.ai/vocab#",
+    "aid": "https://apis.io/vocab#aid",
+    "baseURL": "https://apis.io/vocab#baseURL",
+
+    "FraudDetection": "inscribe:FraudDetection",
+    "DocumentVerification": "inscribe:DocumentVerification",
+    "CreditInsight": "inscribe:CreditInsight",
+    "TransactionEnrichment": "inscribe:TransactionEnrichment",
+    "CollectSession": "inscribe:CollectSession",
+    "BankAccount": "inscribe:BankAccount",
+    "Customer": "inscribe:Customer",
+    "OpenBankingData": "inscribe:OpenBankingData",
+    "FraudSignal": "inscribe:FraudSignal",
+
+    "fraudScore": {
+      "@id": "inscribe:fraudScore",
+      "@type": "xsd:decimal"
+    },
+    "documentType": {
+      "@id": "inscribe:documentType",
+      "@type": "@vocab"
+    },
+    "verificationStatus": {
+      "@id": "inscribe:verificationStatus",
+      "@type": "@vocab"
+    },
+    "fraudSignals": {
+      "@id": "inscribe:fraudSignals",
+      "@container": "@set"
+    },
+    "extractedData": {
+      "@id": "inscribe:extractedData"
+    },
+    "cashflowInsight": {
+      "@id": "inscribe:cashflowInsight"
+    },
+    "incomeInsight": {
+      "@id": "inscribe:incomeInsight"
+    },
+    "riskInsight": {
+      "@id": "inscribe:riskInsight"
+    },
+    "expenditureInsight": {
+      "@id": "inscribe:expenditureInsight"
+    },
+    "loanInsight": {
+      "@id": "inscribe:loanInsight"
+    },
+    "transactionCategory": {
+      "@id": "inscribe:transactionCategory",
+      "@type": "@vocab"
+    },
+    "collectSessionURL": {
+      "@id": "inscribe:collectSessionURL",
+      "@type": "xsd:anyURI"
+    },
+    "webhookURL": {
+      "@id": "inscribe:webhookURL",
+      "@type": "xsd:anyURI"
+    },
+    "provider": {
+      "@id": "schema:provider"
+    },
+    "dateUploaded": {
+      "@id": "schema:dateCreated",
+      "@type": "xsd:dateTime"
+    },
+    "dateAnalyzed": {
+      "@id": "inscribe:dateAnalyzed",
+      "@type": "xsd:dateTime"
+    }
+  },
+  "@graph": [
+    {
+      "@id": "https://www.inscribe.ai/",
+      "@type": "Organization",
+      "name": "Inscribe",
+      "description": "AI-powered document fraud detection platform for banks, credit unions, fintechs, and lending institutions.",
+      "url": "https://www.inscribe.ai/",
+      "foundingDate": "2017",
+      "sameAs": [
+        "https://github.com/InscribeAI",
+        "https://www.linkedin.com/company/inscribeai/",
+        "https://twitter.com/inscribeai"
+      ]
+    },
+    {
+      "@id": "https://api.inscribe.ai/api/v2",
+      "@type": "WebAPI",
+      "name": "Inscribe Document Fraud Detection API",
+      "description": "RESTful API for uploading and analyzing financial documents for fraud detection and data extraction.",
+      "documentation": "https://docs.inscribe.ai/reference/overview",
+      "provider": {
+        "@id": "https://www.inscribe.ai/"
+      },
+      "termsOfService": "https://www.inscribe.ai/terms",
+      "category": [
+        "Fraud Detection",
+        "Document Verification",
+        "Financial Services",
+        "KYC",
+        "KYB"
+      ]
+    }
+  ]
+}
