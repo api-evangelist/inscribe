@@ -1,0 +1,77 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+provider: Inscribe
+providerId: inscribe
+created: '2026-06-12'
+modified: '2026-06-12'
+reconciled: true
+
+type: enterprise
+
+description: >
+  Inscribe does not publish fixed public pricing tiers. Pricing is custom and
+  negotiated based on usage volume, document types, and features required.
+  According to third-party data (Vendr), median annual contract value is
+  approximately $24,500, with a range from $1,000 to ~$60,000. No free plan
+  is offered; access requires a sales engagement. The platform targets banks,
+  credit unions, fintechs, and lending institutions.
+
+entries:
+  - name: Custom Enterprise Plan
+    type: paid
+    description: >
+      Custom pricing negotiated directly with Inscribe. Includes fraud
+      detection, document verification, credit insights, transaction
+      enrichment, and access to AI Risk Agents. Volume discounts apply.
+      Pricing depends on number of documents processed, features enabled,
+      and contract term.
+    quotas:
+      - metric: Documents Processed
+        type: metered
+        description: Pricing based on volume of documents analyzed per period
+      - metric: API Requests
+        type: metered
+        description: API calls billed based on usage tier negotiated with sales
+    features:
+      - type: boolean
+        name: Document Fraud Detection
+        value: true
+      - type: boolean
+        name: Bank Statement Analysis
+        value: true
+      - type: boolean
+        name: Pay Stub Verification
+        value: true
+      - type: boolean
+        name: Tax Form Analysis
+        value: true
+      - type: boolean
+        name: Credit Insights
+        value: true
+      - type: boolean
+        name: Transaction Enrichment
+        value: true
+      - type: boolean
+        name: Webhook Delivery
+        value: true
+      - type: boolean
+        name: AI Risk Agents
+        value: true
+      - type: boolean
+        name: Inscribe Collect Portal
+        value: true
+      - type: boolean
+        name: Open Banking Data Ingestion
+        value: true
+    pricing:
+      model: custom
+      currency: USD
+      medianAnnual: 24500
+      rangeMin: 1000
+      rangeMax: 59608
+      source: https://www.vendr.com/marketplace/inscribe
+
+notes: >
+  No free trial or self-serve plan is publicly available. Prospective customers
+  must contact Inscribe sales to obtain pricing. Rate limits can be upgraded
+  from 300 req/2min to 3000 req/5min by contacting Inscribe support.

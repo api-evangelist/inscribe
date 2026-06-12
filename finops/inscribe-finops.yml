@@ -1,0 +1,101 @@
+specification: FinOps Framework
+specificationVersion: '1.0'
+provider: Inscribe
+providerId: inscribe
+created: '2026-06-12'
+modified: '2026-06-12'
+
+description: >
+  Inscribe uses a custom enterprise pricing model negotiated per contract.
+  Costs are driven primarily by document volume processed and the feature set
+  enabled. No public per-unit pricing is disclosed; organizations should
+  instrument their usage through API response metadata and webhook event counts
+  to achieve cost visibility and optimize spend.
+
+billingModel: custom-enterprise
+pricingTransparency: low
+contractType: annual
+
+focusColumns:
+  - column: BilledCost
+    description: Annual contract value negotiated with Inscribe sales
+    currency: USD
+  - column: UsageQuantity
+    description: Number of documents processed or API calls made per period
+  - column: ServiceName
+    description: Inscribe Document Fraud Detection API
+  - column: SubServiceName
+    description: >
+      One of: Document Fraud Detection, Credit Insights, Transaction
+      Enrichment, Collect, Open Banking
+  - column: ResourceId
+    description: Customer ID or document ID from Inscribe API response
+  - column: Region
+    description: Not applicable; Inscribe is a cloud SaaS with no region selection
+
+meters:
+  - name: DocumentsProcessed
+    description: Count of documents uploaded and analyzed for fraud detection
+    unit: document
+    focusColumn: UsageQuantity
+    trackingMethod: >
+      Monitor POST /customers/{id}/documents responses (202 status) and
+      webhook events to count documents processed per period
+    costDriver: primary
+
+  - name: ApiRequests
+    description: Total HTTP requests to the Inscribe API base URL
+    unit: request
+    focusColumn: UsageQuantity
+    trackingMethod: >
+      Instrument API client to log all requests to api.inscribe.ai/api/v2;
+      aggregate by endpoint and time period
+    costDriver: secondary
+
+  - name: CreditInsightsQueries
+    description: Requests for credit analysis summaries including cashflow, income, and risk
+    unit: query
+    focusColumn: UsageQuantity
+    trackingMethod: >
+      Track calls to credit analysis endpoints per customer and bank account
+    costDriver: secondary
+
+  - name: TransactionEnrichmentCalls
+    description: Transaction categorization and enrichment API calls
+    unit: call
+    focusColumn: UsageQuantity
+    trackingMethod: >
+      Monitor transaction listing and recategorization endpoint usage
+    costDriver: secondary
+
+principles:
+  Visibility:
+    description: >
+      Inscribe does not expose per-call billing dashboards publicly. Teams
+      should implement client-side usage logging against the base URL
+      (api.inscribe.ai/api/v2), tracking document uploads, credit insight
+      queries, and webhook event receipts to build an internal cost model.
+    actions:
+      - Log all API request counts by endpoint type
+      - Track document processing volumes via webhook event counts
+      - Review monthly usage against negotiated contract minimums
+      - Use Inscribe's in-app support to request usage reports
+
+  Optimization:
+    description: >
+      Reduce costs by batching documents where possible, using webhooks
+      instead of polling to avoid redundant API calls, and staying within
+      default rate limits to avoid overage discussions during renewal.
+    actions:
+      - Prefer webhook delivery over polling to reduce request volume
+      - Upload documents in bulk sessions to minimize API round trips
+      - Negotiate contract tiers based on actual measured monthly document volume
+      - Request elevated rate limits only when integration patterns require it
+      - Monitor 429 rate limit responses as a proxy for over-provisioned clients
+
+medianAnnualCost:
+  value: 24500
+  currency: USD
+  source: https://www.vendr.com/marketplace/inscribe
+  rangeMin: 1000
+  rangeMax: 59608

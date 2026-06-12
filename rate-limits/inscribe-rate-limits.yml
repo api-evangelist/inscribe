@@ -1,0 +1,59 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+provider: Inscribe
+providerId: inscribe
+created: '2026-06-12'
+modified: '2026-06-12'
+
+description: >
+  Inscribe API endpoints are rate limited. The default tier allows 300 requests
+  per IP address per 2-minute window (~2.5 requests/second). A higher tier
+  of 3,000 requests per IP address per 5-minute window (~10 requests/second)
+  is available upon request through Inscribe's in-app support channel.
+  Rate-limited requests receive a 429 Too Many Requests HTTP status code.
+  The unauthenticated reachability check endpoint is also rate limited.
+
+retryAfter: true
+throttled: 429
+
+limits:
+  - scope: ip
+    metric: requests
+    limit: 300
+    timeFrame: 120
+    timeFrameUnit: seconds
+    tier: default
+    description: >
+      Default rate limit of 300 requests per IP address per 2-minute period
+      (~2.5 requests/second). Applies to all authenticated API endpoints.
+    upgradeAvailable: true
+
+  - scope: ip
+    metric: requests
+    limit: 3000
+    timeFrame: 300
+    timeFrameUnit: seconds
+    tier: elevated
+    description: >
+      Higher-tier rate limit of 3,000 requests per IP address per 5-minute
+      period (~10 requests/second). Available upon request via in-app
+      messaging to the Inscribe team.
+    upgradeAvailable: false
+
+fileConstraints:
+  - name: maxFileSize
+    value: 50
+    unit: MB
+    description: Maximum file size per document upload
+  - name: maxPdfPages
+    value: 350
+    unit: pages
+    description: Maximum number of pages per PDF document
+
+supportedFormats:
+  - PDF
+  - JPG
+  - PNG
+  - octet-stream
+
+source: https://docs.inscribe.ai/docs/are-the-endpoints-rate-limited

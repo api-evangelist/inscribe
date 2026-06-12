@@ -1,0 +1,86 @@
+aid: inscribe
+name: Inscribe
+description: >
+  Inscribe is an AI-powered document fraud detection platform founded in 2017,
+  serving banks, credit unions, fintechs, and lending institutions. The platform
+  uses agentic AI trained by fraud experts to detect forged, manipulated, and
+  AI-generated documents including bank statements, pay stubs, tax forms,
+  invoices, and identity documents. Inscribe's REST API provides programmatic
+  access to fraud detection, document verification, credit insights, and
+  transaction enrichment workflows at scale. Financial institutions integrate
+  the API to automate underwriting, onboarding, KYC/KYB, and bank account
+  verification decisions, with results delivered via webhook or polling. The
+  platform processes millions of applications annually and serves notable
+  customers including Bluevine, Ramp, Plaid, and BHG Financial.
+type: Index
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+tags:
+  - Fraud Detection
+  - Document Verification
+  - Financial Services
+  - KYC
+  - KYB
+  - Bank Statements
+  - Pay Stubs
+  - Identity Verification
+  - Risk Management
+  - Fintech
+  - AI
+  - Machine Learning
+url: https://raw.githubusercontent.com/api-evangelist/inscribe/refs/heads/main/apis.yml
+created: '2026-06-12'
+modified: '2026-06-12'
+specificationVersion: '0.19'
+
+apis:
+  - aid: inscribe:document-fraud-detection-api
+    name: Inscribe Document Fraud Detection API
+    description: >
+      RESTful API for uploading and analyzing financial documents for fraud
+      detection and data extraction. Supports bank statements, pay stubs, tax
+      forms, invoices, and identity documents. Provides fraud signals,
+      forensic analysis, and structured data extraction with results delivered
+      via webhook or polling. Includes customer management, bank account
+      analysis, collect sessions, open banking data ingestion, and transaction
+      enrichment endpoints.
+    humanURL: https://docs.inscribe.ai/reference/overview
+    baseURL: https://api.inscribe.ai/api/v2
+    tags:
+      - Fraud Detection
+      - Document Verification
+      - Bank Statements
+      - Pay Stubs
+      - KYC
+      - KYB
+      - Webhooks
+    properties:
+      - type: Documentation
+        url: https://docs.inscribe.ai/reference/overview
+      - type: OpenAPI
+        url: https://docs.inscribe.ai/llms.txt
+
+common:
+  - type: Website
+    url: https://www.inscribe.ai/
+  - type: Documentation
+    url: https://docs.inscribe.ai/reference/overview
+  - type: GitHubOrganization
+    url: https://github.com/InscribeAI
+  - type: LinkedIn
+    url: https://www.linkedin.com/company/inscribeai/
+  - type: X
+    url: https://twitter.com/inscribeai
+  - type: Blog
+    url: https://www.inscribe.ai/blog
+  - type: StatusPage
+    url: https://status.inscribe.ai/
+  - type: Plans
+    url: plans/inscribe-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/inscribe-rate-limits.yml
+  - type: FinOps
+    url: finops/inscribe-finops.yml
+
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
