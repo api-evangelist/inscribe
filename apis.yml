@@ -13,7 +13,7 @@ description: >
   platform processes millions of applications annually and serves notable
   customers including Bluevine, Ramp, Plaid, and BHG Financial.
 type: Index
-image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 tags:
   - Fraud Detection
   - Document Verification
