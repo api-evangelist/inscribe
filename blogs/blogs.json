@@ -1,55 +1,15 @@
 {
-  "provider": "inscribe",
-  "blogURL": "https://www.inscribe.ai/blog",
-  "rssURL": null,
-  "lastFetched": "2026-06-12",
-  "posts": [
-    {
-      "title": "1 in 16 documents flagged as fraudulent: Inside our 2026 report",
-      "url": "https://www.inscribe.ai/blog/1-in-16-documents-flagged-as-fraudulent-inside-our-2026-report",
-      "date": "2026-01-20",
-      "author": "Brianna Valleskey",
-      "description": "Inscribe's 2026 report reveals that approximately 6% of documents processed showed signs of fraud, with AI-generated document fraud increasing nearly fivefold in 2025. The analysis examines emerging threats, detection strategies, and best practices from leading fraud prevention teams across financial institutions."
-    },
-    {
-      "title": "Document Fraud Stories: Real Cases That Show Why Detection Can't Wait",
-      "url": "https://www.inscribe.ai/blog/document-fraud-stories",
-      "date": "2026-05-20",
-      "author": "Brianna Valleskey",
-      "description": "Real-world document fraud cases from 2024-2026 including the Graceland forgery scheme and a $650 million Ponzi scheme built on fake entertainment contracts. Emphasizes that fraudulent documents are typically caught through contextual analysis recognizing metadata anomalies and semantic inconsistencies."
-    },
-    {
-      "title": "Meet the AI Assistant helping teams investigate document fraud faster",
-      "url": "https://www.inscribe.ai/blog/meet-the-assistant-get-instant-answers-on-signals-transactions-and-trends",
-      "date": "2026-05-11",
-      "author": "Stephanie Spangler",
-      "description": "Inscribe has introduced an AI Assistant that functions as a conversational co-pilot within its fraud detection platform, enabling risk teams to quickly investigate suspicious documents and explain fraud signals without switching between applications."
-    },
-    {
-      "title": "What \"Explainable AI\" actually means and how to tell if a fraud vendor has it",
-      "url": "https://www.inscribe.ai/blog/explainable-ai-fraud-detection-vendor-guide",
-      "date": "2026-05-11",
-      "author": "Conor Burke",
-      "description": "Examines why transparency in AI fraud detection systems matters for financial institutions, arguing that genuine explainability means showing reasoning step-by-step. Offers four key questions organizations should ask vendors about audit-ready documentation and human oversight."
-    },
-    {
-      "title": "Inscribe and Taktile launch embedded document fraud detection integration",
-      "url": "https://www.inscribe.ai/blog/inscribe-and-taktile-partner-to-embed-document-fraud-detection-into-decision-workflows",
-      "date": "2026-04-21",
-      "author": "Stephanie Spangler",
-      "description": "Inscribe has partnered with Taktile to integrate agentic document fraud detection directly into their decision platform, enabling banks and lenders to identify suspicious documents automatically within existing workflows."
-    }
-  ],
   "repo": "inscribe",
   "feeds": [
     {
-      "source": "https://twitter.com/inscribeai",
-      "feed_url": "https://twitter.com/inscribeai",
-      "title": "",
+      "source": "https://www.inscribe.ai/blog",
+      "feed_url": "",
       "saved": 0,
-      "method": "none"
+      "error": "no determinable dates on listing or sitemap",
+      "method": "agent-scrape"
     }
   ],
+  "fetched": "2026-06-27T12:49:27Z",
   "post_count": 0,
-  "fetched": "2026-06-14T20:42:17Z"
+  "agent_pulled": "2026-06-27"
 }
