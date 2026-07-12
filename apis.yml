@@ -60,6 +60,10 @@ apis:
         url: https://docs.inscribe.ai/llms.txt
 
 common:
+  - type: VulnerabilityDisclosure
+    url: security/inscribe-vulnerability-disclosure.yml
+  - type: DomainSecurity
+    url: security/inscribe-domain-security.yml
   - type: Website
     url: https://www.inscribe.ai/
   - type: Documentation
