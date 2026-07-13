@@ -2,14 +2,14 @@
   "repo": "inscribe",
   "feeds": [
     {
-      "source": "https://www.inscribe.ai/blog",
-      "feed_url": "",
+      "source": "https://twitter.com/inscribeai",
+      "feed_url": "https://twitter.com/inscribeai",
+      "title": "",
       "saved": 0,
-      "error": "no determinable dates on listing or sitemap",
-      "method": "agent-scrape"
+      "method": "none"
     }
   ],
-  "fetched": "2026-06-27T12:49:27Z",
+  "fetched": "2026-07-11T11:50:51Z",
   "post_count": 0,
-  "agent_pulled": "2026-06-27"
+  "agent_pulled": "2026-07-04"
 }
