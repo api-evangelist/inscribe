@@ -28,6 +28,19 @@ image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/inscribe.p
 tags:
   - Fraud Detection
   - Document Verification
+  - Financial-Services
+  - KYC
+  - KYB
+  - Bank Statements
+  - Paystubs
+  - Identity Verification
+  - Risk Management
+  - Fintech
+  - Artificial Intelligence
+  - Machine-Learning
+tags_raw:
+  - Fraud Detection
+  - Document Verification
   - Financial Services
   - KYC
   - KYB
@@ -57,6 +70,14 @@ apis:
     humanURL: https://docs.inscribe.ai/reference/overview
     baseURL: https://api.inscribe.ai/api/v2
     tags:
+      - Fraud Detection
+      - Document Verification
+      - Bank Statements
+      - Paystubs
+      - KYC
+      - KYB
+      - Webhook
+    tags_raw:
       - Fraud Detection
       - Document Verification
       - Bank Statements
