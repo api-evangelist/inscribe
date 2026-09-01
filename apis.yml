@@ -43,7 +43,7 @@ tags:
   - KYC
   - KYB
   - Bank Statements
-  - Pay Stubs
+  - Paystubs
   - Identity Verification
   - Risk Management
   - Fintech
@@ -84,7 +84,7 @@ apis:
       - Fraud Detection
       - Document Verification
       - Bank Statements
-      - Pay Stubs
+      - Paystubs
       - KYC
       - KYB
       - Webhook
