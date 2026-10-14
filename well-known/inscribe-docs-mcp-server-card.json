@@ -1,0 +1,1 @@
+{"$schema":"https://static.modelcontextprotocol.io/schemas/v1/server-card.schema.json","name":"com.readme/inscribe","version":"2.0","title":"inscribe","description":"MCP server for inscribe. Lets AI agents explore this project's API reference and documentation.","remotes":[{"type":"streamable-http","url":"https://docs.inscribe.ai/mcp"}]}

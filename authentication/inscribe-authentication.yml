@@ -1,0 +1,15 @@
+generated: '2026-10-14'
+method: derived
+source: openapi/inscribe-core-resources-openapi.yml
+summary:
+  types:
+  - apiKey
+  api_key_in:
+  - header
+schemes:
+- name: ApiKeyAuth
+  type: apiKey
+  in: header
+  parameter: Authorization
+  sources:
+  - openapi/inscribe-core-resources-openapi.yml

@@ -1,0 +1,764 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/inscribe/main/json-schema/inscribe-mxaggregated-data-upload-request-schema.json",
+  "title": "MXAggregatedDataUploadRequest",
+  "x-generated": "2026-10-14",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/inscribe-core-resources-openapi.yml#/components/schemas/MXAggregatedDataUploadRequest",
+  "type": "object",
+  "required": [
+    "from_date",
+    "accounts"
+  ],
+  "properties": {
+    "from_date": {
+      "type": "string",
+      "format": "date",
+      "description": "The from_date parameter that was used when querying the [MX List Transactions resource](https://docs.mx.com/api-reference/atrium/reference/transactions/list-transactions)."
+    },
+    "accounts": {
+      "type": "array",
+      "description": "List of [MX Accounts](https://docs.mx.com/api-reference/platform-api/reference/account-fields)",
+      "items": {
+        "type": "object",
+        "required": [
+          "account_number",
+          "apr",
+          "apy",
+          "available_balance",
+          "available_credit",
+          "balance",
+          "cash_balance",
+          "cash_surrender_value",
+          "created_at",
+          "credit_limit",
+          "currency_code",
+          "day_payment_is_due",
+          "death_benefit",
+          "guid",
+          "holdings_value",
+          "id",
+          "imported_at",
+          "institution_code",
+          "insured_name",
+          "interest_rate",
+          "is_closed",
+          "is_hidden",
+          "is_manual",
+          "last_payment",
+          "last_payment_at",
+          "loan_amount",
+          "matures_on",
+          "member_guid",
+          "member_id",
+          "member_is_managed_by_user",
+          "metadata",
+          "minimum_balance",
+          "minimum_payment",
+          "name",
+          "nickname",
+          "original_balance",
+          "pay_out_amount",
+          "payment_due_at",
+          "payoff_balance",
+          "premium_amount",
+          "routing_number",
+          "started_on",
+          "subtype",
+          "total_account_value",
+          "type",
+          "updated_at",
+          "user_guid",
+          "user_id",
+          "transactions"
+        ],
+        "properties": {
+          "account_number": {
+            "type": "string"
+          },
+          "account_ownership": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "annuity_policy_to_date": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "annuity_provider": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "annuity_term_year": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "apr": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "apy": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "available_balance": {
+            "type": "number",
+            "format": "double",
+            "maximum": 1.7976931348623157e+308,
+            "minimum": -1.7976931348623157e+308
+          },
+          "available_credit": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "balance": {
+            "type": "number",
+            "format": "double",
+            "maximum": 1.7976931348623157e+308,
+            "minimum": -1.7976931348623157e+308
+          },
+          "cash_balance": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "cash_surrender_value": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "credit_limit": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "currency_code": {
+            "type": "string"
+          },
+          "day_payment_is_due": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "death_benefit": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "guid": {
+            "type": "string"
+          },
+          "holdings_value": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "id": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "imported_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "institution_code": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "insured_name": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "interest_rate": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "is_business": {
+            "type": "boolean"
+          },
+          "is_closed": {
+            "type": "boolean"
+          },
+          "is_hidden": {
+            "type": "boolean"
+          },
+          "is_manual": {
+            "type": "boolean"
+          },
+          "last_payment": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "last_payment_at": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "loan_amount": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "margin_balance": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "matures_on": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "member_guid": {
+            "type": "string"
+          },
+          "member_id": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "member_is_managed_by_user": {
+            "type": "boolean"
+          },
+          "metadata": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "minimum_balance": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "minimum_payment": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "name": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "nickname": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "original_balance": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "format": "double",
+            "maximum": 1.7976931348623157e+308,
+            "minimum": -1.7976931348623157e+308
+          },
+          "pay_out_amount": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "payment_due_at": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "payoff_balance": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "premium_amount": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "property_type": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "routing_number": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "started_on": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time"
+          },
+          "subtype": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "total_account_value": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "type": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "user_guid": {
+            "type": "string"
+          },
+          "user_id": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "today_ugl_amount": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "today_ugl_percentage": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "owners": {
+            "description": "List of [MX Account Owners](https://docs.mx.com/api-reference/atrium/reference/premium-features/account-owner-fields) associated with the account",
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "account_guid",
+                "address",
+                "city",
+                "state",
+                "country",
+                "postal_code",
+                "phone",
+                "email",
+                "owner_name",
+                "member_guid",
+                "user_guid"
+              ],
+              "properties": {
+                "account_guid": {
+                  "type": "string"
+                },
+                "address": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "city": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "guid": {
+                  "type": "string"
+                },
+                "state": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "country": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "postal_code": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "phone": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "email": {
+                  "type": [
+                    "string",
+                    "null"
+                  ],
+                  "format": "email"
+                },
+                "owner_name": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "member_guid": {
+                  "type": "string"
+                },
+                "user_guid": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "transactions": {
+            "description": "List of [MX transactions](https://docs.mx.com/api-reference/platform-api/reference/transaction-fields) associated with the account",
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "account_guid",
+                "account_id",
+                "amount",
+                "category",
+                "category_guid",
+                "check_number_string",
+                "created_at",
+                "currency_code",
+                "date",
+                "description",
+                "extended_transaction_type",
+                "guid",
+                "id",
+                "is_bill_pay",
+                "is_direct_deposit",
+                "is_expense",
+                "is_fee",
+                "is_income",
+                "is_international",
+                "is_overdraft_fee",
+                "is_payroll_advance",
+                "is_recurring",
+                "is_subscription",
+                "latitude",
+                "localized_description",
+                "localized_memo",
+                "longitude",
+                "member_guid",
+                "member_is_managed_by_user",
+                "memo",
+                "merchant_category_code",
+                "merchant_guid",
+                "merchant_location_guid",
+                "metadata",
+                "original_description",
+                "posted_at",
+                "status",
+                "top_level_category",
+                "transacted_at",
+                "type",
+                "updated_at",
+                "user_guid",
+                "user_id"
+              ],
+              "properties": {
+                "account_guid": {
+                  "type": "string"
+                },
+                "account_id": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "amount": {
+                  "type": "number",
+                  "format": "double",
+                  "maximum": 1.7976931348623157e+308,
+                  "minimum": -1.7976931348623157e+308
+                },
+                "category": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "category_guid": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "check_number_string": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "created_at": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "currency_code": {
+                  "type": "string"
+                },
+                "date": {
+                  "type": "string",
+                  "format": "date"
+                },
+                "description": {
+                  "type": "string"
+                },
+                "extended_transaction_type": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "guid": {
+                  "type": "string"
+                },
+                "id": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "is_bill_pay": {
+                  "type": [
+                    "boolean",
+                    "null"
+                  ]
+                },
+                "is_direct_deposit": {
+                  "type": [
+                    "boolean",
+                    "null"
+                  ]
+                },
+                "is_expense": {
+                  "type": [
+                    "boolean",
+                    "null"
+                  ]
+                },
+                "is_fee": {
+                  "type": [
+                    "boolean",
+                    "null"
+                  ]
+                },
+                "is_income": {
+                  "type": [
+                    "boolean",
+                    "null"
+                  ]
+                },
+                "is_international": {
+                  "type": [
+                    "boolean",
+                    "null"
+                  ]
+                },
+                "is_manual": {
+                  "type": [
+                    "boolean",
+                    "null"
+                  ]
+                },
+                "is_overdraft_fee": {
+                  "type": [
+                    "boolean",
+                    "null"
+                  ]
+                },
+                "is_payroll_advance": {
+                  "type": [
+                    "boolean",
+                    "null"
+                  ]
+                },
+                "is_recurring": {
+                  "type": [
+                    "boolean",
+                    "null"
+                  ]
+                },
+                "is_subscription": {
+                  "type": [
+                    "boolean",
+                    "null"
+                  ]
+                },
+                "latitude": {
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                },
+                "localized_description": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "localized_memo": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "longitude": {
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                },
+                "member_guid": {
+                  "type": "string"
+                },
+                "member_is_managed_by_user": {
+                  "type": [
+                    "boolean",
+                    "null"
+                  ]
+                },
+                "memo": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "merchant_category_code": {
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                },
+                "merchant_guid": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "merchant_location_guid": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "metadata": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "original_description": {
+                  "type": "string"
+                },
+                "posted_at": {
+                  "type": [
+                    "string",
+                    "null"
+                  ],
+                  "format": "date-time"
+                },
+                "status": {
+                  "type": "string"
+                },
+                "top_level_category": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "transacted_at": {
+                  "type": [
+                    "string",
+                    "null"
+                  ],
+                  "format": "date-time"
+                },
+                "type": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "updated_at": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "user_guid": {
+                  "type": "string"
+                },
+                "user_id": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

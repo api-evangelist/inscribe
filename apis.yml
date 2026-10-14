@@ -1,18 +1,18 @@
 aid: inscribe
+
 name: Inscribe
-description: >
-  Inscribe is an AI-powered document fraud detection platform founded in 2017,
-  serving banks, credit unions, fintechs, and lending institutions. The platform
-  uses agentic AI trained by fraud experts to detect forged, manipulated, and
-  AI-generated documents including bank statements, pay stubs, tax forms,
-  invoices, and identity documents. Inscribe's REST API provides programmatic
-  access to fraud detection, document verification, credit insights, and
-  transaction enrichment workflows at scale. Financial institutions integrate
-  the API to automate underwriting, onboarding, KYC/KYB, and bank account
-  verification decisions, with results delivered via webhook or polling. The
-  platform processes millions of applications annually and serves notable
-  customers including Bluevine, Ramp, Plaid, and BHG Financial.
+
+description: 'Inscribe is an AI-powered document fraud detection platform founded in 2017, serving banks, credit unions, fintechs, and lending
+  institutions. The platform uses agentic AI trained by fraud experts to detect forged, manipulated, and AI-generated documents including bank
+  statements, pay stubs, tax forms, invoices, and identity documents. Inscribe''s REST API provides programmatic access to fraud detection, document
+  verification, credit insights, and transaction enrichment workflows at scale. Financial institutions integrate the API to automate underwriting,
+  onboarding, KYC/KYB, and bank account verification decisions, with results delivered via webhook or polling. The platform processes millions
+  of applications annually and serves notable customers including Bluevine, Ramp, Plaid, and BHG Financial.
+
+  '
+
 type: Index
+
 deliveryModel:
   model: saas
   open_source: false
@@ -24,6 +24,7 @@ deliveryModel:
   - pricing
   generated: '2026-08-28'
   method: derived
+
 accessModel:
   pricing: unknown
   onboarding: unknown
@@ -35,108 +36,160 @@ accessModel:
   source: []
   generated: '2026-07-22'
   method: derived
+
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/inscribe.png
+
 x-docs-platform: readme
+
 x-docs-platform-confidence: high
+
 x-docs-platform-checked: 2026-10-03
+
 tags:
-  - Fraud Prevention
-  - Document Verification
-  - Financial Services
-  - KYC
-  - KYB
-  - Bank Statements
-  - Paystubs
-  - Identity Verification
-  - Risk Management
-  - Fintech
-  - Artificial Intelligence
-  - Machine Learning
+- Fraud Prevention
+- Document Verification
+- Financial Services
+- KYC
+- KYB
+- Bank Statements
+- Paystubs
+- Identity Verification
+- Risk Management
+- Fintech
+- Artificial Intelligence
+- Machine Learning
+
 tags_raw:
-  - Fraud Detection
-  - Document Verification
-  - Financial Services
-  - KYC
-  - KYB
-  - Bank Statements
-  - Pay Stubs
-  - Identity Verification
-  - Risk Management
-  - Fintech
-  - AI
-  - Machine Learning
-  - Financial-Services
-  - Machine-Learning
+- Fraud Detection
+- Document Verification
+- Financial Services
+- KYC
+- KYB
+- Bank Statements
+- Pay Stubs
+- Identity Verification
+- Risk Management
+- Fintech
+- AI
+- Machine Learning
+- Financial-Services
+- Machine-Learning
+
 url: https://raw.githubusercontent.com/api-evangelist/inscribe/refs/heads/main/apis.yml
+
 created: '2026-06-12'
+
 modified: '2026-06-12'
+
 specificationVersion: '0.23'
 
-apis:
-  - aid: inscribe:document-fraud-detection-api
-    name: Inscribe Document Fraud Detection API
-    description: >
-      RESTful API for uploading and analyzing financial documents for fraud
-      detection and data extraction. Supports bank statements, pay stubs, tax
-      forms, invoices, and identity documents. Provides fraud signals,
-      forensic analysis, and structured data extraction with results delivered
-      via webhook or polling. Includes customer management, bank account
-      analysis, collect sessions, open banking data ingestion, and transaction
-      enrichment endpoints.
-    humanURL: https://docs.inscribe.ai/reference/overview
-    baseURL: https://api.inscribe.ai/api/v2
-    tags:
-      - Fraud Prevention
-      - Document Verification
-      - Bank Statements
-      - Paystubs
-      - KYC
-      - KYB
-      - Webhook
-    tags_raw:
-      - Fraud Detection
-      - Document Verification
-      - Bank Statements
-      - Pay Stubs
-      - KYC
-      - KYB
-      - Webhooks
-    properties:
-      - type: Documentation
-        url: https://docs.inscribe.ai/reference/overview
-      - type: OpenAPI
-        url: https://docs.inscribe.ai/llms.txt
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com
 
 common:
-  - type: VulnerabilityDisclosure
-    url: security/inscribe-vulnerability-disclosure.yml
-  - type: DomainSecurity
-    url: security/inscribe-domain-security.yml
-  - type: Website
-    url: https://www.inscribe.ai/
+- type: AgenticAccess
+  url: agentic-access/inscribe-agentic-access.yml
+- type: Spectral
+  url: rules/inscribe-rules.yml
+- type: JSONLD
+  url: json-ld/inscribe-context.jsonld
+- type: Vocabulary
+  url: vocabulary/inscribe-vocabulary.yml
+- type: DataModel
+  url: data-model/inscribe-data-model.yml
+- type: Security
+  url: https://www.inscribe.ai/disclosures
+- type: ErrorCatalog
+  url: errors/inscribe-problem-types.yml
+- type: Conformance
+  url: conformance/inscribe-conformance.yml
+- type: LLMsTxt
+  url: llms/inscribe-llms.txt
+- type: SecurityTxt
+  url: well-known/inscribe-status-security.txt
+- type: SecurityTxt
+  url: well-known/inscribe-security.txt
+- type: WellKnown
+  url: well-known/inscribe-well-known.yml
+- type: Hosts
+  url: hosts/inscribe-hosts.yml
+- type: Vendors
+  url: vendors/inscribe-vendors.yml
+- type: SDKs
+  url: packages/inscribe-packages.yml
+- type: Packages
+  url: packages/inscribe-packages.yml
+- type: TrustCenter
+  url: https://trust.inscribe.ai
+- type: TermsOfService
+  url: https://www.inscribe.ai/terms
+- type: Support
+  url: https://help.inscribe.ai/en/
+- type: PrivacyPolicy
+  url: https://www.inscribe.ai/privacy
+- type: Pricing
+  url: https://www.inscribe.ai/pricing
+- type: Authentication
+  url: authentication/inscribe-authentication.yml
+- type: VulnerabilityDisclosure
+  url: security/inscribe-vulnerability-disclosure.yml
+- type: DomainSecurity
+  url: security/inscribe-domain-security.yml
+- type: Website
+  url: https://www.inscribe.ai/
+- type: Documentation
+  url: https://docs.inscribe.ai/reference/overview
+- type: GitHubOrganization
+  url: https://github.com/InscribeAI
+- type: LinkedIn
+  url: https://www.linkedin.com/company/inscribeai/
+- type: X
+  url: https://twitter.com/inscribeai
+- type: Blog
+  url: https://www.inscribe.ai/blog
+- type: StatusPage
+  url: https://status.inscribe.ai/
+- type: Plans
+  url: plans/inscribe-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/inscribe-rate-limits.yml
+- type: FinOps
+  url: finops/inscribe-finops.yml
+- type: BlogPosts
+  url: blogs/blogs.json
+- type: JSONLDContext
+  url: json-ld/inscribe-context.jsonld
+
+apis:
+- aid: inscribe:inscribe-core-resources
+  name: Inscribe Bank Accounts API
+  description: Bank account objects are created to store bank account data. These objects describe characteristics of bank accounts, such as the
+    account name, number, and type. You can get and list bank accounts using these endpoints. Bank accounts are identified by an id.
+  humanURL: https://docs.inscribe.ai/reference/overview
+  baseURL: https://api.inscribe.ai/api/v2
+  tags:
+  - Bank Accounts
+  properties:
+  - type: OpenAPI
+    url: openapi/inscribe-core-resources-openapi.yml
   - type: Documentation
     url: https://docs.inscribe.ai/reference/overview
-  - type: GitHubOrganization
-    url: https://github.com/InscribeAI
-  - type: LinkedIn
-    url: https://www.linkedin.com/company/inscribeai/
-  - type: X
-    url: https://twitter.com/inscribeai
-  - type: Blog
-    url: https://www.inscribe.ai/blog
-  - type: StatusPage
-    url: https://status.inscribe.ai/
-  - type: Plans
-    url: plans/inscribe-plans-pricing.yml
-  - type: RateLimits
-    url: rate-limits/inscribe-rate-limits.yml
-  - type: FinOps
-    url: finops/inscribe-finops.yml
-  - type: BlogPosts
-    url: blogs/blogs.json
-  - type: JSONLDContext
-    url: json-ld/inscribe-context.jsonld
+  - type: JSONSchema
+    url: json-schema/inscribe-document-schema.json
+  - type: JSONSchema
+    url: json-schema/inscribe-customer-credit-analysis-cashflow-insights-schema.json
+  - type: JSONSchema
+    url: json-schema/inscribe-credit-analysis-income-insights-schema.json
+  - type: JSONSchema
+    url: json-schema/inscribe-mxaggregated-data-upload-request-schema.json
+  - type: JSONSchema
+    url: json-schema/inscribe-credit-analysis-risk-insights-schema.json
+  - type: JSONSchema
+    url: json-schema/inscribe-credit-analysis-expenditure-insights-schema.json
 
-maintainers:
-  - FN: Kin Lane
-    email: kin@apievangelist.com
+x-readme-harvest:
+  date: '2026-10-14'
+  ops: 43
+  tool: harvest-readme-openapi.py
+  portal: https://docs.inscribe.ai

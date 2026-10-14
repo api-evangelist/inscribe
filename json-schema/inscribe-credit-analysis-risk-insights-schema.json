@@ -1,0 +1,213 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/inscribe/main/json-schema/inscribe-credit-analysis-risk-insights-schema.json",
+  "title": "CreditAnalysisRiskInsights",
+  "description": "Insights about risk specific to the listed customer or bank account.",
+  "x-generated": "2026-10-14",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/inscribe-core-resources-openapi.yml#/components/schemas/CreditAnalysisRiskInsights",
+  "type": "object",
+  "properties": {
+    "count_atm_withdrawal": {
+      "type": "number",
+      "format": "int",
+      "description": "The quantity of ATM withdrawal transactions."
+    },
+    "total_atm_withdrawal": {
+      "type": "number",
+      "format": "int",
+      "description": "The summed amount of all ATM withdrawal transactions (in cents)."
+    },
+    "count_nsf": {
+      "type": "number",
+      "format": "int",
+      "description": "The quantity of non-sufficient fund transactions. Excluding refund transactions."
+    },
+    "count_nsf_days": {
+      "type": "number",
+      "format": "int",
+      "description": "The number of unique days on which non-sufficient fund transactions occurred. Excluding refund transactions."
+    },
+    "count_overdraft": {
+      "type": "number",
+      "format": "int",
+      "description": "The quantity of overdraft transactions. Excluding refund transactions."
+    },
+    "count_overdraft_days": {
+      "type": "number",
+      "format": "int",
+      "description": "The number of unique days on which overdraft transactions occurred. Excluding refund transactions."
+    },
+    "gambling_net": {
+      "type": "number",
+      "format": "int",
+      "description": "This is the total gambling income minus the total gambling losses (in cents)."
+    },
+    "total_gambling_spend": {
+      "type": "number",
+      "format": "int",
+      "description": "The summed amount of all gambling spend transactions (in cents)."
+    },
+    "expenditure_exceeds_income": {
+      "type": "boolean",
+      "description": "A boolean which checks if total expenditure exceeded total income. For example, this will be set to True if total expenditure is $100 and total income is $50."
+    },
+    "large_deposits": {
+      "type": "array",
+      "description": "The quantity of large deposits that exceed defined thresholds.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "threshold_amount": {
+            "type": "number",
+            "format": "int",
+            "description": "The static threshold_amount determines if a deposit is significantly large or not. e.g., If 100000 is returned in this key, then the number of deposits over $1000.00 (100000 cents) will be returned in the quantity field"
+          },
+          "threshold_monthly_income_percentage": {
+            "type": "number",
+            "format": "int",
+            "description": "The percentage threshold determines if a deposit is significantly large or not based on an income percentage. e.g., If 50 is returned in this key, then the number of deposits which amount to over 50% of monthly income will be returned in the quantity field"
+          },
+          "quantity": {
+            "type": "number",
+            "format": "int",
+            "description": "The number of deposits whose amount exceeds the defined thresholds. For example, let's imagine deposit amounts of [1000, 200000, 12000000, 21000000] (in cents) and a predicted monthly income of 150000.\n\nIf: threshold_amount = 1000000 Then: quantity = 2 (There are only 2 deposits whose amount is greater than 1000000 cents)\n\nIf: threshold_monthly_income_percentage: 50 (50% of total monthly income, which is 50% of 150000 = 75000) Then: quantity = 3 (There are 3 deposits whose amount is greater than 50% of monthly income  (75000))"
+          }
+        }
+      }
+    },
+    "large_withdrawals": {
+      "type": "array",
+      "description": "The quantity of large withdrawals based on defined thresholds.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "threshold_amount": {
+            "type": "number",
+            "format": "int",
+            "description": "The static threshold_amount determines if a withdrawal is significantly large or not. e.g., If 100000 is returned in this key, then the number of withdrawals over $1000.00 (100000 cents) will be returned in the quantity field"
+          },
+          "quantity": {
+            "type": "number",
+            "format": "int",
+            "description": "The number of withdrawals whose amounts exceed the threshold given by the threshold_amount field"
+          }
+        }
+      }
+    },
+    "count_crypto_trading": {
+      "type": "number",
+      "format": "int",
+      "description": "The quantity of crypto trading transactions."
+    },
+    "crypto_trading_net": {
+      "type": "number",
+      "format": "int",
+      "description": "The summed amount of all crypto trading transactions (in cents)."
+    },
+    "count_negative_balance_days": {
+      "type": "number",
+      "format": "int",
+      "description": "The number of days for which there was a negative balance. Daily balances are taken from the end of each day."
+    },
+    "daily_balance_volatility": {
+      "type": "number",
+      "format": "int",
+      "description": "This is the [standard deviation](<https://en.wikipedia.org/wiki/Standard_deviation>) of all daily balances. This represents the volatility of the customers bank account balances. For customers with multiple bank accounts, we calculate the [standard deviation of the sum ](<https://online.stat.psu.edu/stat500/book/export/html/572>)of the bank account balance variables."
+    },
+    "metadata": {
+      "$ref": "#/$defs/metadata_insights"
+    },
+    "confidence_score": {
+      "type": "number",
+      "deprecated": true,
+      "format": "float",
+      "description": "The confidence score represents the degree of certainty for the accuracy of the Credit Insights outputs. We calculate this score using a weighted combination of parsing and transaction categorization certainties. Confidence scores above 0.5 represent high confidence."
+    }
+  },
+  "$defs": {
+    "metadata_insights": {
+      "type": "object",
+      "description": "Additional data which provides context about Inscribe's Credit Insights response.",
+      "properties": {
+        "confidence_score": {
+          "type": "number",
+          "format": "float",
+          "description": "The confidence score represents the degree of certainty for the accuracy of the Credit Insights outputs. We calculate this score using a weighted combination of parsing and transaction categorization certainties. Confidence scores above 0.5 represent high confidence."
+        },
+        "customer_contains_low_trust_score_documents": {
+          "type": "boolean",
+          "description": "This value will be set to True if the customer contains any documents under a trust score threshold of 50. Else, this will be set to False."
+        },
+        "included_data_sources": {
+          "type": "object",
+          "description": "Lists all documents and open banking data which were used to create the Inscribe Credit Insights.",
+          "properties": {
+            "documents": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "document_id": {
+                    "type": "string",
+                    "format": "uuid"
+                  }
+                }
+              }
+            },
+            "open_banking": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "open_banking_data_id": {
+                    "type": "string",
+                    "format": "uuid"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "excluded_data_sources": {
+          "type": "object",
+          "description": "Lists all documents and open banking data which were excluded from the Inscribe Credit Insights. Documents can be excluded if they are duplicate documents, or when the include_unreconciled_documents query parameter is set to False.",
+          "properties": {
+            "documents": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "document_id": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "exclusion_reason": {
+                    "format": "string"
+                  }
+                }
+              }
+            },
+            "open_banking": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "open_banking_data_id": {
+                    "type": "string",
+                    "format": "uuid"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "query_parameters": {
+          "type": "object",
+          "description": "Lists the query parameters which were used in the original endpoint request."
+        }
+      }
+    }
+  }
+}

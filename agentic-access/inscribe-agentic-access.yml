@@ -1,0 +1,548 @@
+generated: '2026-10-14'
+method: generated
+source: openapi/inscribe-core-resources-openapi.yml
+description: Recommended x-agentic-access execution contracts, classified heuristically from
+  the OpenAPI. A governance starting point for exposing this API to AI agents — review and bind
+  audience per deployment. See research/curity/agentic-governance/.
+summary:
+  operations: 43
+  by_action_class:
+    acting: 17
+    connected: 26
+  by_consequence:
+    write: 17
+    read: 26
+  human_in_the_loop_required: 0
+operations:
+- path: /collect/sessions
+  method: post
+  operationId: createSession
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /collect/sessions
+  method: get
+  operationId: getCollectSessions
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /collect/sessions/{session_id}
+  method: get
+  operationId: getCollectSession
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /collect/sessions/{session_id}
+  method: put
+  operationId: updateCollectSession
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /collect/sessions/{session_id}/document_requests
+  method: post
+  operationId: addDocumentRequest
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /collect/sessions/{session_id}/document_requests/{document_request_id}
+  method: delete
+  operationId: deleteDocumentRequest
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /customers
+  method: post
+  operationId: addCustomer
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /customers
+  method: get
+  operationId: getCustomers
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /customers/{customer_id}
+  method: get
+  operationId: getCustomer
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /customers/{customer_id}
+  method: put
+  operationId: updateCustomer
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /customers/{customer_id}
+  method: delete
+  operationId: deleteCustomer
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /customers/{customer_id}/bank_accounts
+  method: get
+  operationId: getBankAccounts
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /customers/{customer_id}/bank_accounts/{bank_account_id}
+  method: get
+  operationId: getBankAccount
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /customers/{customer_id}/bank_accounts/{bank_account_id}/credit_analysis
+  method: get
+  operationId: getBankAccountCreditAnalysis
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /customers/{customer_id}/bank_accounts/{bank_account_id}/credit_analysis/cashflow_insights
+  method: get
+  operationId: getBankAccountCreditAnalysisCashflowInsights
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /customers/{customer_id}/bank_accounts/{bank_account_id}/credit_analysis/expenditure_insights
+  method: get
+  operationId: getBankAccountCreditAnalysisExpenditureInsights
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /customers/{customer_id}/bank_accounts/{bank_account_id}/credit_analysis/income_insights
+  method: get
+  operationId: getBankAccountCreditAnalysisIncomeInsights
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /customers/{customer_id}/bank_accounts/{bank_account_id}/credit_analysis/loan_insights
+  method: get
+  operationId: getBankAccountCreditAnalysisLoanInsights
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /customers/{customer_id}/bank_accounts/{bank_account_id}/credit_analysis/risk_insights
+  method: get
+  operationId: getBankAccountCreditAnalysisRiskInsights
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /customers/{customer_id}/bank_accounts/{bank_account_id}/transactions
+  method: get
+  operationId: getBankAccountTransactions
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /customers/{customer_id}/credit_analysis
+  method: get
+  operationId: getCustomerCreditAnalysis
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /customers/{customer_id}/credit_analysis/cashflow_insights
+  method: get
+  operationId: getCustomerCreditAnalysisCashflowInsights
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /customers/{customer_id}/credit_analysis/expenditure_insights
+  method: get
+  operationId: getCustomerCreditAnalysisExpenditureInsights
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /customers/{customer_id}/credit_analysis/income_insights
+  method: get
+  operationId: getCustomerCreditAnalysisIncomeInsights
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /customers/{customer_id}/credit_analysis/loan_insights
+  method: get
+  operationId: getCustomerCreditAnalysisLoanInsights
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /customers/{customer_id}/credit_analysis/risk_insights
+  method: get
+  operationId: getCustomerCreditAnalysisRiskInsights
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /customers/{customer_id}/documents
+  method: post
+  operationId: uploadDocuments
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /customers/{customer_id}/documents
+  method: get
+  operationId: getDocuments
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /customers/{customer_id}/documents/{document_id}
+  method: get
+  operationId: getDocumentResults
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /customers/{customer_id}/documents/{document_id}
+  method: put
+  operationId: updateDocument
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /customers/{customer_id}/documents/{document_id}
+  method: delete
+  operationId: deleteDocument
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /customers/{customer_id}/open_banking_data
+  method: get
+  operationId: getOpenBankingData
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /customers/{customer_id}/open_banking_data/inscribe_financial_data
+  method: post
+  operationId: uploadInscribeOpenBankingData
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /customers/{customer_id}/open_banking_data/mx_aggregated_data
+  method: post
+  operationId: uploadMXAggregatedOpenBankingData
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /customers/{customer_id}/open_banking_data/plaid_asset_report
+  method: post
+  operationId: uploadPlaidAssetReportOpenBankingData
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /customers/{customer_id}/open_banking_data/{open_banking_data_id}
+  method: delete
+  operationId: deleteOpenBankingData
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /customers/{customer_id}/plaid_assets
+  method: post
+  operationId: uploadPlaidAssetReport
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /customers/{customer_id}/plaid_assets
+  method: get
+  operationId: getPlaidAssetReport
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /customers/{customer_id}/plaid_assets/{plaid_asset_report_id}
+  method: delete
+  operationId: deletePlaidAssetReport
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /customers/{customer_id}/transactions
+  method: get
+  operationId: getCustomerTransactions
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /customers/{customer_id}/transactions/categories/{category}
+  method: patch
+  operationId: recategorizeTransactions
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /health
+  method: get
+  operationId: reachability-check
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /transactions/categories
+  method: get
+  operationId: getTransactionCategories
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none

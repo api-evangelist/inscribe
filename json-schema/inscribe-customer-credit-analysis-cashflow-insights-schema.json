@@ -1,0 +1,1597 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/inscribe/main/json-schema/inscribe-customer-credit-analysis-cashflow-insights-schema.json",
+  "title": "CustomerCreditAnalysisCashflowInsights",
+  "description": "Insights about cashflow and balances (aggregated at both the customer and bank account levels).",
+  "x-generated": "2026-10-14",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/inscribe-core-resources-openapi.yml#/components/schemas/CustomerCreditAnalysisCashflowInsights",
+  "type": "object",
+  "properties": {
+    "average_credit_amount": {
+      "type": "number",
+      "format": "int",
+      "description": "The average transaction amount across all credit transactions (in cents)."
+    },
+    "average_debit_amount": {
+      "type": "number",
+      "format": "int",
+      "description": "The average transaction amount across all debit transactions (in cents)."
+    },
+    "count_credit_transactions": {
+      "type": "number",
+      "format": "int",
+      "description": "The count of all credit transactions."
+    },
+    "count_debit_transactions": {
+      "type": "number",
+      "format": "int",
+      "description": "The count of all debit transactions."
+    },
+    "total_credits": {
+      "type": "number",
+      "format": "int",
+      "description": "The summed amount of all credit transactions (in cents)."
+    },
+    "total_debits": {
+      "type": "number",
+      "format": "int",
+      "description": "The summed amount of all debit transactions (in cents)."
+    },
+    "total_net": {
+      "type": "number",
+      "format": "int",
+      "description": "This is equivalent to total_credits minus total_debits."
+    },
+    "count_self_transfers": {
+      "type": "number",
+      "format": "int",
+      "description": "The quantity of self-transfers. We define a self-transfer as a bank transfer between separate bank accounts within the same entity (e.g. an individual transferring money from their checking to their savings account)."
+    },
+    "max_balance": {
+      "type": "number",
+      "format": "int",
+      "description": "The highest aggregated daily balance found (in cents). Daily balances are taken from the end of each day. This aggregated statistic refers to the overall customer daily balance (i.e. the sum across all customer bank accounts)."
+    },
+    "min_balance": {
+      "type": "number",
+      "format": "int",
+      "description": "The lowest aggregated daily balance found (in cents). Daily balances are taken from the end of each day. This aggregated statistic refers to the overall customer daily balance (i.e. the sum across all customer bank accounts)."
+    },
+    "beginning_balance": {
+      "type": "number",
+      "format": "int",
+      "description": "The beginning balance found in the period (in cents). Daily balances are taken from the end of each day. This aggregated statistic refers to the overall customer daily balance (i.e. the sum across all customer bank accounts)."
+    },
+    "ending_balance": {
+      "type": "number",
+      "format": "int",
+      "description": "The ending balance found in the period (in cents). Daily balances are taken from the end of each day. This aggregated statistic refers to the overall customer daily balance (i.e. the sum across all customer bank accounts)."
+    },
+    "count_negative_balance_days": {
+      "type": "number",
+      "format": "int",
+      "description": "The number of days for which there was a negative balance. Daily balances are taken from the end of each day. This aggregated statistic refers to the overall customer daily balance (i.e. the sum across all customer bank accounts)."
+    },
+    "average_daily_balance": {
+      "type": "number",
+      "format": "int",
+      "description": "The statistical mean of the daily balances across the time period. Daily balances are taken from the end of each day. This aggregated statistic refers to the overall customer daily balance (i.e. the sum across all customer bank accounts)."
+    },
+    "daily_balance_volatility": {
+      "type": "number",
+      "format": "int",
+      "description": "This is the [standard deviation](<https://en.wikipedia.org/wiki/Standard_deviation>) of all daily balances. This represents the volatility of the customers bank account balances. For customers with multiple bank accounts, we calculate the [standard deviation of the sum ](<https://online.stat.psu.edu/stat500/book/export/html/572>)of the bank account balance variables."
+    },
+    "cashflow_by_category": {
+      "type": "object",
+      "description": "Cashflow insights specific to each transaction category.",
+      "properties": {
+        "accommodation": {
+          "type": "object",
+          "properties": {
+            "rent": {
+              "type": "object",
+              "properties": {
+                "total_net": {
+                  "type": "integer"
+                },
+                "total_debit": {
+                  "type": "integer"
+                },
+                "total_credit": {
+                  "type": "integer"
+                }
+              }
+            },
+            "hotels": {
+              "type": "object",
+              "properties": {
+                "total_net": {
+                  "type": "integer"
+                },
+                "total_debit": {
+                  "type": "integer"
+                },
+                "total_credit": {
+                  "type": "integer"
+                }
+              }
+            },
+            "total_net": {
+              "type": "integer"
+            },
+            "total_debit": {
+              "type": "integer"
+            },
+            "total_credit": {
+              "type": "integer"
+            }
+          }
+        },
+        "bank_charge": {
+          "type": "object",
+          "properties": {
+            "overdraft": {
+              "type": "object",
+              "properties": {
+                "total_net": {
+                  "type": "integer"
+                },
+                "total_debit": {
+                  "type": "integer"
+                },
+                "total_credit": {
+                  "type": "integer"
+                }
+              }
+            },
+            "nsf": {
+              "type": "object",
+              "properties": {
+                "total_net": {
+                  "type": "integer"
+                },
+                "total_debit": {
+                  "type": "integer"
+                },
+                "total_credit": {
+                  "type": "integer"
+                }
+              }
+            },
+            "interest_paid": {
+              "type": "object",
+              "properties": {
+                "total_net": {
+                  "type": "integer"
+                },
+                "total_debit": {
+                  "type": "integer"
+                },
+                "total_credit": {
+                  "type": "integer"
+                }
+              }
+            },
+            "total_net": {
+              "type": "integer"
+            },
+            "total_debit": {
+              "type": "integer"
+            },
+            "total_credit": {
+              "type": "integer"
+            }
+          }
+        },
+        "entertainment": {
+          "type": "object",
+          "properties": {
+            "gambling": {
+              "type": "object",
+              "properties": {
+                "total_net": {
+                  "type": "integer"
+                },
+                "total_debit": {
+                  "type": "integer"
+                },
+                "total_credit": {
+                  "type": "integer"
+                }
+              }
+            },
+            "total_net": {
+              "type": "integer"
+            },
+            "total_debit": {
+              "type": "integer"
+            },
+            "total_credit": {
+              "type": "integer"
+            }
+          }
+        },
+        "income": {
+          "type": "object",
+          "properties": {
+            "revenue": {
+              "type": "object",
+              "properties": {
+                "total_net": {
+                  "type": "integer"
+                },
+                "total_debit": {
+                  "type": "integer"
+                },
+                "total_credit": {
+                  "type": "integer"
+                }
+              }
+            },
+            "salary": {
+              "type": "object",
+              "properties": {
+                "total_net": {
+                  "type": "integer"
+                },
+                "total_debit": {
+                  "type": "integer"
+                },
+                "total_credit": {
+                  "type": "integer"
+                }
+              }
+            },
+            "interest_received": {
+              "type": "object",
+              "properties": {
+                "total_net": {
+                  "type": "integer"
+                },
+                "total_debit": {
+                  "type": "integer"
+                },
+                "total_credit": {
+                  "type": "integer"
+                }
+              }
+            },
+            "retirement": {
+              "type": "object",
+              "properties": {
+                "total_net": {
+                  "type": "integer"
+                },
+                "total_debit": {
+                  "type": "integer"
+                },
+                "total_credit": {
+                  "type": "integer"
+                }
+              }
+            },
+            "social_security": {
+              "type": "object",
+              "properties": {
+                "total_net": {
+                  "type": "integer"
+                },
+                "total_debit": {
+                  "type": "integer"
+                },
+                "total_credit": {
+                  "type": "integer"
+                }
+              }
+            },
+            "commission_received": {
+              "type": "object",
+              "properties": {
+                "total_net": {
+                  "type": "integer"
+                },
+                "total_debit": {
+                  "type": "integer"
+                },
+                "total_credit": {
+                  "type": "integer"
+                }
+              }
+            },
+            "total_net": {
+              "type": "integer"
+            },
+            "total_debit": {
+              "type": "integer"
+            },
+            "total_credit": {
+              "type": "integer"
+            }
+          }
+        },
+        "infrastructure": {
+          "type": "object",
+          "properties": {
+            "total_net": {
+              "type": "integer"
+            },
+            "total_debit": {
+              "type": "integer"
+            },
+            "total_credit": {
+              "type": "integer"
+            }
+          }
+        },
+        "insurance": {
+          "type": "object",
+          "properties": {
+            "total_net": {
+              "type": "integer"
+            },
+            "total_debit": {
+              "type": "integer"
+            },
+            "total_credit": {
+              "type": "integer"
+            }
+          }
+        },
+        "investments": {
+          "type": "object",
+          "properties": {
+            "savings": {
+              "type": "object",
+              "properties": {
+                "total_net": {
+                  "type": "integer"
+                },
+                "total_debit": {
+                  "type": "integer"
+                },
+                "total_credit": {
+                  "type": "integer"
+                }
+              }
+            },
+            "trading": {
+              "type": "object",
+              "properties": {
+                "crypto_trading": {
+                  "type": "object",
+                  "properties": {
+                    "total_net": {
+                      "type": "integer"
+                    },
+                    "total_debit": {
+                      "type": "integer"
+                    },
+                    "total_credit": {
+                      "type": "integer"
+                    }
+                  }
+                },
+                "total_net": {
+                  "type": "integer"
+                },
+                "total_debit": {
+                  "type": "integer"
+                },
+                "total_credit": {
+                  "type": "integer"
+                }
+              }
+            },
+            "total_net": {
+              "type": "integer"
+            },
+            "total_debit": {
+              "type": "integer"
+            },
+            "total_credit": {
+              "type": "integer"
+            }
+          }
+        },
+        "loan": {
+          "type": "object",
+          "properties": {
+            "mortgage": {
+              "type": "object",
+              "properties": {
+                "total_net": {
+                  "type": "integer"
+                },
+                "total_debit": {
+                  "type": "integer"
+                },
+                "total_credit": {
+                  "type": "integer"
+                }
+              }
+            },
+            "mca": {
+              "type": "object",
+              "properties": {
+                "total_net": {
+                  "type": "integer"
+                },
+                "total_debit": {
+                  "type": "integer"
+                },
+                "total_credit": {
+                  "type": "integer"
+                }
+              }
+            },
+            "payday": {
+              "type": "object",
+              "properties": {
+                "total_net": {
+                  "type": "integer"
+                },
+                "total_debit": {
+                  "type": "integer"
+                },
+                "total_credit": {
+                  "type": "integer"
+                }
+              }
+            },
+            "card_repayment": {
+              "type": "object",
+              "properties": {
+                "total_net": {
+                  "type": "integer"
+                },
+                "total_debit": {
+                  "type": "integer"
+                },
+                "total_credit": {
+                  "type": "integer"
+                }
+              }
+            },
+            "auto_loan": {
+              "type": "object",
+              "properties": {
+                "total_net": {
+                  "type": "integer"
+                },
+                "total_debit": {
+                  "type": "integer"
+                },
+                "total_credit": {
+                  "type": "integer"
+                }
+              }
+            },
+            "buy_now_pay_later": {
+              "type": "object",
+              "properties": {
+                "total_net": {
+                  "type": "integer"
+                },
+                "total_debit": {
+                  "type": "integer"
+                },
+                "total_credit": {
+                  "type": "integer"
+                }
+              }
+            },
+            "total_net": {
+              "type": "integer"
+            },
+            "total_debit": {
+              "type": "integer"
+            },
+            "total_credit": {
+              "type": "integer"
+            }
+          }
+        },
+        "personnel": {
+          "type": "object",
+          "properties": {
+            "total_net": {
+              "type": "integer"
+            },
+            "total_debit": {
+              "type": "integer"
+            },
+            "total_credit": {
+              "type": "integer"
+            }
+          }
+        },
+        "refund": {
+          "type": "object",
+          "properties": {
+            "total_net": {
+              "type": "integer"
+            },
+            "total_debit": {
+              "type": "integer"
+            },
+            "total_credit": {
+              "type": "integer"
+            }
+          }
+        },
+        "retail": {
+          "type": "object",
+          "properties": {
+            "food_and_drink": {
+              "type": "object",
+              "properties": {
+                "total_net": {
+                  "type": "integer"
+                },
+                "total_debit": {
+                  "type": "integer"
+                },
+                "total_credit": {
+                  "type": "integer"
+                }
+              }
+            },
+            "groceries": {
+              "type": "object",
+              "properties": {
+                "total_net": {
+                  "type": "integer"
+                },
+                "total_debit": {
+                  "type": "integer"
+                },
+                "total_credit": {
+                  "type": "integer"
+                }
+              }
+            },
+            "total_net": {
+              "type": "integer"
+            },
+            "total_debit": {
+              "type": "integer"
+            },
+            "total_credit": {
+              "type": "integer"
+            }
+          }
+        },
+        "self_transfer": {
+          "type": "object",
+          "properties": {
+            "sweep_transfer": {
+              "type": "object",
+              "properties": {
+                "total_net": {
+                  "type": "integer"
+                },
+                "total_debit": {
+                  "type": "integer"
+                },
+                "total_credit": {
+                  "type": "integer"
+                }
+              }
+            },
+            "total_net": {
+              "type": "integer"
+            },
+            "total_debit": {
+              "type": "integer"
+            },
+            "total_credit": {
+              "type": "integer"
+            }
+          }
+        },
+        "tax": {
+          "type": "object",
+          "properties": {
+            "total_net": {
+              "type": "integer"
+            },
+            "total_debit": {
+              "type": "integer"
+            },
+            "total_credit": {
+              "type": "integer"
+            }
+          }
+        },
+        "transport": {
+          "type": "object",
+          "properties": {
+            "fuel": {
+              "type": "object",
+              "properties": {
+                "total_net": {
+                  "type": "integer"
+                },
+                "total_debit": {
+                  "type": "integer"
+                },
+                "total_credit": {
+                  "type": "integer"
+                }
+              }
+            },
+            "total_net": {
+              "type": "integer"
+            },
+            "total_debit": {
+              "type": "integer"
+            },
+            "total_credit": {
+              "type": "integer"
+            }
+          }
+        },
+        "utilities": {
+          "type": "object",
+          "properties": {
+            "total_net": {
+              "type": "integer"
+            },
+            "total_debit": {
+              "type": "integer"
+            },
+            "total_credit": {
+              "type": "integer"
+            }
+          }
+        },
+        "withdrawal": {
+          "type": "object",
+          "properties": {
+            "total_net": {
+              "type": "integer"
+            },
+            "total_debit": {
+              "type": "integer"
+            },
+            "total_credit": {
+              "type": "integer"
+            }
+          }
+        }
+      }
+    },
+    "cashflow_by_method": {
+      "type": "object",
+      "description": "Cashflow insights specific to each transaction method. Transaction methods describes 'how' a transaction was completed (e.g. cash, check, bank transfer).",
+      "properties": {
+        "bank_transfer": {
+          "type": "object",
+          "properties": {
+            "total_credits": {
+              "type": "integer",
+              "description": "The summed amount of all credit transactions relevant to this transaction method (in cents)."
+            },
+            "total_debits": {
+              "type": "integer",
+              "description": "The summed amount of all debit transactions relevant to this transaction method (in cents)."
+            },
+            "total_net": {
+              "type": "integer",
+              "description": "This is equivalent to total_credits minus total_debits."
+            }
+          }
+        },
+        "card_payment": {
+          "type": "object",
+          "properties": {
+            "total_credits": {
+              "type": "integer",
+              "description": "The summed amount of all credit transactions relevant to this transaction method (in cents)."
+            },
+            "total_debits": {
+              "type": "integer",
+              "description": "The summed amount of all debit transactions relevant to this transaction method (in cents)."
+            },
+            "total_net": {
+              "type": "integer",
+              "description": "This is equivalent to total_credits minus total_debits."
+            }
+          }
+        },
+        "cash": {
+          "type": "object",
+          "properties": {
+            "total_credits": {
+              "type": "integer",
+              "description": "The summed amount of all credit transactions relevant to this transaction method (in cents)."
+            },
+            "total_debits": {
+              "type": "integer",
+              "description": "The summed amount of all debit transactions relevant to this transaction method (in cents)."
+            },
+            "total_net": {
+              "type": "integer",
+              "description": "This is equivalent to total_credits minus total_debits."
+            }
+          }
+        },
+        "check": {
+          "type": "object",
+          "properties": {
+            "total_credits": {
+              "type": "integer",
+              "description": "The summed amount of all credit transactions relevant to this transaction method (in cents)."
+            },
+            "total_debits": {
+              "type": "integer",
+              "description": "The summed amount of all debit transactions relevant to this transaction method (in cents)."
+            },
+            "total_net": {
+              "type": "integer",
+              "description": "This is equivalent to total_credits minus total_debits."
+            }
+          }
+        }
+      }
+    },
+    "bank_accounts": {
+      "type": "object",
+      "description": "A list of bank accounts associated with the customer.",
+      "properties": {
+        "bank_account_id": {
+          "$ref": "#/$defs/BasicBankAccountCreditAnalysisCashflowInsights"
+        }
+      }
+    },
+    "metadata": {
+      "$ref": "#/$defs/metadata_insights"
+    },
+    "confidence_score": {
+      "type": "number",
+      "deprecated": true,
+      "format": "float",
+      "description": "The confidence score represents the degree of certainty for the accuracy of the Credit Insights outputs. We calculate this score using a weighted combination of parsing and transaction categorization certainties. Confidence scores above 0.5 represent high confidence."
+    }
+  },
+  "$defs": {
+    "BasicBankAccountCreditAnalysisCashflowInsights": {
+      "type": "object",
+      "description": "Insights about cashflow and balances specific to the listed bank account.",
+      "properties": {
+        "average_credit_amount": {
+          "type": "number",
+          "format": "int",
+          "description": "The average transaction amount across all credit transactions (in cents)."
+        },
+        "average_debit_amount": {
+          "type": "number",
+          "format": "int",
+          "description": "The average transaction amount across all debit transactions (in cents)."
+        },
+        "count_credit_transactions": {
+          "type": "number",
+          "format": "int",
+          "description": "The count of all credit transactions."
+        },
+        "count_debit_transactions": {
+          "type": "number",
+          "format": "int",
+          "description": "The count of all debit transactions."
+        },
+        "total_credits": {
+          "type": "number",
+          "format": "int",
+          "description": "The summed amount of all credit transactions (in cents)."
+        },
+        "total_debits": {
+          "type": "number",
+          "format": "int",
+          "description": "The summed amount of all debit transactions (in cents)."
+        },
+        "total_net": {
+          "type": "number",
+          "format": "int",
+          "description": "This is equivalent to total_credits minus total_debits."
+        },
+        "count_self_transfers": {
+          "type": "number",
+          "format": "int",
+          "description": "The quantity of self-transfers. We define a self-transfer as a bank transfer between separate bank accounts within the same entity (e.g. an individual transferring money from their checking to their savings account)."
+        },
+        "max_balance": {
+          "type": "number",
+          "format": "int",
+          "description": "The highest daily balance found (in cents). Daily balances are taken from the end of each day."
+        },
+        "min_balance": {
+          "type": "number",
+          "format": "int",
+          "description": "The lowest daily balance found (in cents). Daily balances are taken from the end of each day."
+        },
+        "beginning_balance": {
+          "type": "number",
+          "format": "int",
+          "description": "The beginning balance for the bank account (in cents)."
+        },
+        "ending_balance": {
+          "type": "number",
+          "format": "int",
+          "description": "The ending balance for the bank account (in cents)."
+        },
+        "average_daily_balance": {
+          "type": "number",
+          "format": "int",
+          "description": "The average daily balance found (in cents). Daily balances are taken from the end of each day."
+        },
+        "count_negative_balance_days": {
+          "type": "number",
+          "format": "int",
+          "description": "The number of days for which there was a negative balance. Daily balances are taken from the end of each day."
+        },
+        "cashflow_by_category": {
+          "type": "object",
+          "description": "Cashflow insights specific to each transaction category.",
+          "properties": {
+            "accommodation": {
+              "type": "object",
+              "properties": {
+                "rent": {
+                  "type": "object",
+                  "properties": {
+                    "total_net": {
+                      "type": "integer"
+                    },
+                    "total_debit": {
+                      "type": "integer"
+                    },
+                    "total_credit": {
+                      "type": "integer"
+                    }
+                  }
+                },
+                "hotels": {
+                  "type": "object",
+                  "properties": {
+                    "total_net": {
+                      "type": "integer"
+                    },
+                    "total_debit": {
+                      "type": "integer"
+                    },
+                    "total_credit": {
+                      "type": "integer"
+                    }
+                  }
+                },
+                "total_net": {
+                  "type": "integer"
+                },
+                "total_debit": {
+                  "type": "integer"
+                },
+                "total_credit": {
+                  "type": "integer"
+                }
+              }
+            },
+            "bank_charge": {
+              "type": "object",
+              "properties": {
+                "overdraft": {
+                  "type": "object",
+                  "properties": {
+                    "total_net": {
+                      "type": "integer"
+                    },
+                    "total_debit": {
+                      "type": "integer"
+                    },
+                    "total_credit": {
+                      "type": "integer"
+                    }
+                  }
+                },
+                "nsf": {
+                  "type": "object",
+                  "properties": {
+                    "total_net": {
+                      "type": "integer"
+                    },
+                    "total_debit": {
+                      "type": "integer"
+                    },
+                    "total_credit": {
+                      "type": "integer"
+                    }
+                  }
+                },
+                "interest_paid": {
+                  "type": "object",
+                  "properties": {
+                    "total_net": {
+                      "type": "integer"
+                    },
+                    "total_debit": {
+                      "type": "integer"
+                    },
+                    "total_credit": {
+                      "type": "integer"
+                    }
+                  }
+                },
+                "total_net": {
+                  "type": "integer"
+                },
+                "total_debit": {
+                  "type": "integer"
+                },
+                "total_credit": {
+                  "type": "integer"
+                }
+              }
+            },
+            "entertainment": {
+              "type": "object",
+              "properties": {
+                "gambling": {
+                  "type": "object",
+                  "properties": {
+                    "total_net": {
+                      "type": "integer"
+                    },
+                    "total_debit": {
+                      "type": "integer"
+                    },
+                    "total_credit": {
+                      "type": "integer"
+                    }
+                  }
+                },
+                "total_net": {
+                  "type": "integer"
+                },
+                "total_debit": {
+                  "type": "integer"
+                },
+                "total_credit": {
+                  "type": "integer"
+                }
+              }
+            },
+            "income": {
+              "type": "object",
+              "properties": {
+                "revenue": {
+                  "type": "object",
+                  "properties": {
+                    "total_net": {
+                      "type": "integer"
+                    },
+                    "total_debit": {
+                      "type": "integer"
+                    },
+                    "total_credit": {
+                      "type": "integer"
+                    }
+                  }
+                },
+                "salary": {
+                  "type": "object",
+                  "properties": {
+                    "total_net": {
+                      "type": "integer"
+                    },
+                    "total_debit": {
+                      "type": "integer"
+                    },
+                    "total_credit": {
+                      "type": "integer"
+                    }
+                  }
+                },
+                "interest_received": {
+                  "type": "object",
+                  "properties": {
+                    "total_net": {
+                      "type": "integer"
+                    },
+                    "total_debit": {
+                      "type": "integer"
+                    },
+                    "total_credit": {
+                      "type": "integer"
+                    }
+                  }
+                },
+                "retirement": {
+                  "type": "object",
+                  "properties": {
+                    "total_net": {
+                      "type": "integer"
+                    },
+                    "total_debit": {
+                      "type": "integer"
+                    },
+                    "total_credit": {
+                      "type": "integer"
+                    }
+                  }
+                },
+                "social_security": {
+                  "type": "object",
+                  "properties": {
+                    "total_net": {
+                      "type": "integer"
+                    },
+                    "total_debit": {
+                      "type": "integer"
+                    },
+                    "total_credit": {
+                      "type": "integer"
+                    }
+                  }
+                },
+                "commission_received": {
+                  "type": "object",
+                  "properties": {
+                    "total_net": {
+                      "type": "integer"
+                    },
+                    "total_debit": {
+                      "type": "integer"
+                    },
+                    "total_credit": {
+                      "type": "integer"
+                    }
+                  }
+                },
+                "total_net": {
+                  "type": "integer"
+                },
+                "total_debit": {
+                  "type": "integer"
+                },
+                "total_credit": {
+                  "type": "integer"
+                }
+              }
+            },
+            "infrastructure": {
+              "type": "object",
+              "properties": {
+                "total_net": {
+                  "type": "integer"
+                },
+                "total_debit": {
+                  "type": "integer"
+                },
+                "total_credit": {
+                  "type": "integer"
+                }
+              }
+            },
+            "insurance": {
+              "type": "object",
+              "properties": {
+                "total_net": {
+                  "type": "integer"
+                },
+                "total_debit": {
+                  "type": "integer"
+                },
+                "total_credit": {
+                  "type": "integer"
+                }
+              }
+            },
+            "investments": {
+              "type": "object",
+              "properties": {
+                "savings": {
+                  "type": "object",
+                  "properties": {
+                    "total_net": {
+                      "type": "integer"
+                    },
+                    "total_debit": {
+                      "type": "integer"
+                    },
+                    "total_credit": {
+                      "type": "integer"
+                    }
+                  }
+                },
+                "trading": {
+                  "type": "object",
+                  "properties": {
+                    "crypto_trading": {
+                      "type": "object",
+                      "properties": {
+                        "total_net": {
+                          "type": "integer"
+                        },
+                        "total_debit": {
+                          "type": "integer"
+                        },
+                        "total_credit": {
+                          "type": "integer"
+                        }
+                      }
+                    },
+                    "total_net": {
+                      "type": "integer"
+                    },
+                    "total_debit": {
+                      "type": "integer"
+                    },
+                    "total_credit": {
+                      "type": "integer"
+                    }
+                  }
+                },
+                "sweep_transfer": {
+                  "type": "object",
+                  "properties": {
+                    "total_net": {
+                      "type": "integer"
+                    },
+                    "total_debit": {
+                      "type": "integer"
+                    },
+                    "total_credit": {
+                      "type": "integer"
+                    }
+                  }
+                },
+                "total_net": {
+                  "type": "integer"
+                },
+                "total_debit": {
+                  "type": "integer"
+                },
+                "total_credit": {
+                  "type": "integer"
+                }
+              }
+            },
+            "loan": {
+              "type": "object",
+              "properties": {
+                "mortgage": {
+                  "type": "object",
+                  "properties": {
+                    "total_net": {
+                      "type": "integer"
+                    },
+                    "total_debit": {
+                      "type": "integer"
+                    },
+                    "total_credit": {
+                      "type": "integer"
+                    }
+                  }
+                },
+                "mca": {
+                  "type": "object",
+                  "properties": {
+                    "total_net": {
+                      "type": "integer"
+                    },
+                    "total_debit": {
+                      "type": "integer"
+                    },
+                    "total_credit": {
+                      "type": "integer"
+                    }
+                  }
+                },
+                "payday": {
+                  "type": "object",
+                  "properties": {
+                    "total_net": {
+                      "type": "integer"
+                    },
+                    "total_debit": {
+                      "type": "integer"
+                    },
+                    "total_credit": {
+                      "type": "integer"
+                    }
+                  }
+                },
+                "card_repayment": {
+                  "type": "object",
+                  "properties": {
+                    "total_net": {
+                      "type": "integer"
+                    },
+                    "total_debit": {
+                      "type": "integer"
+                    },
+                    "total_credit": {
+                      "type": "integer"
+                    }
+                  }
+                },
+                "auto_loan": {
+                  "type": "object",
+                  "properties": {
+                    "total_net": {
+                      "type": "integer"
+                    },
+                    "total_debit": {
+                      "type": "integer"
+                    },
+                    "total_credit": {
+                      "type": "integer"
+                    }
+                  }
+                },
+                "buy_now_pay_later": {
+                  "type": "object",
+                  "properties": {
+                    "total_net": {
+                      "type": "integer"
+                    },
+                    "total_debit": {
+                      "type": "integer"
+                    },
+                    "total_credit": {
+                      "type": "integer"
+                    }
+                  }
+                },
+                "total_net": {
+                  "type": "integer"
+                },
+                "total_debit": {
+                  "type": "integer"
+                },
+                "total_credit": {
+                  "type": "integer"
+                }
+              }
+            },
+            "personnel": {
+              "type": "object",
+              "properties": {
+                "total_net": {
+                  "type": "integer"
+                },
+                "total_debit": {
+                  "type": "integer"
+                },
+                "total_credit": {
+                  "type": "integer"
+                }
+              }
+            },
+            "refund": {
+              "type": "object",
+              "properties": {
+                "total_net": {
+                  "type": "integer"
+                },
+                "total_debit": {
+                  "type": "integer"
+                },
+                "total_credit": {
+                  "type": "integer"
+                }
+              }
+            },
+            "retail": {
+              "type": "object",
+              "properties": {
+                "food_and_drink": {
+                  "type": "object",
+                  "properties": {
+                    "total_net": {
+                      "type": "integer"
+                    },
+                    "total_debit": {
+                      "type": "integer"
+                    },
+                    "total_credit": {
+                      "type": "integer"
+                    }
+                  }
+                },
+                "groceries": {
+                  "type": "object",
+                  "properties": {
+                    "total_net": {
+                      "type": "integer"
+                    },
+                    "total_debit": {
+                      "type": "integer"
+                    },
+                    "total_credit": {
+                      "type": "integer"
+                    }
+                  }
+                },
+                "total_net": {
+                  "type": "integer"
+                },
+                "total_debit": {
+                  "type": "integer"
+                },
+                "total_credit": {
+                  "type": "integer"
+                }
+              }
+            },
+            "self_transfer": {
+              "type": "object",
+              "properties": {
+                "total_net": {
+                  "type": "integer"
+                },
+                "total_debit": {
+                  "type": "integer"
+                },
+                "total_credit": {
+                  "type": "integer"
+                }
+              }
+            },
+            "tax": {
+              "type": "object",
+              "properties": {
+                "total_net": {
+                  "type": "integer"
+                },
+                "total_debit": {
+                  "type": "integer"
+                },
+                "total_credit": {
+                  "type": "integer"
+                }
+              }
+            },
+            "transport": {
+              "type": "object",
+              "properties": {
+                "fuel": {
+                  "type": "object",
+                  "properties": {
+                    "total_net": {
+                      "type": "integer"
+                    },
+                    "total_debit": {
+                      "type": "integer"
+                    },
+                    "total_credit": {
+                      "type": "integer"
+                    }
+                  }
+                },
+                "total_net": {
+                  "type": "integer"
+                },
+                "total_debit": {
+                  "type": "integer"
+                },
+                "total_credit": {
+                  "type": "integer"
+                }
+              }
+            },
+            "utilities": {
+              "type": "object",
+              "properties": {
+                "total_net": {
+                  "type": "integer"
+                },
+                "total_debit": {
+                  "type": "integer"
+                },
+                "total_credit": {
+                  "type": "integer"
+                }
+              }
+            },
+            "withdrawal": {
+              "type": "object",
+              "properties": {
+                "total_net": {
+                  "type": "integer"
+                },
+                "total_debit": {
+                  "type": "integer"
+                },
+                "total_credit": {
+                  "type": "integer"
+                }
+              }
+            }
+          }
+        },
+        "cashflow_by_method": {
+          "type": "object",
+          "description": "Cashflow insights specific to each transaction method. Transaction methods describes 'how' a transaction was completed (e.g. cash, check, bank transfer).",
+          "properties": {
+            "bank_transfer": {
+              "type": "object",
+              "properties": {
+                "total_credits": {
+                  "type": "integer",
+                  "description": "The summed amount of all credit transactions relevant to this transaction method (in cents)."
+                },
+                "total_debits": {
+                  "type": "integer",
+                  "description": "The summed amount of all debit transactions relevant to this transaction method (in cents)."
+                },
+                "total_net": {
+                  "type": "integer",
+                  "description": "This is equivalent to total_credits minus total_debits."
+                }
+              }
+            },
+            "card_payment": {
+              "type": "object",
+              "properties": {
+                "total_credits": {
+                  "type": "integer",
+                  "description": "The summed amount of all credit transactions relevant to this transaction method (in cents)."
+                },
+                "total_debits": {
+                  "type": "integer",
+                  "description": "The summed amount of all debit transactions relevant to this transaction method (in cents)."
+                },
+                "total_net": {
+                  "type": "integer",
+                  "description": "This is equivalent to total_credits minus total_debits."
+                }
+              }
+            },
+            "cash": {
+              "type": "object",
+              "properties": {
+                "total_credits": {
+                  "type": "integer",
+                  "description": "The summed amount of all credit transactions relevant to this transaction method (in cents)."
+                },
+                "total_debits": {
+                  "type": "integer",
+                  "description": "The summed amount of all debit transactions relevant to this transaction method (in cents)."
+                },
+                "total_net": {
+                  "type": "integer",
+                  "description": "This is equivalent to total_credits minus total_debits."
+                }
+              }
+            },
+            "check": {
+              "type": "object",
+              "properties": {
+                "total_credits": {
+                  "type": "integer",
+                  "description": "The summed amount of all credit transactions relevant to this transaction method (in cents)."
+                },
+                "total_debits": {
+                  "type": "integer",
+                  "description": "The summed amount of all debit transactions relevant to this transaction method (in cents)."
+                },
+                "total_net": {
+                  "type": "integer",
+                  "description": "This is equivalent to total_credits minus total_debits."
+                }
+              }
+            }
+          }
+        },
+        "daily_balances": {
+          "type": "object",
+          "description": "The balance for each day in the period (in cents). Daily balances are taken from the end of each day.",
+          "properties": {
+            "date": {
+              "type": "string",
+              "format": "date-time",
+              "description": "The balance information for the given date (in cents)."
+            }
+          }
+        },
+        "30_day_balance_change": {
+          "type": "number",
+          "description": "Balance change over the last 30 days for the account (in cents). This value will be set to null if the time period does not cover sufficient days."
+        },
+        "60_day_balance_change": {
+          "type": "number",
+          "description": "Balance change over the last 60 days for the account (in cents). This value will be set to null if the time period does not cover sufficient days."
+        },
+        "90_day_balance_change": {
+          "type": "number",
+          "description": "Balance change over the last 90 days for the account (in cents). This value will be set to null if the time period does not cover sufficient days."
+        }
+      }
+    },
+    "metadata_insights": {
+      "type": "object",
+      "description": "Additional data which provides context about Inscribe's Credit Insights response.",
+      "properties": {
+        "confidence_score": {
+          "type": "number",
+          "format": "float",
+          "description": "The confidence score represents the degree of certainty for the accuracy of the Credit Insights outputs. We calculate this score using a weighted combination of parsing and transaction categorization certainties. Confidence scores above 0.5 represent high confidence."
+        },
+        "customer_contains_low_trust_score_documents": {
+          "type": "boolean",
+          "description": "This value will be set to True if the customer contains any documents under a trust score threshold of 50. Else, this will be set to False."
+        },
+        "included_data_sources": {
+          "type": "object",
+          "description": "Lists all documents and open banking data which were used to create the Inscribe Credit Insights.",
+          "properties": {
+            "documents": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "document_id": {
+                    "type": "string",
+                    "format": "uuid"
+                  }
+                }
+              }
+            },
+            "open_banking": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "open_banking_data_id": {
+                    "type": "string",
+                    "format": "uuid"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "excluded_data_sources": {
+          "type": "object",
+          "description": "Lists all documents and open banking data which were excluded from the Inscribe Credit Insights. Documents can be excluded if they are duplicate documents, or when the include_unreconciled_documents query parameter is set to False.",
+          "properties": {
+            "documents": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "document_id": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "exclusion_reason": {
+                    "format": "string"
+                  }
+                }
+              }
+            },
+            "open_banking": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "open_banking_data_id": {
+                    "type": "string",
+                    "format": "uuid"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "query_parameters": {
+          "type": "object",
+          "description": "Lists the query parameters which were used in the original endpoint request."
+        }
+      }
+    }
+  }
+}

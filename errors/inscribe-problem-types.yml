@@ -1,0 +1,49 @@
+generated: '2026-10-14'
+method: derived
+generator: derive-problem-types.py
+source:
+- openapi/inscribe-core-resources-openapi.yml
+format: custom
+envelope:
+  media_type: application/json
+  schema: Error
+coverage:
+  operations: 43
+  statuses_declared: 5
+problems:
+- status: 400
+  title: Bad Request
+  description: You have provided incorrect data.
+  operations: 42
+  media_types:
+  - application/json
+  schema: Error
+- status: 403
+  title: Forbidden
+  description: You do not have permission to access this resource.
+  operations: 42
+  media_types:
+  - application/json
+  schema: Error
+- status: 404
+  title: Not Found
+  description: The specified resource was not found.
+  operations: 25
+  media_types:
+  - application/json
+  schema: Error
+- status: 409
+  title: Conflict
+  description: The name you have provided for the customer already exists.
+  operations: 2
+  media_types:
+  - application/json
+  schema: null
+- status: 429
+  title: Too Many Requests
+  description: Too many requests. The request has been rate limited. For more information, visit our [documentation
+    on rate limiting](https://docs.inscribe
+  operations: 42
+  media_types:
+  - text/plain
+  schema: null

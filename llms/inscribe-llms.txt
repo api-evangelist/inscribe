@@ -1,0 +1,93 @@
+# inscribe Documentation
+
+> Inscribe's APIs help financial institutions manage risk with fraudulent document detection, intelligent automation, and the data to better understand customer creditworthiness.
+
+## Guides: the BASICS
+- [Overview - Integrating with Inscribe via API](https://docs.inscribe.ai/docs/overview-integrating-with-inscribe-via-api.md): A visual overview of typical integrations with Inscribe
+- [Submitting Open Banking Data](https://docs.inscribe.ai/docs/submitting-open-banking-data.md): Guide to submitting open banking data in Inscribe
+- [FAQs](https://docs.inscribe.ai/docs/faqs-1.md)
+  - [Are the Endpoints Rate Limited?](https://docs.inscribe.ai/docs/are-the-endpoints-rate-limited.md)
+
+## Guides: Collect
+- [Getting Started with Collect](https://docs.inscribe.ai/docs/getting-started-with-collect.md)
+
+## Guides: Credit insights
+- [FAQs](https://docs.inscribe.ai/docs/faqs.md): Frequently asked questions about Inscribe's Credit Analysis
+  - [How are Transactions Enriched?](https://docs.inscribe.ai/docs/how-are-transactions-enriched.md)
+
+## Guides: Transactions
+- [Getting Started with Transaction Enrichment](https://docs.inscribe.ai/docs/getting-started-with-inscribe-transactions.md)
+
+## Guides: Document UNDERSTANDING
+- Classification
+  - [Documents classified by source bank name](https://docs.inscribe.ai/docs/documents-classified-by-bank-names.md): Bank statements classified by source institutions which we currently support
+
+## Guides: Webhooks
+- [Getting Started with Inscribe Webhooks](https://docs.inscribe.ai/docs/getting-started-with-inscribe-webhooks.md)
+
+## API Reference: Introduction
+- [Overview](https://docs.inscribe.ai/reference/overview.md)
+
+## API Reference: Getting started
+- [Authentication](https://docs.inscribe.ai/reference/authentication.md)
+
+## API Reference: Core Resources
+- Bank Accounts
+  - [List Bank Accounts](https://docs.inscribe.ai/reference/getbankaccounts.md): Returns a list of bank accounts for a customer. The list is sorted by creation date, with the most recently created bank accounts appearing first.
+  - [Retrieve a Bank Account](https://docs.inscribe.ai/reference/getbankaccount.md): Retrieves the details of an existing customer's bank account. Supply the unique customer id and unique bank account id for that customer from the customer list and bank account list respectively.
+- Collect Sessions
+  - [Create Collect Session](https://docs.inscribe.ai/reference/createsession.md): Inscribe's Collect API allows you to automate each step of your document collection process, from customer contact to fraud checks and verification. In order to initiate a Collect Session, you will…
+  - [List all Collect Sessions](https://docs.inscribe.ai/reference/getcollectsessions.md): Retrieve a paginated list of collect sessions for your organization.
+  - [Retrieve a Collect Session](https://docs.inscribe.ai/reference/getcollectsession.md): Retrieve a collect session by UUID
+  - [Update Collect Session](https://docs.inscribe.ai/reference/updatecollectsession.md): Edit properties of a collect session.
+  - [Add Document Requests](https://docs.inscribe.ai/reference/adddocumentrequest.md): Add a document request to a Collect Session
+  - [Delete Document Request](https://docs.inscribe.ai/reference/deletedocumentrequest.md): Remove a collect session document request by its given UUID
+- Credit Insights
+  - [Retrieve Summary Insights (Customer)](https://docs.inscribe.ai/reference/getcustomercreditanalysis.md): Returns income and creditworthiness information extracted from transactions belonging to a specific customer.
+  - [Retrieve Summary Insights (Bank Account)](https://docs.inscribe.ai/reference/getbankaccountcreditanalysis.md): Returns income and creditworthiness information derived from a submitted customer bank account.
+  - [Retrieve Cashflow Insights (Customer)](https://docs.inscribe.ai/reference/getcustomercreditanalysiscashflowinsights.md): Returns cashflow and balance insights derived from submitted customer documents and transactions.
+  - [Retrieve Cashflow Insights (Bank Account)](https://docs.inscribe.ai/reference/getbankaccountcreditanalysiscashflowinsights.md): Returns cashflow and balance insights derived from a submitted customer bank account.
+  - [Retrieve Expenditure Insights (Customer)](https://docs.inscribe.ai/reference/getcustomercreditanalysisexpenditureinsights.md): Returns expenditure insights derived from submitted customer documents and transactions.
+  - [Retrieve Expenditure Insights (Bank Account)](https://docs.inscribe.ai/reference/getbankaccountcreditanalysisexpenditureinsights.md): Returns expenditure insights derived from submitted customer documents and transactions..
+  - [Retrieve Income Insights (Customer)](https://docs.inscribe.ai/reference/getcustomercreditanalysisincomeinsights.md): Returns income insights derived from submitted customer documents and transactions.
+  - [Retrieve Income Insights (Bank Account)](https://docs.inscribe.ai/reference/getbankaccountcreditanalysisincomeinsights.md): Returns income insights derived from a submitted customer bank account.
+  - [Retrieve Loan Insights (Customer)](https://docs.inscribe.ai/reference/getcustomercreditanalysisloaninsights.md): Returns loan insights derived from submitted customer documents and transactions.
+  - [Retrieve Loan Insights (Bank Account)](https://docs.inscribe.ai/reference/getbankaccountcreditanalysisloaninsights.md): Returns loan insights derived from a submitted customer bank account.
+  - [Retrieve Risk Insights (Customer)](https://docs.inscribe.ai/reference/getcustomercreditanalysisriskinsights.md): Returns risk insights derived from submitted customer documents and transactions.
+  - [Retrieve Risk Insights (Bank Account)](https://docs.inscribe.ai/reference/getbankaccountcreditanalysisriskinsights.md): Returns risk insights derived from a submitted customer bank account.
+- Customers
+  - [Create a Customer](https://docs.inscribe.ai/reference/addcustomer.md): Creates a customer object to easily track and store documents.
+  - [List all Customers](https://docs.inscribe.ai/reference/getcustomers.md): Returns a paginated list of your customers based on optional query parameters. If the customer search query parameter is used, the list is sorted by relevance, otherwise, the customers are returned…
+  - [Retrieve a Customer](https://docs.inscribe.ai/reference/getcustomer.md): Retrieves the details of an existing customer. Supply the unique customer id from either a customer creation request or the customer list.
+  - [Update a Customer](https://docs.inscribe.ai/reference/updatecustomer.md): Updates the specific customer by setting the values of the parameters passed. Any non-required parameters not provided will be left unchanged.
+  - [Delete a Customer](https://docs.inscribe.ai/reference/deletecustomer.md): Permanently deletes a customer and all documents associated with this customer. It cannot be undone.
+- Documents
+  - [Upload Document(s)](https://docs.inscribe.ai/reference/uploaddocuments.md): Uploads document(s) to a customer. Once the document(s) are uploaded, they will be queued for processing by Inscribe's fraud detection, parsing, and optionally verification algorithms. The file size…
+  - [List all Documents](https://docs.inscribe.ai/reference/getdocuments.md): Returns a list of all of your documents for a customer. The list is sorted by creation date, with the most recently created documents appearing first.
+  - [Retrieve a Document](https://docs.inscribe.ai/reference/getdocumentresults.md): Retrieve results and information of an existing document. Supply the unique customer id from either a customer creation request or the customer list, and the document id from either a document upload…
+  - [Update a Document](https://docs.inscribe.ai/reference/updatedocument.md): Update document.
+  - [Delete a Document](https://docs.inscribe.ai/reference/deletedocument.md): Delete document. This cannot be undone
+- Open Banking
+  - [Upload Open Banking Data (Inscribe Financial Data Format) (BETA)](https://docs.inscribe.ai/reference/uploadinscribeopenbankingdata.md): Uploads Open Banking Data (Inscribe Financial Data Format) to an Inscribe customer (BETA). See our guide to submitting open banking data…
+  - [Upload Open Banking Data (MX Aggregated Data)](https://docs.inscribe.ai/reference/uploadmxaggregatedopenbankingdata.md): Uploads MX Aggregated Data to an Inscribe customer. MX Aggregated Data is a format made by combining the responses from various MX endpoint requests. Once the request is received, the MX Aggregated…
+  - [Upload Open Banking Data (Plaid Assets Report)](https://docs.inscribe.ai/reference/uploadplaidassetreportopenbankingdata.md): Uploads open banking data in the format of a Plaid Asset Report to an Inscribe customer. Once the request is received, the open banking data will be processed by Inscribe’s Credit Insights service.…
+  - [List Open Banking Data](https://docs.inscribe.ai/reference/getopenbankingdata.md): Returns a paginated list of Open Banking Data related to an Inscribe customer. The list is sorted by creation date in ascending order, with the oldest data appearing first.
+  - [Delete Open Banking Data](https://docs.inscribe.ai/reference/deleteopenbankingdata.md): Permanently deletes an Open Banking Data, as well as all accounts and transactions associated with the data. It cannot be undone.
+  - [Upload Plaid Asset Report](https://docs.inscribe.ai/reference/uploadplaidassetreport.md): Uploads a Plaid Asset Report to a customer. Once a Plaid Asset Report is uploaded, it will be processed by Inscribe’s Credit Insights service which returns customer insights derived from the open…
+  - [List all Plaid Asset Reports](https://docs.inscribe.ai/reference/getplaidassetreport.md): Returns a paginated list of Plaid Asset Reports related to a customer. The list is sorted by creation date in ascending order, with the oldest data appearing first.  **Warning**  This endpoint is…
+  - [Delete a Plaid Asset Report](https://docs.inscribe.ai/reference/deleteplaidassetreport.md): Permanently deletes a Plaid Asset Report, as well as all accounts and transactions associated with the data. It cannot be undone.  **Warning**  This endpoint is deprecated. The recommended endpoint…
+- Transactions
+  - [List Inscribe Transaction Categories](https://docs.inscribe.ai/reference/gettransactioncategories.md): Retrieves the hierarchy of transaction categories that Inscribe uses in its transaction enrichment. Every uploaded transaction will be assigned one of these transaction categories (or null if no…
+  - [List Transactions for a Customer](https://docs.inscribe.ai/reference/getcustomertransactions.md): Returns a list of transactions for a customer. The list is sorted by data source, with transactions from bank statements listed first, followed by transactions from open banking data. Within each of…
+  - [List Transactions for a Bank Account](https://docs.inscribe.ai/reference/getbankaccounttransactions.md): Returns a list of transactions for a customer's bank account. The list is sorted by creation date, with the most recently created transactions appearing first. Most query parameters should be passed…
+  - [Recategorize Transactions](https://docs.inscribe.ai/reference/recategorizetransactions.md): Assign a new category to a group of transaction ids
+- Reachability Check
+  - [Reachability Check](https://docs.inscribe.ai/reference/reachability-check-2.md): By querying this endpoint, you can check if it's possible to reach Inscribe's services from your own infrastructure. This endpoint does not require any authentication but is rate limited. It does not…
+
+## Recipes
+- [Collect Session](https://docs.inscribe.ai/recipes/collect-session.md)
+- [Get Enriched Customer Transactions](https://docs.inscribe.ai/recipes/get-enriched-customer-transactions.md)
+- [Get Insights into a Customer's Creditworthiness](https://docs.inscribe.ai/recipes/get-insights-into-a-customers-creditworthiness.md)
+- [Quickstart](https://docs.inscribe.ai/recipes/quickstart-1.md)
+- [Transaction Parsing](https://docs.inscribe.ai/recipes/transaction-parsing.md)
+- [Verifying a Customer's Income](https://docs.inscribe.ai/recipes/verifying-a-customers-income.md)

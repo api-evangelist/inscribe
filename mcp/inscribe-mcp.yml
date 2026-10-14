@@ -1,0 +1,213 @@
+generated: '2026-10-14'
+method: derived
+generator: derive-mcp-candidate.py
+source:
+- openapi/inscribe-core-resources-openapi.yml
+status: candidate
+deployment:
+  mode: none
+  auth: unknown
+  verified: derived
+note: No MCP server was found. No probe result in the dossier. Candidate tools below are derived from the 43 operation(s) in the provider's own
+  OpenAPI (40 listed); they describe what a server WOULD expose, not one that exists.
+tools:
+- name: create_session
+  operationId: createSession
+  method: POST
+  path: /collect/sessions
+  description: Create Collect Session
+- name: get_collect_sessions
+  operationId: getCollectSessions
+  method: GET
+  path: /collect/sessions
+  description: List all Collect Sessions
+- name: get_collect_session
+  operationId: getCollectSession
+  method: GET
+  path: /collect/sessions/{session_id}
+  description: Retrieve a Collect Session
+- name: update_collect_session
+  operationId: updateCollectSession
+  method: PUT
+  path: /collect/sessions/{session_id}
+  description: Update Collect Session
+- name: add_document_request
+  operationId: addDocumentRequest
+  method: POST
+  path: /collect/sessions/{session_id}/document_requests
+  description: Add Document Requests
+- name: delete_document_request
+  operationId: deleteDocumentRequest
+  method: DELETE
+  path: /collect/sessions/{session_id}/document_requests/{document_request_id}
+  description: Delete Document Request
+- name: add_customer
+  operationId: addCustomer
+  method: POST
+  path: /customers
+  description: Create a Customer
+- name: get_customers
+  operationId: getCustomers
+  method: GET
+  path: /customers
+  description: List all Customers
+- name: get_customer
+  operationId: getCustomer
+  method: GET
+  path: /customers/{customer_id}
+  description: Retrieve a Customer
+- name: update_customer
+  operationId: updateCustomer
+  method: PUT
+  path: /customers/{customer_id}
+  description: Update a Customer
+- name: delete_customer
+  operationId: deleteCustomer
+  method: DELETE
+  path: /customers/{customer_id}
+  description: Delete a Customer
+- name: get_bank_accounts
+  operationId: getBankAccounts
+  method: GET
+  path: /customers/{customer_id}/bank_accounts
+  description: List Bank Accounts
+- name: get_bank_account
+  operationId: getBankAccount
+  method: GET
+  path: /customers/{customer_id}/bank_accounts/{bank_account_id}
+  description: Retrieve a Bank Account
+- name: get_bank_account_credit_analysis
+  operationId: getBankAccountCreditAnalysis
+  method: GET
+  path: /customers/{customer_id}/bank_accounts/{bank_account_id}/credit_analysis
+  description: Retrieve Summary Insights (Bank Account)
+- name: get_bank_account_credit_analysis_cashflow_insights
+  operationId: getBankAccountCreditAnalysisCashflowInsights
+  method: GET
+  path: /customers/{customer_id}/bank_accounts/{bank_account_id}/credit_analysis/cashflow_insights
+  description: Retrieve Cashflow Insights (Bank Account)
+- name: get_bank_account_credit_analysis_expenditure_insights
+  operationId: getBankAccountCreditAnalysisExpenditureInsights
+  method: GET
+  path: /customers/{customer_id}/bank_accounts/{bank_account_id}/credit_analysis/expenditure_insights
+  description: Retrieve Expenditure Insights (Bank Account)
+- name: get_bank_account_credit_analysis_income_insights
+  operationId: getBankAccountCreditAnalysisIncomeInsights
+  method: GET
+  path: /customers/{customer_id}/bank_accounts/{bank_account_id}/credit_analysis/income_insights
+  description: Retrieve Income Insights (Bank Account)
+- name: get_bank_account_credit_analysis_loan_insights
+  operationId: getBankAccountCreditAnalysisLoanInsights
+  method: GET
+  path: /customers/{customer_id}/bank_accounts/{bank_account_id}/credit_analysis/loan_insights
+  description: Retrieve Loan Insights (Bank Account)
+- name: get_bank_account_credit_analysis_risk_insights
+  operationId: getBankAccountCreditAnalysisRiskInsights
+  method: GET
+  path: /customers/{customer_id}/bank_accounts/{bank_account_id}/credit_analysis/risk_insights
+  description: Retrieve Risk Insights (Bank Account)
+- name: get_bank_account_transactions
+  operationId: getBankAccountTransactions
+  method: GET
+  path: /customers/{customer_id}/bank_accounts/{bank_account_id}/transactions
+  description: List Transactions for a Bank Account
+- name: get_customer_credit_analysis
+  operationId: getCustomerCreditAnalysis
+  method: GET
+  path: /customers/{customer_id}/credit_analysis
+  description: Retrieve Summary Insights (Customer)
+- name: get_customer_credit_analysis_cashflow_insights
+  operationId: getCustomerCreditAnalysisCashflowInsights
+  method: GET
+  path: /customers/{customer_id}/credit_analysis/cashflow_insights
+  description: Retrieve Cashflow Insights (Customer)
+- name: get_customer_credit_analysis_expenditure_insights
+  operationId: getCustomerCreditAnalysisExpenditureInsights
+  method: GET
+  path: /customers/{customer_id}/credit_analysis/expenditure_insights
+  description: Retrieve Expenditure Insights (Customer)
+- name: get_customer_credit_analysis_income_insights
+  operationId: getCustomerCreditAnalysisIncomeInsights
+  method: GET
+  path: /customers/{customer_id}/credit_analysis/income_insights
+  description: Retrieve Income Insights (Customer)
+- name: get_customer_credit_analysis_loan_insights
+  operationId: getCustomerCreditAnalysisLoanInsights
+  method: GET
+  path: /customers/{customer_id}/credit_analysis/loan_insights
+  description: Retrieve Loan Insights (Customer)
+- name: get_customer_credit_analysis_risk_insights
+  operationId: getCustomerCreditAnalysisRiskInsights
+  method: GET
+  path: /customers/{customer_id}/credit_analysis/risk_insights
+  description: Retrieve Risk Insights (Customer)
+- name: upload_documents
+  operationId: uploadDocuments
+  method: POST
+  path: /customers/{customer_id}/documents
+  description: Upload Document(s)
+- name: get_documents
+  operationId: getDocuments
+  method: GET
+  path: /customers/{customer_id}/documents
+  description: List all Documents
+- name: get_document_results
+  operationId: getDocumentResults
+  method: GET
+  path: /customers/{customer_id}/documents/{document_id}
+  description: Retrieve a Document
+- name: update_document
+  operationId: updateDocument
+  method: PUT
+  path: /customers/{customer_id}/documents/{document_id}
+  description: Update a Document
+- name: delete_document
+  operationId: deleteDocument
+  method: DELETE
+  path: /customers/{customer_id}/documents/{document_id}
+  description: Delete a Document
+- name: get_open_banking_data
+  operationId: getOpenBankingData
+  method: GET
+  path: /customers/{customer_id}/open_banking_data
+  description: List Open Banking Data
+- name: upload_inscribe_open_banking_data
+  operationId: uploadInscribeOpenBankingData
+  method: POST
+  path: /customers/{customer_id}/open_banking_data/inscribe_financial_data
+  description: Upload Open Banking Data (Inscribe Financial Data Format) (BETA)
+- name: upload_mxaggregated_open_banking_data
+  operationId: uploadMXAggregatedOpenBankingData
+  method: POST
+  path: /customers/{customer_id}/open_banking_data/mx_aggregated_data
+  description: Upload Open Banking Data (MX Aggregated Data)
+- name: upload_plaid_asset_report_open_banking_data
+  operationId: uploadPlaidAssetReportOpenBankingData
+  method: POST
+  path: /customers/{customer_id}/open_banking_data/plaid_asset_report
+  description: Upload Open Banking Data (Plaid Assets Report)
+- name: delete_open_banking_data
+  operationId: deleteOpenBankingData
+  method: DELETE
+  path: /customers/{customer_id}/open_banking_data/{open_banking_data_id}
+  description: Delete Open Banking Data
+- name: upload_plaid_asset_report
+  operationId: uploadPlaidAssetReport
+  method: POST
+  path: /customers/{customer_id}/plaid_assets
+  description: Upload Plaid Asset Report
+- name: get_plaid_asset_report
+  operationId: getPlaidAssetReport
+  method: GET
+  path: /customers/{customer_id}/plaid_assets
+  description: List all Plaid Asset Reports
+- name: delete_plaid_asset_report
+  operationId: deletePlaidAssetReport
+  method: DELETE
+  path: /customers/{customer_id}/plaid_assets/{plaid_asset_report_id}
+  description: Delete a Plaid Asset Report
+- name: get_customer_transactions
+  operationId: getCustomerTransactions
+  method: GET
+  path: /customers/{customer_id}/transactions
+  description: List Transactions for a Customer

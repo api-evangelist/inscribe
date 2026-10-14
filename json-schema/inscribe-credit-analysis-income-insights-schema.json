@@ -1,0 +1,381 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/inscribe/main/json-schema/inscribe-credit-analysis-income-insights-schema.json",
+  "title": "CreditAnalysisIncomeInsights",
+  "x-generated": "2026-10-14",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/inscribe-core-resources-openapi.yml#/components/schemas/CreditAnalysisIncomeInsights",
+  "type": "object",
+  "properties": {
+    "personal_income": {
+      "type": "object",
+      "description": "Insights relating to personal income data.",
+      "properties": {
+        "transaction_data": {
+          "type": "object",
+          "description": "Personal income insights relating to transaction data (bank statements and open banking data).",
+          "properties": {
+            "estimated_annual_net": {
+              "type": "integer",
+              "description": "Estimated annual net income (in cents)."
+            },
+            "period_net": {
+              "type": "integer",
+              "description": "Net income over the period (in cents). The term `period` refers to the time interval covering the earliest date to the latest date found in the submitted data."
+            },
+            "count_deposits": {
+              "type": "integer",
+              "description": "Number of income deposit transactions."
+            },
+            "average_deposit_amount": {
+              "type": "integer",
+              "description": "The average deposit amount across all uploaded personal income transactions."
+            },
+            "streams": {
+              "type": "object",
+              "description": "List of all income streams relating to transaction data.",
+              "properties": {
+                "sample_payer_1": {
+                  "type": "array",
+                  "description": "Income insights relating to income received from sample_payer_1.",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "frequency": {
+                        "type": "string",
+                        "description": "The frequency of this income stream, either `daily`, `weekly`, `fortnightly`, `monthly`, `irregular`, or `unknown`."
+                      },
+                      "estimated_annual_net": {
+                        "type": "integer",
+                        "description": "Estimated annual net income for this income stream (in cents)."
+                      },
+                      "period_net": {
+                        "type": "integer",
+                        "description": "Net income over the period for this income stream (in cents). The term `period` refers to the time interval covering the earliest date to the latest date found in the submitted data."
+                      },
+                      "transaction_ids": {
+                        "type": "array",
+                        "description": "List of transaction IDs relating to this income stream.",
+                        "items": {
+                          "type": "string",
+                          "format": "uuid"
+                        }
+                      },
+                      "category": {
+                        "type": "string",
+                        "description": "The Inscribe category that this revenue stream belongs to. The Inscribe category that this income stream belongs to. Options here include the top-level category `income`, or one of the subcategories `salary`, `retirement`, `social_security`, `commission_received`, or `interest_received`."
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "personal_income_by_payment_processor": {
+              "type": "object",
+              "description": "List of all income streams relating to transaction data split by payment processor.",
+              "properties": {
+                "sample_processor_1": {
+                  "type": "array",
+                  "description": "Income insights relating to personal income received via sample_processor_1.",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "frequency": {
+                        "type": "string",
+                        "description": "The frequency of this income stream, either `daily`, `weekly`, `fortnightly`, `monthly`, `irregular`, or `unknown`."
+                      },
+                      "estimated_annual_net": {
+                        "type": "integer",
+                        "description": "Estimated annual net income for this income stream (in cents)."
+                      },
+                      "period_net": {
+                        "type": "integer",
+                        "description": "Net income over the period for this income stream (in cents). The term `period` refers to the time interval covering the earliest date to the latest date found in the submitted data."
+                      },
+                      "transaction_ids": {
+                        "type": "array",
+                        "description": "List of transaction IDs relating to this income stream.",
+                        "items": {
+                          "type": "string",
+                          "format": "uuid"
+                        }
+                      },
+                      "category": {
+                        "type": "string",
+                        "description": "The Inscribe category that this revenue stream belongs to. The Inscribe category that this income stream belongs to. Options here include the top-level category `income`, or one of the subcategories `salary`, `retirement`, `social_security`, `commission_received`, or `interest_received`."
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "payslip_data": {
+          "type": "object",
+          "description": "Personal income insights relating to payslips.",
+          "properties": {
+            "estimated_annual_net": {
+              "type": "integer",
+              "description": "Estimated annual net income (in cents)."
+            },
+            "period_net": {
+              "type": "integer",
+              "description": "Net income over the period (in cents). The term `period` refers to the time interval covering the earliest date to the latest date found in the submitted data."
+            },
+            "estimated_annual_gross": {
+              "type": "integer",
+              "description": "Estimated annual gross income (in cents)."
+            },
+            "period_gross": {
+              "type": "integer",
+              "description": "Gross income over the period (in cents). The term `period` refers to the time interval covering the earliest date to the latest date found in the submitted data."
+            },
+            "streams": {
+              "type": "object",
+              "description": "List of all income streams relating to payslip data.",
+              "properties": {
+                "sample_payer_1": {
+                  "type": "array",
+                  "description": "Income insights relating to income received from sample_payer_1.",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "frequency": {
+                        "type": "string",
+                        "description": "The frequency of this income stream, either `daily`, `weekly`, `fortnightly`, `monthly`, `irregular`, or `unknown`."
+                      },
+                      "estimated_annual_net": {
+                        "type": "integer",
+                        "description": "Estimated annual net income for this income stream (in cents)."
+                      },
+                      "period_net": {
+                        "type": "integer",
+                        "description": "Net income over the period for this income stream (in cents). The term `period` refers to the time interval covering the earliest date to the latest date found in the submitted data."
+                      },
+                      "estimated_annual_gross": {
+                        "type": "integer",
+                        "description": "Estimated annual gross income for this income stream (in cents)."
+                      },
+                      "period_gross": {
+                        "type": "integer",
+                        "description": "Gross income over the period for this income stream (in cents). The term `period` refers to the time interval covering the earliest date to the latest date found in the submitted data."
+                      },
+                      "payslip_document_ids": {
+                        "type": "array",
+                        "description": "List of payslip document IDs related to this income stream.",
+                        "items": {
+                          "type": "integer"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "revenue": {
+      "type": "object",
+      "description": "Insights relating to revenue data.",
+      "properties": {
+        "transaction_data": {
+          "type": "object",
+          "description": "Revenue insights relating to transaction data (bank statements and open banking data).",
+          "properties": {
+            "estimated_annual_gross": {
+              "type": "integer",
+              "description": "Estimated annual gross revenue (in cents)."
+            },
+            "period_gross": {
+              "type": "integer",
+              "description": "Gross revenue over the period (in cents). The term `period` refers to the time interval covering the earliest date to the latest date found in the submitted data."
+            },
+            "count_deposits": {
+              "type": "integer",
+              "description": "Number of revenue deposit transactions."
+            },
+            "average_deposit_amount": {
+              "type": "integer",
+              "description": "The average deposit amount across all uploaded revenue transactions."
+            },
+            "streams": {
+              "type": "object",
+              "description": "List of all revenue streams relating to transaction data.",
+              "properties": {
+                "sample_payer_1": {
+                  "type": "array",
+                  "description": "Revenue insights relating to income received from sample_payer_1.",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "frequency": {
+                        "type": "string",
+                        "description": "The frequency of this revenue stream, either `daily`, `weekly`, `fortnightly`, `monthly`, `irregular`, or `unknown`."
+                      },
+                      "estimated_annual_gross": {
+                        "type": "integer",
+                        "description": "Estimated annual gross revenue for this stream (in cents)."
+                      },
+                      "period_gross": {
+                        "type": "integer",
+                        "description": "Gross revenue over the period for this stream (in cents). The term `period` refers to the time interval covering the earliest date to the latest date found in the submitted data."
+                      },
+                      "transaction_ids": {
+                        "type": "array",
+                        "description": "List of transaction IDs for this revenue stream.",
+                        "items": {
+                          "type": "string",
+                          "format": "uuid"
+                        }
+                      },
+                      "category": {
+                        "type": "string",
+                        "description": "The Inscribe category that this revenue stream belongs to. The Inscribe category that this income stream belongs to. Options here include the top-level category `income`, or one of the subcategories `revenue`, `retirement`, `social_security`, `commission_received`, or `interest_received`."
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "revenue_by_payment_processor": {
+              "type": "object",
+              "description": "List of all revenue streams relating to transaction data.",
+              "properties": {
+                "sample_processor_1": {
+                  "type": "array",
+                  "description": "Revenue insights relating to income received via sample_processor_1.",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "frequency": {
+                        "type": "string",
+                        "description": "The frequency of this revenue stream, either `daily`, `weekly`, `fortnightly`, `monthly`, `irregular`, or `unknown`."
+                      },
+                      "estimated_annual_gross": {
+                        "type": "integer",
+                        "description": "Estimated annual gross revenue for this stream (in cents)."
+                      },
+                      "period_gross": {
+                        "type": "integer",
+                        "description": "Gross revenue over the period for this stream (in cents). The term `period` refers to the time interval covering the earliest date to the latest date found in the submitted data."
+                      },
+                      "transaction_ids": {
+                        "type": "array",
+                        "description": "List of transaction IDs for this revenue stream.",
+                        "items": {
+                          "type": "string",
+                          "format": "uuid"
+                        }
+                      },
+                      "category": {
+                        "type": "string",
+                        "description": "The Inscribe category that this revenue stream belongs to. The Inscribe category that this income stream belongs to. Options here include the top-level category `income`, or one of the subcategories `revenue`, `retirement`, `social_security`, `commission_received`, or `interest_received`."
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "metadata": {
+      "$ref": "#/$defs/metadata_insights"
+    },
+    "confidence_score": {
+      "type": "number",
+      "deprecated": true,
+      "format": "float",
+      "description": "The confidence score represents the degree of certainty for the accuracy of the Credit Insights outputs. We calculate this score using a weighted combination of parsing and transaction categorization certainties. Confidence scores above 0.5 represent high confidence."
+    }
+  },
+  "$defs": {
+    "metadata_insights": {
+      "type": "object",
+      "description": "Additional data which provides context about Inscribe's Credit Insights response.",
+      "properties": {
+        "confidence_score": {
+          "type": "number",
+          "format": "float",
+          "description": "The confidence score represents the degree of certainty for the accuracy of the Credit Insights outputs. We calculate this score using a weighted combination of parsing and transaction categorization certainties. Confidence scores above 0.5 represent high confidence."
+        },
+        "customer_contains_low_trust_score_documents": {
+          "type": "boolean",
+          "description": "This value will be set to True if the customer contains any documents under a trust score threshold of 50. Else, this will be set to False."
+        },
+        "included_data_sources": {
+          "type": "object",
+          "description": "Lists all documents and open banking data which were used to create the Inscribe Credit Insights.",
+          "properties": {
+            "documents": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "document_id": {
+                    "type": "string",
+                    "format": "uuid"
+                  }
+                }
+              }
+            },
+            "open_banking": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "open_banking_data_id": {
+                    "type": "string",
+                    "format": "uuid"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "excluded_data_sources": {
+          "type": "object",
+          "description": "Lists all documents and open banking data which were excluded from the Inscribe Credit Insights. Documents can be excluded if they are duplicate documents, or when the include_unreconciled_documents query parameter is set to False.",
+          "properties": {
+            "documents": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "document_id": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "exclusion_reason": {
+                    "format": "string"
+                  }
+                }
+              }
+            },
+            "open_banking": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "open_banking_data_id": {
+                    "type": "string",
+                    "format": "uuid"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "query_parameters": {
+          "type": "object",
+          "description": "Lists the query parameters which were used in the original endpoint request."
+        }
+      }
+    }
+  }
+}

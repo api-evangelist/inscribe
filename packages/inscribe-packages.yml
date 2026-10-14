@@ -1,0 +1,49 @@
+generated: '2026-10-14'
+method: probed
+generator: harvest-packages.py
+source: registry metadata endpoints (registry.npmjs.org, pypi.org, rubygems.org, api.nuget.org, packagist.org, crates.io)
+ownership_rule: 'official: true only when the registry metadata (homepage, repository, author, URLs) names the provider''s domain (authentication/inscribe-authentication.yml,
+  blogs/blogs.json, finops/inscribe-finops.yml, inscribe.ai, json-ld/inscribe-context.jsonld, linkedin.com, plans/inscribe-plans-pricing.yml,
+  rate-limits/inscribe-rate-limits.yml, security/inscribe-domain-security.yml, security/inscribe-vulnerability-disclosure.yml, twitter.com) or
+  its accepted GitHub org.'
+packages:
+- name: inscribe
+  registry: pypi
+  url: https://pypi.org/project/inscribe/
+  language: Python
+  official: true
+  version: 3.1.0
+  published: '2022-07-21'
+  evidence: metadata names inscribe.ai
+- name: inscribe
+  registry: npm
+  url: https://www.npmjs.com/package/inscribe
+  language: JavaScript
+  official: false
+  version: 0.0.0
+  published: '2014-04-14'
+  evidence: 'name match only: the metadata names neither the provider''s domain nor its GitHub org'
+- name: inscribe
+  registry: rubygems
+  url: https://rubygems.org/gems/inscribe
+  language: Ruby
+  official: false
+  version: 0.0.1
+  published: '2015-01-28'
+  evidence: 'name match only: the metadata names neither the provider''s domain nor its GitHub org'
+- name: inscribe
+  registry: nuget
+  url: https://www.nuget.org/packages/inscribe
+  language: C#
+  official: false
+  version: 0.4.1
+  published: null
+  evidence: 'name match only: the metadata names neither the provider''s domain nor its GitHub org'
+- name: inscribe
+  registry: crates
+  url: https://crates.io/crates/inscribe
+  language: Rust
+  official: false
+  version: 0.0.3
+  published: '2025-10-13'
+  evidence: 'name match only: the metadata names neither the provider''s domain nor its GitHub org'

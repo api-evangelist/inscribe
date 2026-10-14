@@ -1,0 +1,21 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA256
+
+Contact: mailto:security@inscribe.ai
+Expires: 2027-08-16T23:00:00.000Z
+Encryption: https://www.inscribe.ai/.well-known/public-inscribe-security-key.asc
+Preferred-Languages: en
+Canonical: https://www.inscribe.ai/.well-known/security.txt
+Policy: https://www.inscribe.ai/disclosures
+Hiring: https://www.inscribe.ai/careers
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEE44X/EoVCx7bUk5yTekwsIGlcnaoFAmdF9I8ACgkQekwsIGlc
+nar1wggAgl7w57cisnTEufcMLB5/G90RnKsMQqf7mU6syX7pW9AafTToQNZ8FMad
+oGyWK3XeW1+5CVKoFvu3rrXVGO+FSECl6J//3AifCRg2vc9cWlUPH93r7tQTJGu1
+HlnM4VzLXw1pwQraNhKiQ6p4csF8LZippYX8tBCDuaoABUc2qQ10Bn+Rbgb3VmL3
+pAP0i2zSAHY40UnybgqZdbCbgbqnp1+nKxFb6eJjENitrwKkyJe2VISW7YnYaSk8
++7SFsqCU6o0y2f0FMTWM43HPACqDVHf9ym7FwDBrNAm7Vww5XEQudZaceWml7o/5
+5JnmwNPi+1xYRkKIJHsSJI//esbQwQ==
+=TDA3
+-----END PGP SIGNATURE-----

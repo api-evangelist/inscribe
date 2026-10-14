@@ -1,0 +1,401 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/inscribe/main/json-schema/inscribe-credit-analysis-expenditure-insights-schema.json",
+  "title": "CreditAnalysisExpenditureInsights",
+  "x-generated": "2026-10-14",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/inscribe-core-resources-openapi.yml#/components/schemas/CreditAnalysisExpenditureInsights",
+  "type": "object",
+  "properties": {
+    "total_spend": {
+      "type": "integer",
+      "description": "The summed amounts of all spend (debit) transactions (in cents)."
+    },
+    "spend_by_vendor": {
+      "type": "object",
+      "description": "The summed amounts of all spend (debit) transactions split by vendor (in cents). It is important to note that not all transactions will have assigned vendors.",
+      "properties": {
+        "vendor": {
+          "description": "The summed amounts of all spend (debit) transactions associated to this vendor (in cents).",
+          "type": "object",
+          "properties": {
+            "total": {
+              "type": "integer"
+            }
+          }
+        }
+      }
+    },
+    "spend_by_payment_processor": {
+      "type": "object",
+      "description": "The summed amounts of all spend (debit) transactions split by payment processor (in cents). It is important to note that not all transactions will have assigned payment processors.",
+      "properties": {
+        "payment_processor": {
+          "description": "The summed amounts of all spend (debit) transactions associated to this payment processor (in cents).",
+          "type": "object",
+          "properties": {
+            "total": {
+              "type": "integer"
+            }
+          }
+        }
+      }
+    },
+    "spend_by_category": {
+      "type": "object",
+      "description": "The summed amounts of all spend (debit) transactions split by Inscribe's transaction categories (in cents). Total spend can be accessed for each category, as well as each subcategory. It is important to note that not all transactions will have assigned categories.",
+      "properties": {
+        "accommodation": {
+          "type": "object",
+          "properties": {
+            "rent": {
+              "type": "object",
+              "properties": {
+                "total": {
+                  "type": "integer"
+                }
+              }
+            },
+            "hotels": {
+              "type": "object",
+              "properties": {
+                "total": {
+                  "type": "integer"
+                }
+              }
+            },
+            "total": {
+              "type": "integer"
+            }
+          }
+        },
+        "bank_charge": {
+          "type": "object",
+          "properties": {
+            "overdraft": {
+              "type": "object",
+              "properties": {
+                "total": {
+                  "type": "integer"
+                }
+              }
+            },
+            "nsf": {
+              "type": "object",
+              "properties": {
+                "total": {
+                  "type": "integer"
+                }
+              }
+            },
+            "interest_paid": {
+              "type": "object",
+              "properties": {
+                "total": {
+                  "type": "integer"
+                }
+              }
+            },
+            "total": {
+              "type": "integer"
+            }
+          }
+        },
+        "entertainment": {
+          "type": "object",
+          "properties": {
+            "gambling": {
+              "type": "object",
+              "properties": {
+                "total": {
+                  "type": "integer"
+                }
+              }
+            },
+            "total": {
+              "type": "integer"
+            }
+          }
+        },
+        "infrastructure": {
+          "type": "object",
+          "properties": {
+            "total": {
+              "type": "integer"
+            }
+          }
+        },
+        "insurance": {
+          "type": "object",
+          "properties": {
+            "total": {
+              "type": "integer"
+            }
+          }
+        },
+        "investments": {
+          "type": "object",
+          "properties": {
+            "savings": {
+              "type": "object",
+              "properties": {
+                "total": {
+                  "type": "integer"
+                }
+              }
+            },
+            "sweep_transfer": {
+              "type": "object",
+              "properties": {
+                "total": {
+                  "type": "integer"
+                }
+              }
+            },
+            "trading": {
+              "type": "object",
+              "properties": {
+                "crypto_trading": {
+                  "type": "object",
+                  "properties": {
+                    "total": {
+                      "type": "integer"
+                    }
+                  }
+                },
+                "total": {
+                  "type": "integer"
+                }
+              }
+            },
+            "total": {
+              "type": "integer"
+            }
+          }
+        },
+        "loan": {
+          "type": "object",
+          "properties": {
+            "mortgage": {
+              "type": "object",
+              "properties": {
+                "total": {
+                  "type": "integer"
+                }
+              }
+            },
+            "mca": {
+              "type": "object",
+              "properties": {
+                "total": {
+                  "type": "integer"
+                }
+              }
+            },
+            "payday": {
+              "type": "object",
+              "properties": {
+                "total": {
+                  "type": "integer"
+                }
+              }
+            },
+            "card_repayment": {
+              "type": "object",
+              "properties": {
+                "total": {
+                  "type": "integer"
+                }
+              }
+            },
+            "auto_loan": {
+              "type": "object",
+              "properties": {
+                "total": {
+                  "type": "integer"
+                }
+              }
+            },
+            "buy_now_pay_later": {
+              "type": "object",
+              "properties": {
+                "total": {
+                  "type": "integer"
+                }
+              }
+            },
+            "total": {
+              "type": "integer"
+            }
+          }
+        },
+        "personnel": {
+          "type": "object",
+          "properties": {
+            "total": {
+              "type": "integer"
+            }
+          }
+        },
+        "retail": {
+          "type": "object",
+          "properties": {
+            "food_and_drink": {
+              "type": "object",
+              "properties": {
+                "total": {
+                  "type": "integer"
+                }
+              }
+            },
+            "groceries": {
+              "type": "object",
+              "properties": {
+                "total": {
+                  "type": "integer"
+                }
+              }
+            },
+            "total": {
+              "type": "integer"
+            }
+          }
+        },
+        "tax": {
+          "type": "object",
+          "properties": {
+            "total": {
+              "type": "integer"
+            }
+          }
+        },
+        "transport": {
+          "type": "object",
+          "properties": {
+            "fuel": {
+              "type": "object",
+              "properties": {
+                "total": {
+                  "type": "integer"
+                }
+              }
+            },
+            "total": {
+              "type": "integer"
+            }
+          }
+        },
+        "utilities": {
+          "type": "object",
+          "properties": {
+            "total": {
+              "type": "integer"
+            }
+          }
+        },
+        "withdrawal": {
+          "type": "object",
+          "properties": {
+            "total": {
+              "type": "integer"
+            }
+          }
+        }
+      }
+    },
+    "metadata": {
+      "$ref": "#/$defs/metadata_insights"
+    },
+    "confidence_score": {
+      "type": "number",
+      "deprecated": true,
+      "format": "float",
+      "description": "The confidence score represents the degree of certainty for the accuracy of the Credit Insights outputs. We calculate this score using a weighted combination of parsing and transaction categorization certainties. Confidence scores above 0.5 represent high confidence."
+    }
+  },
+  "$defs": {
+    "metadata_insights": {
+      "type": "object",
+      "description": "Additional data which provides context about Inscribe's Credit Insights response.",
+      "properties": {
+        "confidence_score": {
+          "type": "number",
+          "format": "float",
+          "description": "The confidence score represents the degree of certainty for the accuracy of the Credit Insights outputs. We calculate this score using a weighted combination of parsing and transaction categorization certainties. Confidence scores above 0.5 represent high confidence."
+        },
+        "customer_contains_low_trust_score_documents": {
+          "type": "boolean",
+          "description": "This value will be set to True if the customer contains any documents under a trust score threshold of 50. Else, this will be set to False."
+        },
+        "included_data_sources": {
+          "type": "object",
+          "description": "Lists all documents and open banking data which were used to create the Inscribe Credit Insights.",
+          "properties": {
+            "documents": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "document_id": {
+                    "type": "string",
+                    "format": "uuid"
+                  }
+                }
+              }
+            },
+            "open_banking": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "open_banking_data_id": {
+                    "type": "string",
+                    "format": "uuid"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "excluded_data_sources": {
+          "type": "object",
+          "description": "Lists all documents and open banking data which were excluded from the Inscribe Credit Insights. Documents can be excluded if they are duplicate documents, or when the include_unreconciled_documents query parameter is set to False.",
+          "properties": {
+            "documents": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "document_id": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "exclusion_reason": {
+                    "format": "string"
+                  }
+                }
+              }
+            },
+            "open_banking": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "open_banking_data_id": {
+                    "type": "string",
+                    "format": "uuid"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "query_parameters": {
+          "type": "object",
+          "description": "Lists the query parameters which were used in the original endpoint request."
+        }
+      }
+    }
+  }
+}
