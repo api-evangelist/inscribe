@@ -1,0 +1,407 @@
+openapi: 3.2.0
+info:
+  description: Inscribe Fraud Detection API Documentation
+  version: 2.0.0
+  title: Core Resources Bank Accounts API
+  termsOfService: http://swagger.io/terms/
+  contact:
+    email: api@inscribe.ai
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+servers:
+- url: https://api.inscribe.ai/api/v2
+security:
+- ApiKeyAuth: []
+tags:
+- name: Bank Accounts
+  description: Bank account objects are created to store bank account data. These objects describe characteristics of bank accounts, such as the account name, number, and type. You can get and list bank accounts using these endpoints. Bank accounts are identified by an id.
+paths:
+  /customers/{customer_id}/bank_accounts:
+    get:
+      tags:
+      - Bank Accounts
+      summary: List Bank Accounts
+      description: Returns a list of bank accounts for a customer. The list is sorted by creation date, with the most recently created bank accounts appearing first.
+      operationId: getBankAccounts
+      parameters:
+      - name: customer_id
+        in: path
+        description: The Inscribe customer id.
+        example: 0efae611-b3eb-4b84-8ed0-a4e92ad3bf4b
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - in: query
+        name: size
+        description: Set the number of bank accounts to be returned by request.
+        example: 15
+        required: true
+        schema:
+          type: integer
+          format: int64
+          minimum: 1
+          maximum: 50
+      - in: query
+        name: cursor
+        description: A cursor to retrieve the next set of bank accounts, starting after the cursor. If no cursor is sent, the first set of bank accounts will be returned.
+        example: 9361c7fb-934b-4cac-8e07-4897e590ab94
+        schema:
+          type: string
+          format: uuid
+      - $ref: '#/components/parameters/include_unreconciled_documents'
+      responses:
+        '200':
+          description: Returns back a list of Bank Account objects.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListBankAccounts'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '403':
+          $ref: '#/components/responses/PermissionDenied'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /customers/{customer_id}/bank_accounts/{bank_account_id}:
+    get:
+      tags:
+      - Bank Accounts
+      summary: Retrieve a Bank Account
+      description: Retrieves the details of an existing customer's bank account. Supply the unique customer id and unique bank account id for that customer from the customer list and bank account list respectively.
+      operationId: getBankAccount
+      parameters:
+      - name: customer_id
+        in: path
+        description: The id of the customer to return.
+        example: 0efae611-b3eb-4b84-8ed0-a4e92ad3bf4b
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: bank_account_id
+        in: path
+        description: The id of the bank account to return.
+        example: 1tvbg371-b3eb-4b84-8ed0-a4e63ad3bf4c
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - $ref: '#/components/parameters/include_unreconciled_documents'
+      responses:
+        '200':
+          description: Successfully retrieved bank account.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BankAccount'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '403':
+          $ref: '#/components/responses/PermissionDenied'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+components:
+  schemas:
+    BankAccount:
+      type: object
+      description: A bank account object which contains information about the bank account.
+      properties:
+        data:
+          $ref: '#/components/schemas/BankAccountData'
+        metadata:
+          $ref: '#/components/schemas/metadata_transactions_accounts'
+    metadata_transactions_accounts:
+      type: object
+      description: Additional data which provides context about Inscribe's Credit Insights response.
+      properties:
+        customer_contains_low_trust_score_documents:
+          type: boolean
+          description: This value will be set to True if the customer contains any documents under a trust score threshold of 50. Else, this will be set to False.
+          example: false
+        included_data_sources:
+          type: object
+          description: Lists all documents and open banking data which were used to create the Inscribe Credit Insights.
+          properties:
+            documents:
+              type: array
+              items:
+                type: object
+                properties:
+                  document_id:
+                    type: string
+                    format: uuid
+                    example: b3de84cf-97aa-4321-a223-51640d5d8fca
+            open_banking:
+              type: array
+              items:
+                type: object
+                properties:
+                  open_banking_data_id:
+                    type: string
+                    format: uuid
+                    example: e959ed48-a9e4-44f3-a6f8-b9dddd21f27c
+        excluded_data_sources:
+          type: object
+          description: Lists all documents and open banking data which were excluded from the Inscribe Credit Insights. Documents can be excluded if they are duplicate documents, or when the include_unreconciled_documents query parameter is set to False.
+          properties:
+            documents:
+              type: array
+              items:
+                type: object
+                properties:
+                  document_id:
+                    type: string
+                    format: uuid
+                    example: fd7abd7d-5d62-42d0-b49e-62eae1fd4e22
+                  exclusion_reason:
+                    format: string
+                    example: UNRECONCILED_BANK_ACCOUNT
+            open_banking:
+              type: array
+              items:
+                type: object
+                properties:
+                  open_banking_data_id:
+                    type: string
+                    format: uuid
+                    example: 920b148f-db30-46fe-8da9-3de2c9e55b04
+        query_parameters:
+          type: object
+          description: Lists the query parameters which were used in the original endpoint request.
+    BankAccountData:
+      type: object
+      description: The bank account data
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique identifier for the object.
+          example: 0efae611-b3eb-4b84-8ed0-a4e92ad3bf4b
+        account_number:
+          type:
+          - string
+          - 'null'
+          description: The account number of the bank account.
+          example: '123456789'
+        account_type:
+          type:
+          - string
+          - 'null'
+          description: The type of the bank account.
+          example: PERSONAL
+          enum:
+          - PERSONAL
+          - BUSINESS
+        account_name:
+          type:
+          - string
+          - 'null'
+          description: The name of the bank account.
+          example: Chase Premium Checking
+        end_date:
+          type:
+          - string
+          - 'null'
+          format: date
+          description: The end date of the bank account in the format yyyy-MM-dd.
+          example: '2022-07-25'
+        start_date:
+          type:
+          - string
+          - 'null'
+          format: date
+          description: The start date of the bank account in the format yyyy-MM-dd.
+          example: '2022-06-25'
+        guid:
+          type:
+          - string
+          - 'null'
+          description: An identifier for the bank account submitted by the data provider.
+          example: 64b1c962-5659-4b87-8e88-b5dce41c7c0c
+        institution_name:
+          type:
+          - string
+          - 'null'
+          description: The name of the bank.
+          example: Bank of America
+    ListBankAccounts:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/BankAccountData'
+          description: A map with a data property that contains an array of bank accounts. Each entry in the array is a separate bank account object.
+        pagination:
+          type: object
+          properties:
+            cursor:
+              type: string
+              format: uuid
+              description: A cursor for use in pagination. This cursor is to be used in the next request's cursor parameter to request the next set of bank accounts.
+              example: 9361c7fb-934b-4cac-8e07-4897e590ab94
+        metadata:
+          $ref: '#/components/schemas/metadata_transactions_accounts'
+      example:
+        data:
+        - id: 3efae611-ct4b84-8ed0-a4e92ad3bf4bg
+          account_number: 123456789
+          account_type: PERSONAL
+          account_name: Chase Premium Checking
+          end_date: '2022-07-25'
+          start_date: '2022-06-25'
+          guid: 9a5f7a95-8c84-47db-8b2f-584a2f258e7e
+          institution_name: JP Morgan Chase
+        - id: 7yfae611-ct4b84-8ed0-a4e92ad3bf4tg
+          account_number: 123456789
+          account_type: PERSONAL
+          account_name: Wells Fargo Active Savings
+          end_date: '2022-07-25'
+          start_date: '2022-06-25'
+          guid: 4b9fdda9-4e60-4123-9728-5d292e216e33
+          institution_name: Wells Fargo
+        - id: 8pfae611-ct4b84-8ed0-a4e92ad3bf6dt
+          account_number: 123456789
+          account_type: BUSINESS
+          account_name: Bank of America Business Checking
+          end_date: '2022-07-25'
+          start_date: '2022-06-25'
+          guid: 614e00c4-d533-4cf0-b4bf-d69c9644f9c0
+          institution_name: Bank of America
+        pagination:
+          cursor: 9361c7fb-934b-4cac-8e07-4897e590ab94
+        metadata:
+          customer_contains_low_trust_score_documents: true
+          included_data_sources:
+            documents:
+            - document_id: 3efae611-ct4b84-8ed0-a4e92ad3bf4bg
+            - document_id: 7yfae611-ct4b84-8ed0-a4e92ad3bf4tg
+            - document_id: 8pfae611-ct4b84-8ed0-a4e92ad3bf6dt
+            open_banking: []
+          excluded_data_sources:
+            documents: []
+            open_banking: []
+          query_parameters:
+            include_unreconciled_documents: true
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+          example: error message
+      required:
+      - message
+  responses:
+    PermissionDenied:
+      description: You do not have permission to access this resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    TooManyRequests:
+      description: Too many requests. The request has been rate limited. For more information, visit our [documentation on rate limiting](https://docs.inscribe.ai/docs/are-the-endpoints-rate-limited).
+      content:
+        text/plain:
+          example: Requests are limited to 200 requests over a 5 minute period. Please try again in 30 seconds
+      headers:
+        Retry-After:
+          description: The number of seconds to wait before retrying the request.
+          schema:
+            type: integer
+            example: 30
+    BadRequest:
+      description: You have provided incorrect data.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The specified resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    include_unreconciled_documents:
+      name: include_unreconciled_documents
+      in: query
+      description: Unreconciled bank statements are statements where the difference between the parsed opening and closing balances is not explained by the sum of the parsed transaction amounts. Statements are typically unreconciled if the uploaded document has poor quality or is missing some of its original pages. It can also happen when the parsing models fail to parse and extract all relevant data. If this parameter is set to False, unreconciled bank statements will be excluded from the credit insights. This parameter defaults to True, keeping all documents included.
+      required: false
+      example: true
+      schema:
+        type: boolean
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      x-default: Inscribe <API KEY>
+externalDocs:
+  description: Find out more about Swagger
+  url: http://swagger.io
+x-explorer-enabled: false
+x-samples-enabled: false
+x-samples-languages:
+- curl
+- python
+- node
+x-provenance:
+  method: searched
+  source: https://docs.inscribe.ai/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://docs.inscribe.ai/reference/addcustomer.md
+  - https://docs.inscribe.ai/reference/adddocumentrequest.md
+  - https://docs.inscribe.ai/reference/createsession.md
+  - https://docs.inscribe.ai/reference/deletecustomer.md
+  - https://docs.inscribe.ai/reference/deletedocument.md
+  - https://docs.inscribe.ai/reference/deletedocumentrequest.md
+  - https://docs.inscribe.ai/reference/deleteopenbankingdata.md
+  - https://docs.inscribe.ai/reference/deleteplaidassetreport.md
+  - https://docs.inscribe.ai/reference/getbankaccount.md
+  - https://docs.inscribe.ai/reference/getbankaccountcreditanalysis.md
+  - https://docs.inscribe.ai/reference/getbankaccountcreditanalysiscashflowinsights.md
+  - https://docs.inscribe.ai/reference/getbankaccountcreditanalysisexpenditureinsights.md
+  - https://docs.inscribe.ai/reference/getbankaccountcreditanalysisincomeinsights.md
+  - https://docs.inscribe.ai/reference/getbankaccountcreditanalysisloaninsights.md
+  - https://docs.inscribe.ai/reference/getbankaccountcreditanalysisriskinsights.md
+  - https://docs.inscribe.ai/reference/getbankaccounts.md
+  - https://docs.inscribe.ai/reference/getbankaccounttransactions.md
+  - https://docs.inscribe.ai/reference/getcollectsession.md
+  - https://docs.inscribe.ai/reference/getcollectsessions.md
+  - https://docs.inscribe.ai/reference/getcustomer.md
+  - https://docs.inscribe.ai/reference/getcustomercreditanalysis.md
+  - https://docs.inscribe.ai/reference/getcustomercreditanalysiscashflowinsights.md
+  - https://docs.inscribe.ai/reference/getcustomercreditanalysisexpenditureinsights.md
+  - https://docs.inscribe.ai/reference/getcustomercreditanalysisincomeinsights.md
+  - https://docs.inscribe.ai/reference/getcustomercreditanalysisloaninsights.md
+  - https://docs.inscribe.ai/reference/getcustomercreditanalysisriskinsights.md
+  - https://docs.inscribe.ai/reference/getcustomers.md
+  - https://docs.inscribe.ai/reference/getcustomertransactions.md
+  - https://docs.inscribe.ai/reference/getdocumentresults.md
+  - https://docs.inscribe.ai/reference/getdocuments.md
+  - https://docs.inscribe.ai/reference/getopenbankingdata.md
+  - https://docs.inscribe.ai/reference/getplaidassetreport.md
+  - https://docs.inscribe.ai/reference/gettransactioncategories.md
+  - https://docs.inscribe.ai/reference/reachability-check-2.md
+  - https://docs.inscribe.ai/reference/recategorizetransactions.md
+  - https://docs.inscribe.ai/reference/updatecollectsession.md
+  - https://docs.inscribe.ai/reference/updatecustomer.md
+  - https://docs.inscribe.ai/reference/updatedocument.md
+  - https://docs.inscribe.ai/reference/uploaddocuments.md
+  - https://docs.inscribe.ai/reference/uploadinscribeopenbankingdata.md
+  - https://docs.inscribe.ai/reference/uploadmxaggregatedopenbankingdata.md
+  - https://docs.inscribe.ai/reference/uploadplaidassetreport.md
+  - https://docs.inscribe.ai/reference/uploadplaidassetreportopenbankingdata.md
+  merge:
+    pages: 43
+    deduped: 485
+    conflicts_kept_first: 0

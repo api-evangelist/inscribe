@@ -1,0 +1,2943 @@
+openapi: 3.2.0
+info:
+  description: Inscribe Fraud Detection API Documentation
+  version: 2.0.0
+  title: Core Resources Credit Insights API
+  termsOfService: http://swagger.io/terms/
+  contact:
+    email: api@inscribe.ai
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+servers:
+- url: https://api.inscribe.ai/api/v2
+security:
+- ApiKeyAuth: []
+tags:
+- name: Credit Insights
+  description: Credit Insights provides inferred creditworthiness datapoints relating to a specific customer or bank account.
+paths:
+  /customers/{customer_id}/bank_accounts/{bank_account_id}/credit_analysis:
+    get:
+      tags:
+      - Credit Insights
+      summary: Retrieve Summary Insights (Bank Account)
+      description: Returns income and creditworthiness information derived from a submitted customer bank account.
+      operationId: getBankAccountCreditAnalysis
+      parameters:
+      - name: customer_id
+        in: path
+        description: The id of the customer to return.
+        example: 0efae611-b3eb-4b84-8ed0-a4e92ad3bf4b
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: bank_account_id
+        in: path
+        description: The id of the bank account to return.
+        example: 506d3678-1bde-473e-b884-64189d48f9e7
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - $ref: '#/components/parameters/start_date'
+      - $ref: '#/components/parameters/end_date'
+      - $ref: '#/components/parameters/document_ids'
+      - $ref: '#/components/parameters/include_unreconciled_documents'
+      responses:
+        '200':
+          description: Successfully retrieved bank account credit insights.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BankAccountCreditAnalysis'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '403':
+          $ref: '#/components/responses/PermissionDenied'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /customers/{customer_id}/bank_accounts/{bank_account_id}/credit_analysis/cashflow_insights:
+    get:
+      tags:
+      - Credit Insights
+      summary: Retrieve Cashflow Insights (Bank Account)
+      description: Returns cashflow and balance insights derived from a submitted customer bank account.
+      operationId: getBankAccountCreditAnalysisCashflowInsights
+      parameters:
+      - name: customer_id
+        in: path
+        description: The id of the customer to return.
+        example: 0efae611-b3eb-4b84-8ed0-a4e92ad3bf4b
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: bank_account_id
+        in: path
+        description: The id of the bank account to return.
+        example: 506d3678-1bde-473e-b884-64189d48f9e7
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - $ref: '#/components/parameters/start_date'
+      - $ref: '#/components/parameters/end_date'
+      - $ref: '#/components/parameters/document_ids'
+      - $ref: '#/components/parameters/include_unreconciled_documents'
+      responses:
+        '200':
+          description: Successfully retrieved customer cashflow insights.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BankAccountCreditAnalysisCashflowInsights'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '403':
+          $ref: '#/components/responses/PermissionDenied'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /customers/{customer_id}/bank_accounts/{bank_account_id}/credit_analysis/expenditure_insights:
+    get:
+      tags:
+      - Credit Insights
+      summary: Retrieve Expenditure Insights (Bank Account)
+      description: Returns expenditure insights derived from submitted customer documents and transactions..
+      operationId: getBankAccountCreditAnalysisExpenditureInsights
+      parameters:
+      - name: customer_id
+        in: path
+        description: The id of the customer to return.
+        example: 0efae611-b3eb-4b84-8ed0-a4e92ad3bf4b
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: bank_account_id
+        in: path
+        description: The id of the bank account to return.
+        example: 506d3678-1bde-473e-b884-64189d48f9e7
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - $ref: '#/components/parameters/start_date'
+      - $ref: '#/components/parameters/end_date'
+      - $ref: '#/components/parameters/document_ids'
+      - $ref: '#/components/parameters/include_unreconciled_documents'
+      responses:
+        '200':
+          description: Successfully retrieved customer expenditure insights.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreditAnalysisExpenditureInsights'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '403':
+          $ref: '#/components/responses/PermissionDenied'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /customers/{customer_id}/bank_accounts/{bank_account_id}/credit_analysis/income_insights:
+    get:
+      tags:
+      - Credit Insights
+      summary: Retrieve Income Insights (Bank Account)
+      description: Returns income insights derived from a submitted customer bank account.
+      operationId: getBankAccountCreditAnalysisIncomeInsights
+      parameters:
+      - name: customer_id
+        in: path
+        description: The id of the customer to return.
+        example: 0efae611-b3eb-4b84-8ed0-a4e92ad3bf4b
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: bank_account_id
+        in: path
+        description: The id of the bank account to return.
+        example: 506d3678-1bde-473e-b884-64189d48f9e7
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - $ref: '#/components/parameters/start_date'
+      - $ref: '#/components/parameters/end_date'
+      - $ref: '#/components/parameters/document_ids'
+      - $ref: '#/components/parameters/include_unreconciled_documents'
+      responses:
+        '200':
+          description: Successfully retrieved customer income insights.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreditAnalysisIncomeInsights'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '403':
+          $ref: '#/components/responses/PermissionDenied'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /customers/{customer_id}/bank_accounts/{bank_account_id}/credit_analysis/loan_insights:
+    get:
+      tags:
+      - Credit Insights
+      summary: Retrieve Loan Insights (Bank Account)
+      description: Returns loan insights derived from a submitted customer bank account.
+      operationId: getBankAccountCreditAnalysisLoanInsights
+      parameters:
+      - name: customer_id
+        in: path
+        description: The id of the customer to return.
+        example: 0efae611-b3eb-4b84-8ed0-a4e92ad3bf4b
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: bank_account_id
+        in: path
+        description: The id of the bank account to return.
+        example: 506d3678-1bde-473e-b884-64189d48f9e7
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - $ref: '#/components/parameters/start_date'
+      - $ref: '#/components/parameters/end_date'
+      - $ref: '#/components/parameters/document_ids'
+      - $ref: '#/components/parameters/include_unreconciled_documents'
+      responses:
+        '200':
+          description: Successfully retrieved customer loan insights.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreditAnalysisLoanInsights'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '403':
+          $ref: '#/components/responses/PermissionDenied'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /customers/{customer_id}/bank_accounts/{bank_account_id}/credit_analysis/risk_insights:
+    get:
+      tags:
+      - Credit Insights
+      summary: Retrieve Risk Insights (Bank Account)
+      description: Returns risk insights derived from a submitted customer bank account.
+      operationId: getBankAccountCreditAnalysisRiskInsights
+      parameters:
+      - name: customer_id
+        in: path
+        description: The id of the customer to return.
+        example: 0efae611-b3eb-4b84-8ed0-a4e92ad3bf4b
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: bank_account_id
+        in: path
+        description: The id of the bank account to return.
+        example: 506d3678-1bde-473e-b884-64189d48f9e7
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - $ref: '#/components/parameters/start_date'
+      - $ref: '#/components/parameters/end_date'
+      - $ref: '#/components/parameters/document_ids'
+      - $ref: '#/components/parameters/include_unreconciled_documents'
+      responses:
+        '200':
+          description: Successfully retrieved customer risk insights.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreditAnalysisRiskInsights'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '403':
+          $ref: '#/components/responses/PermissionDenied'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /customers/{customer_id}/credit_analysis:
+    get:
+      tags:
+      - Credit Insights
+      summary: Retrieve Summary Insights (Customer)
+      description: Returns income and creditworthiness information extracted from transactions belonging to a specific customer.
+      operationId: getCustomerCreditAnalysis
+      parameters:
+      - name: customer_id
+        in: path
+        description: The id of the customer to return.
+        example: 0efae611-b3eb-4b84-8ed0-a4e92ad3bf4b
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - $ref: '#/components/parameters/start_date'
+      - $ref: '#/components/parameters/end_date'
+      - $ref: '#/components/parameters/document_ids'
+      - $ref: '#/components/parameters/include_unreconciled_documents'
+      responses:
+        '200':
+          description: Successfully retrieved customer credit insights.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerCreditAnalysis'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '403':
+          $ref: '#/components/responses/PermissionDenied'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /customers/{customer_id}/credit_analysis/cashflow_insights:
+    get:
+      tags:
+      - Credit Insights
+      summary: Retrieve Cashflow Insights (Customer)
+      description: Returns cashflow and balance insights derived from submitted customer documents and transactions.
+      operationId: getCustomerCreditAnalysisCashflowInsights
+      parameters:
+      - name: customer_id
+        in: path
+        description: The id of the customer to return.
+        example: 0efae611-b3eb-4b84-8ed0-a4e92ad3bf4b
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - $ref: '#/components/parameters/start_date'
+      - $ref: '#/components/parameters/end_date'
+      - $ref: '#/components/parameters/document_ids'
+      - $ref: '#/components/parameters/include_unreconciled_documents'
+      responses:
+        '200':
+          description: Successfully retrieved customer cashflow insights.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerCreditAnalysisCashflowInsights'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '403':
+          $ref: '#/components/responses/PermissionDenied'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /customers/{customer_id}/credit_analysis/expenditure_insights:
+    get:
+      tags:
+      - Credit Insights
+      summary: Retrieve Expenditure Insights (Customer)
+      description: Returns expenditure insights derived from submitted customer documents and transactions.
+      operationId: getCustomerCreditAnalysisExpenditureInsights
+      parameters:
+      - name: customer_id
+        in: path
+        description: The id of the customer to return.
+        example: 0efae611-b3eb-4b84-8ed0-a4e92ad3bf4b
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - $ref: '#/components/parameters/start_date'
+      - $ref: '#/components/parameters/end_date'
+      - $ref: '#/components/parameters/document_ids'
+      - $ref: '#/components/parameters/include_unreconciled_documents'
+      responses:
+        '200':
+          description: Successfully retrieved customer expenditure insights.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreditAnalysisExpenditureInsights'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '403':
+          $ref: '#/components/responses/PermissionDenied'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /customers/{customer_id}/credit_analysis/income_insights:
+    get:
+      tags:
+      - Credit Insights
+      summary: Retrieve Income Insights (Customer)
+      description: Returns income insights derived from submitted customer documents and transactions.
+      operationId: getCustomerCreditAnalysisIncomeInsights
+      parameters:
+      - name: customer_id
+        in: path
+        description: The id of the customer to return.
+        example: 0efae611-b3eb-4b84-8ed0-a4e92ad3bf4b
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - $ref: '#/components/parameters/start_date'
+      - $ref: '#/components/parameters/end_date'
+      - $ref: '#/components/parameters/document_ids'
+      - $ref: '#/components/parameters/include_unreconciled_documents'
+      responses:
+        '200':
+          description: Successfully retrieved customer income insights.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreditAnalysisIncomeInsights'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '403':
+          $ref: '#/components/responses/PermissionDenied'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /customers/{customer_id}/credit_analysis/loan_insights:
+    get:
+      tags:
+      - Credit Insights
+      summary: Retrieve Loan Insights (Customer)
+      description: Returns loan insights derived from submitted customer documents and transactions.
+      operationId: getCustomerCreditAnalysisLoanInsights
+      parameters:
+      - name: customer_id
+        in: path
+        description: The id of the customer to return.
+        example: 0efae611-b3eb-4b84-8ed0-a4e92ad3bf4b
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - $ref: '#/components/parameters/start_date'
+      - $ref: '#/components/parameters/end_date'
+      - $ref: '#/components/parameters/document_ids'
+      - $ref: '#/components/parameters/include_unreconciled_documents'
+      responses:
+        '200':
+          description: Successfully retrieved customer loan insights.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreditAnalysisLoanInsights'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '403':
+          $ref: '#/components/responses/PermissionDenied'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /customers/{customer_id}/credit_analysis/risk_insights:
+    get:
+      tags:
+      - Credit Insights
+      summary: Retrieve Risk Insights (Customer)
+      description: Returns risk insights derived from submitted customer documents and transactions.
+      operationId: getCustomerCreditAnalysisRiskInsights
+      parameters:
+      - name: customer_id
+        in: path
+        description: The id of the customer to return.
+        example: 0efae611-b3eb-4b84-8ed0-a4e92ad3bf4b
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - $ref: '#/components/parameters/start_date'
+      - $ref: '#/components/parameters/end_date'
+      - $ref: '#/components/parameters/document_ids'
+      - $ref: '#/components/parameters/include_unreconciled_documents'
+      responses:
+        '200':
+          description: Successfully retrieved customer risk insights.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreditAnalysisRiskInsights'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '403':
+          $ref: '#/components/responses/PermissionDenied'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+components:
+  schemas:
+    BankAccountCreditAnalysisCashflowInsights:
+      allOf:
+      - $ref: '#/components/schemas/BasicBankAccountCreditAnalysisCashflowInsights'
+      - type: object
+        properties:
+          daily_balance_volatility:
+            type: number
+            format: int
+            description: This is the [standard deviation](<https://en.wikipedia.org/wiki/Standard_deviation>) of all daily balances. This represents the volatility of the customers bank account balances. For customers with multiple bank accounts, we calculate the [standard deviation of the sum ](<https://online.stat.psu.edu/stat500/book/export/html/572>)of the bank account balance variables.
+            example: 119
+          metadata:
+            $ref: '#/components/schemas/metadata_insights'
+          confidence_score:
+            type: number
+            deprecated: true
+            format: float
+            description: The confidence score represents the degree of certainty for the accuracy of the Credit Insights outputs. We calculate this score using a weighted combination of parsing and transaction categorization certainties. Confidence scores above 0.5 represent high confidence.
+            example: 0.99
+    metadata_insights:
+      type: object
+      description: Additional data which provides context about Inscribe's Credit Insights response.
+      properties:
+        confidence_score:
+          type: number
+          format: float
+          description: The confidence score represents the degree of certainty for the accuracy of the Credit Insights outputs. We calculate this score using a weighted combination of parsing and transaction categorization certainties. Confidence scores above 0.5 represent high confidence.
+          example: 0.99
+        customer_contains_low_trust_score_documents:
+          type: boolean
+          description: This value will be set to True if the customer contains any documents under a trust score threshold of 50. Else, this will be set to False.
+          example: false
+        included_data_sources:
+          type: object
+          description: Lists all documents and open banking data which were used to create the Inscribe Credit Insights.
+          properties:
+            documents:
+              type: array
+              items:
+                type: object
+                properties:
+                  document_id:
+                    type: string
+                    format: uuid
+                    example: b3de84cf-97aa-4321-a223-51640d5d8fca
+            open_banking:
+              type: array
+              items:
+                type: object
+                properties:
+                  open_banking_data_id:
+                    type: string
+                    format: uuid
+                    example: e959ed48-a9e4-44f3-a6f8-b9dddd21f27c
+        excluded_data_sources:
+          type: object
+          description: Lists all documents and open banking data which were excluded from the Inscribe Credit Insights. Documents can be excluded if they are duplicate documents, or when the include_unreconciled_documents query parameter is set to False.
+          properties:
+            documents:
+              type: array
+              items:
+                type: object
+                properties:
+                  document_id:
+                    type: string
+                    format: uuid
+                    example: fd7abd7d-5d62-42d0-b49e-62eae1fd4e22
+                  exclusion_reason:
+                    format: string
+                    example: UNRECONCILED_BANK_ACCOUNT
+            open_banking:
+              type: array
+              items:
+                type: object
+                properties:
+                  open_banking_data_id:
+                    type: string
+                    format: uuid
+                    example: 920b148f-db30-46fe-8da9-3de2c9e55b04
+        query_parameters:
+          type: object
+          description: Lists the query parameters which were used in the original endpoint request.
+    CustomerCreditAnalysisCashflowInsights:
+      type: object
+      description: Insights about cashflow and balances (aggregated at both the customer and bank account levels).
+      properties:
+        average_credit_amount:
+          type: number
+          format: int
+          description: The average transaction amount across all credit transactions (in cents).
+          example: 5000
+        average_debit_amount:
+          type: number
+          format: int
+          description: The average transaction amount across all debit transactions (in cents).
+          example: 4000
+        count_credit_transactions:
+          type: number
+          format: int
+          description: The count of all credit transactions.
+          example: 10
+        count_debit_transactions:
+          type: number
+          format: int
+          description: The count of all debit transactions.
+          example: 15
+        total_credits:
+          type: number
+          format: int
+          description: The summed amount of all credit transactions (in cents).
+          example: 30000
+        total_debits:
+          type: number
+          format: int
+          description: The summed amount of all debit transactions (in cents).
+          example: 10000
+        total_net:
+          type: number
+          format: int
+          description: This is equivalent to total_credits minus total_debits.
+          example: 20000
+        count_self_transfers:
+          type: number
+          format: int
+          description: The quantity of self-transfers. We define a self-transfer as a bank transfer between separate bank accounts within the same entity (e.g. an individual transferring money from their checking to their savings account).
+          example: 2
+        max_balance:
+          type: number
+          format: int
+          description: The highest aggregated daily balance found (in cents). Daily balances are taken from the end of each day. This aggregated statistic refers to the overall customer daily balance (i.e. the sum across all customer bank accounts).
+          example: 1455800
+        min_balance:
+          type: number
+          format: int
+          description: The lowest aggregated daily balance found (in cents). Daily balances are taken from the end of each day. This aggregated statistic refers to the overall customer daily balance (i.e. the sum across all customer bank accounts).
+          example: 1164686
+        beginning_balance:
+          type: number
+          format: int
+          description: The beginning balance found in the period (in cents). Daily balances are taken from the end of each day. This aggregated statistic refers to the overall customer daily balance (i.e. the sum across all customer bank accounts).
+          example: 1164686
+        ending_balance:
+          type: number
+          format: int
+          description: The ending balance found in the period (in cents). Daily balances are taken from the end of each day. This aggregated statistic refers to the overall customer daily balance (i.e. the sum across all customer bank accounts).
+          example: 1164686
+        count_negative_balance_days:
+          type: number
+          format: int
+          description: The number of days for which there was a negative balance. Daily balances are taken from the end of each day. This aggregated statistic refers to the overall customer daily balance (i.e. the sum across all customer bank accounts).
+          example: 0
+        average_daily_balance:
+          type: number
+          format: int
+          description: The statistical mean of the daily balances across the time period. Daily balances are taken from the end of each day. This aggregated statistic refers to the overall customer daily balance (i.e. the sum across all customer bank accounts).
+          example: 0
+        daily_balance_volatility:
+          type: number
+          format: int
+          description: This is the [standard deviation](<https://en.wikipedia.org/wiki/Standard_deviation>) of all daily balances. This represents the volatility of the customers bank account balances. For customers with multiple bank accounts, we calculate the [standard deviation of the sum ](<https://online.stat.psu.edu/stat500/book/export/html/572>)of the bank account balance variables.
+          example: 119
+        cashflow_by_category:
+          type: object
+          description: Cashflow insights specific to each transaction category.
+          properties:
+            accommodation:
+              type: object
+              properties:
+                rent:
+                  type: object
+                  properties:
+                    total_net:
+                      type: integer
+                      example: 0
+                    total_debit:
+                      type: integer
+                      example: 0
+                    total_credit:
+                      type: integer
+                      example: 0
+                hotels:
+                  type: object
+                  properties:
+                    total_net:
+                      type: integer
+                      example: 0
+                    total_debit:
+                      type: integer
+                      example: 0
+                    total_credit:
+                      type: integer
+                      example: 0
+                total_net:
+                  type: integer
+                  example: 0
+                total_debit:
+                  type: integer
+                  example: 0
+                total_credit:
+                  type: integer
+                  example: 0
+            bank_charge:
+              type: object
+              properties:
+                overdraft:
+                  type: object
+                  properties:
+                    total_net:
+                      type: integer
+                      example: 0
+                    total_debit:
+                      type: integer
+                      example: 0
+                    total_credit:
+                      type: integer
+                      example: 0
+                nsf:
+                  type: object
+                  properties:
+                    total_net:
+                      type: integer
+                      example: 0
+                    total_debit:
+                      type: integer
+                      example: 0
+                    total_credit:
+                      type: integer
+                      example: 0
+                interest_paid:
+                  type: object
+                  properties:
+                    total_net:
+                      type: integer
+                      example: 0
+                    total_debit:
+                      type: integer
+                      example: 0
+                    total_credit:
+                      type: integer
+                      example: 0
+                total_net:
+                  type: integer
+                  example: 0
+                total_debit:
+                  type: integer
+                  example: 0
+                total_credit:
+                  type: integer
+                  example: 0
+            entertainment:
+              type: object
+              properties:
+                gambling:
+                  type: object
+                  properties:
+                    total_net:
+                      type: integer
+                      example: 20000
+                    total_debit:
+                      type: integer
+                      example: 10000
+                    total_credit:
+                      type: integer
+                      example: 30000
+                total_net:
+                  type: integer
+                  example: 0
+                total_debit:
+                  type: integer
+                  example: 0
+                total_credit:
+                  type: integer
+                  example: 0
+            income:
+              type: object
+              properties:
+                revenue:
+                  type: object
+                  properties:
+                    total_net:
+                      type: integer
+                      example: 0
+                    total_debit:
+                      type: integer
+                      example: 0
+                    total_credit:
+                      type: integer
+                      example: 0
+                salary:
+                  type: object
+                  properties:
+                    total_net:
+                      type: integer
+                      example: 0
+                    total_debit:
+                      type: integer
+                      example: 0
+                    total_credit:
+                      type: integer
+                      example: 0
+                interest_received:
+                  type: object
+                  properties:
+                    total_net:
+                      type: integer
+                      example: 0
+                    total_debit:
+                      type: integer
+                      example: 0
+                    total_credit:
+                      type: integer
+                      example: 0
+                retirement:
+                  type: object
+                  properties:
+                    total_net:
+                      type: integer
+                      example: 0
+                    total_debit:
+                      type: integer
+                      example: 0
+                    total_credit:
+                      type: integer
+                      example: 0
+                social_security:
+                  type: object
+                  properties:
+                    total_net:
+                      type: integer
+                      example: 0
+                    total_debit:
+                      type: integer
+                      example: 0
+                    total_credit:
+                      type: integer
+                      example: 0
+                commission_received:
+                  type: object
+                  properties:
+                    total_net:
+                      type: integer
+                      example: 0
+                    total_debit:
+                      type: integer
+                      example: 0
+                    total_credit:
+                      type: integer
+                      example: 0
+                total_net:
+                  type: integer
+                  example: 0
+                total_debit:
+                  type: integer
+                  example: 0
+                total_credit:
+                  type: integer
+                  example: 0
+            infrastructure:
+              type: object
+              properties:
+                total_net:
+                  type: integer
+                  example: 0
+                total_debit:
+                  type: integer
+                  example: 0
+                total_credit:
+                  type: integer
+                  example: 0
+            insurance:
+              type: object
+              properties:
+                total_net:
+                  type: integer
+                  example: 0
+                total_debit:
+                  type: integer
+                  example: 0
+                total_credit:
+                  type: integer
+                  example: 0
+            investments:
+              type: object
+              properties:
+                savings:
+                  type: object
+                  properties:
+                    total_net:
+                      type: integer
+                      example: 0
+                    total_debit:
+                      type: integer
+                      example: 0
+                    total_credit:
+                      type: integer
+                      example: 0
+                trading:
+                  type: object
+                  properties:
+                    crypto_trading:
+                      type: object
+                      properties:
+                        total_net:
+                          type: integer
+                          example: 0
+                        total_debit:
+                          type: integer
+                          example: 0
+                        total_credit:
+                          type: integer
+                          example: 0
+                    total_net:
+                      type: integer
+                      example: 0
+                    total_debit:
+                      type: integer
+                      example: 0
+                    total_credit:
+                      type: integer
+                      example: 0
+                total_net:
+                  type: integer
+                  example: 0
+                total_debit:
+                  type: integer
+                  example: 0
+                total_credit:
+                  type: integer
+                  example: 0
+            loan:
+              type: object
+              properties:
+                mortgage:
+                  type: object
+                  properties:
+                    total_net:
+                      type: integer
+                      example: 0
+                    total_debit:
+                      type: integer
+                      example: 0
+                    total_credit:
+                      type: integer
+                      example: 0
+                mca:
+                  type: object
+                  properties:
+                    total_net:
+                      type: integer
+                      example: 0
+                    total_debit:
+                      type: integer
+                      example: 0
+                    total_credit:
+                      type: integer
+                      example: 0
+                payday:
+                  type: object
+                  properties:
+                    total_net:
+                      type: integer
+                      example: 0
+                    total_debit:
+                      type: integer
+                      example: 0
+                    total_credit:
+                      type: integer
+                      example: 0
+                card_repayment:
+                  type: object
+                  properties:
+                    total_net:
+                      type: integer
+                      example: 0
+                    total_debit:
+                      type: integer
+                      example: 0
+                    total_credit:
+                      type: integer
+                      example: 0
+                auto_loan:
+                  type: object
+                  properties:
+                    total_net:
+                      type: integer
+                      example: 0
+                    total_debit:
+                      type: integer
+                      example: 0
+                    total_credit:
+                      type: integer
+                      example: 0
+                buy_now_pay_later:
+                  type: object
+                  properties:
+                    total_net:
+                      type: integer
+                      example: 0
+                    total_debit:
+                      type: integer
+                      example: 0
+                    total_credit:
+                      type: integer
+                      example: 0
+                total_net:
+                  type: integer
+                  example: 0
+                total_debit:
+                  type: integer
+                  example: 0
+                total_credit:
+                  type: integer
+                  example: 0
+            personnel:
+              type: object
+              properties:
+                total_net:
+                  type: integer
+                  example: 0
+                total_debit:
+                  type: integer
+                  example: 0
+                total_credit:
+                  type: integer
+                  example: 0
+            refund:
+              type: object
+              properties:
+                total_net:
+                  type: integer
+                  example: 0
+                total_debit:
+                  type: integer
+                  example: 0
+                total_credit:
+                  type: integer
+                  example: 0
+            retail:
+              type: object
+              properties:
+                food_and_drink:
+                  type: object
+                  properties:
+                    total_net:
+                      type: integer
+                      example: 0
+                    total_debit:
+                      type: integer
+                      example: 0
+                    total_credit:
+                      type: integer
+                      example: 0
+                groceries:
+                  type: object
+                  properties:
+                    total_net:
+                      type: integer
+                      example: 0
+                    total_debit:
+                      type: integer
+                      example: 0
+                    total_credit:
+                      type: integer
+                      example: 0
+                total_net:
+                  type: integer
+                  example: 0
+                total_debit:
+                  type: integer
+                  example: 0
+                total_credit:
+                  type: integer
+                  example: 0
+            self_transfer:
+              type: object
+              properties:
+                sweep_transfer:
+                  type: object
+                  properties:
+                    total_net:
+                      type: integer
+                      example: 0
+                    total_debit:
+                      type: integer
+                      example: 0
+                    total_credit:
+                      type: integer
+                      example: 0
+                total_net:
+                  type: integer
+                  example: 0
+                total_debit:
+                  type: integer
+                  example: 0
+                total_credit:
+                  type: integer
+                  example: 0
+            tax:
+              type: object
+              properties:
+                total_net:
+                  type: integer
+                  example: 0
+                total_debit:
+                  type: integer
+                  example: 0
+                total_credit:
+                  type: integer
+                  example: 0
+            transport:
+              type: object
+              properties:
+                fuel:
+                  type: object
+                  properties:
+                    total_net:
+                      type: integer
+                      example: 0
+                    total_debit:
+                      type: integer
+                      example: 0
+                    total_credit:
+                      type: integer
+                      example: 0
+                total_net:
+                  type: integer
+                  example: 0
+                total_debit:
+                  type: integer
+                  example: 0
+                total_credit:
+                  type: integer
+                  example: 0
+            utilities:
+              type: object
+              properties:
+                total_net:
+                  type: integer
+                  example: 0
+                total_debit:
+                  type: integer
+                  example: 0
+                total_credit:
+                  type: integer
+                  example: 0
+            withdrawal:
+              type: object
+              properties:
+                total_net:
+                  type: integer
+                  example: 0
+                total_debit:
+                  type: integer
+                  example: 0
+                total_credit:
+                  type: integer
+                  example: 0
+        cashflow_by_method:
+          type: object
+          description: Cashflow insights specific to each transaction method. Transaction methods describes 'how' a transaction was completed (e.g. cash, check, bank transfer).
+          properties:
+            bank_transfer:
+              type: object
+              properties:
+                total_credits:
+                  type: integer
+                  example: 300
+                  description: The summed amount of all credit transactions relevant to this transaction method (in cents).
+                total_debits:
+                  type: integer
+                  example: 200
+                  description: The summed amount of all debit transactions relevant to this transaction method (in cents).
+                total_net:
+                  type: integer
+                  example: 100
+                  description: This is equivalent to total_credits minus total_debits.
+            card_payment:
+              type: object
+              properties:
+                total_credits:
+                  type: integer
+                  example: 300
+                  description: The summed amount of all credit transactions relevant to this transaction method (in cents).
+                total_debits:
+                  type: integer
+                  example: 200
+                  description: The summed amount of all debit transactions relevant to this transaction method (in cents).
+                total_net:
+                  type: integer
+                  example: 100
+                  description: This is equivalent to total_credits minus total_debits.
+            cash:
+              type: object
+              properties:
+                total_credits:
+                  type: integer
+                  example: 300
+                  description: The summed amount of all credit transactions relevant to this transaction method (in cents).
+                total_debits:
+                  type: integer
+                  example: 200
+                  description: The summed amount of all debit transactions relevant to this transaction method (in cents).
+                total_net:
+                  type: integer
+                  example: 100
+                  description: This is equivalent to total_credits minus total_debits.
+            check:
+              type: object
+              properties:
+                total_credits:
+                  type: integer
+                  example: 300
+                  description: The summed amount of all credit transactions relevant to this transaction method (in cents).
+                total_debits:
+                  type: integer
+                  example: 200
+                  description: The summed amount of all debit transactions relevant to this transaction method (in cents).
+                total_net:
+                  type: integer
+                  example: 100
+                  description: This is equivalent to total_credits minus total_debits.
+        bank_accounts:
+          type: object
+          description: A list of bank accounts associated with the customer.
+          properties:
+            bank_account_id:
+              $ref: '#/components/schemas/BasicBankAccountCreditAnalysisCashflowInsights'
+        metadata:
+          $ref: '#/components/schemas/metadata_insights'
+        confidence_score:
+          type: number
+          deprecated: true
+          format: float
+          description: The confidence score represents the degree of certainty for the accuracy of the Credit Insights outputs. We calculate this score using a weighted combination of parsing and transaction categorization certainties. Confidence scores above 0.5 represent high confidence.
+          example: 0.99
+    BasicBankAccountCreditAnalysisCashflowInsights:
+      type: object
+      description: Insights about cashflow and balances specific to the listed bank account.
+      properties:
+        average_credit_amount:
+          type: number
+          format: int
+          description: The average transaction amount across all credit transactions (in cents).
+          example: 5000
+        average_debit_amount:
+          type: number
+          format: int
+          description: The average transaction amount across all debit transactions (in cents).
+          example: 4000
+        count_credit_transactions:
+          type: number
+          format: int
+          description: The count of all credit transactions.
+          example: 10
+        count_debit_transactions:
+          type: number
+          format: int
+          description: The count of all debit transactions.
+          example: 15
+        total_credits:
+          type: number
+          format: int
+          description: The summed amount of all credit transactions (in cents).
+          example: 30000
+        total_debits:
+          type: number
+          format: int
+          description: The summed amount of all debit transactions (in cents).
+          example: 10000
+        total_net:
+          type: number
+          format: int
+          description: This is equivalent to total_credits minus total_debits.
+          example: 20000
+        count_self_transfers:
+          type: number
+          format: int
+          description: The quantity of self-transfers. We define a self-transfer as a bank transfer between separate bank accounts within the same entity (e.g. an individual transferring money from their checking to their savings account).
+          example: 2
+        max_balance:
+          type: number
+          format: int
+          description: The highest daily balance found (in cents). Daily balances are taken from the end of each day.
+          example: 1455800
+        min_balance:
+          type: number
+          format: int
+          description: The lowest daily balance found (in cents). Daily balances are taken from the end of each day.
+          example: 1164686
+        beginning_balance:
+          type: number
+          format: int
+          description: The beginning balance for the bank account (in cents).
+          example: 1343187
+        ending_balance:
+          type: number
+          format: int
+          description: The ending balance for the bank account (in cents).
+          example: 1237381
+        average_daily_balance:
+          type: number
+          format: int
+          description: The average daily balance found (in cents). Daily balances are taken from the end of each day.
+          example: 1319166
+        count_negative_balance_days:
+          type: number
+          format: int
+          description: The number of days for which there was a negative balance. Daily balances are taken from the end of each day.
+          example: 0
+        cashflow_by_category:
+          type: object
+          description: Cashflow insights specific to each transaction category.
+          properties:
+            accommodation:
+              type: object
+              properties:
+                rent:
+                  type: object
+                  properties:
+                    total_net:
+                      type: integer
+                      example: 0
+                    total_debit:
+                      type: integer
+                      example: 0
+                    total_credit:
+                      type: integer
+                      example: 0
+                hotels:
+                  type: object
+                  properties:
+                    total_net:
+                      type: integer
+                      example: 0
+                    total_debit:
+                      type: integer
+                      example: 0
+                    total_credit:
+                      type: integer
+                      example: 0
+                total_net:
+                  type: integer
+                  example: 0
+                total_debit:
+                  type: integer
+                  example: 0
+                total_credit:
+                  type: integer
+                  example: 0
+            bank_charge:
+              type: object
+              properties:
+                overdraft:
+                  type: object
+                  properties:
+                    total_net:
+                      type: integer
+                      example: 0
+                    total_debit:
+                      type: integer
+                      example: 0
+                    total_credit:
+                      type: integer
+                      example: 0
+                nsf:
+                  type: object
+                  properties:
+                    total_net:
+                      type: integer
+                      example: 0
+                    total_debit:
+                      type: integer
+                      example: 0
+                    total_credit:
+                      type: integer
+                      example: 0
+                interest_paid:
+                  type: object
+                  properties:
+                    total_net:
+                      type: integer
+                      example: 0
+                    total_debit:
+                      type: integer
+                      example: 0
+                    total_credit:
+                      type: integer
+                      example: 0
+                total_net:
+                  type: integer
+                  example: 0
+                total_debit:
+                  type: integer
+                  example: 0
+                total_credit:
+                  type: integer
+                  example: 0
+            entertainment:
+              type: object
+              properties:
+                gambling:
+                  type: object
+                  properties:
+                    total_net:
+                      type: integer
+                      example: 20000
+                    total_debit:
+                      type: integer
+                      example: 10000
+                    total_credit:
+                      type: integer
+                      example: 30000
+                total_net:
+                  type: integer
+                  example: 0
+                total_debit:
+                  type: integer
+                  example: 0
+                total_credit:
+                  type: integer
+                  example: 0
+            income:
+              type: object
+              properties:
+                revenue:
+                  type: object
+                  properties:
+                    total_net:
+                      type: integer
+                      example: 0
+                    total_debit:
+                      type: integer
+                      example: 0
+                    total_credit:
+                      type: integer
+                      example: 0
+                salary:
+                  type: object
+                  properties:
+                    total_net:
+                      type: integer
+                      example: 0
+                    total_debit:
+                      type: integer
+                      example: 0
+                    total_credit:
+                      type: integer
+                      example: 0
+                interest_received:
+                  type: object
+                  properties:
+                    total_net:
+                      type: integer
+                      example: 0
+                    total_debit:
+                      type: integer
+                      example: 0
+                    total_credit:
+                      type: integer
+                      example: 0
+                retirement:
+                  type: object
+                  properties:
+                    total_net:
+                      type: integer
+                      example: 0
+                    total_debit:
+                      type: integer
+                      example: 0
+                    total_credit:
+                      type: integer
+                      example: 0
+                social_security:
+                  type: object
+                  properties:
+                    total_net:
+                      type: integer
+                      example: 0
+                    total_debit:
+                      type: integer
+                      example: 0
+                    total_credit:
+                      type: integer
+                      example: 0
+                commission_received:
+                  type: object
+                  properties:
+                    total_net:
+                      type: integer
+                      example: 0
+                    total_debit:
+                      type: integer
+                      example: 0
+                    total_credit:
+                      type: integer
+                      example: 0
+                total_net:
+                  type: integer
+                  example: 0
+                total_debit:
+                  type: integer
+                  example: 0
+                total_credit:
+                  type: integer
+                  example: 0
+            infrastructure:
+              type: object
+              properties:
+                total_net:
+                  type: integer
+                  example: 0
+                total_debit:
+                  type: integer
+                  example: 0
+                total_credit:
+                  type: integer
+                  example: 0
+            insurance:
+              type: object
+              properties:
+                total_net:
+                  type: integer
+                  example: 0
+                total_debit:
+                  type: integer
+                  example: 0
+                total_credit:
+                  type: integer
+                  example: 0
+            investments:
+              type: object
+              properties:
+                savings:
+                  type: object
+                  properties:
+                    total_net:
+                      type: integer
+                      example: 0
+                    total_debit:
+                      type: integer
+                      example: 0
+                    total_credit:
+                      type: integer
+                      example: 0
+                trading:
+                  type: object
+                  properties:
+                    crypto_trading:
+                      type: object
+                      properties:
+                        total_net:
+                          type: integer
+                          example: 0
+                        total_debit:
+                          type: integer
+                          example: 0
+                        total_credit:
+                          type: integer
+                          example: 0
+                    total_net:
+                      type: integer
+                      example: 0
+                    total_debit:
+                      type: integer
+                      example: 0
+                    total_credit:
+                      type: integer
+                      example: 0
+                sweep_transfer:
+                  type: object
+                  properties:
+                    total_net:
+                      type: integer
+                      example: 0
+                    total_debit:
+                      type: integer
+                      example: 0
+                    total_credit:
+                      type: integer
+                      example: 0
+                total_net:
+                  type: integer
+                  example: 0
+                total_debit:
+                  type: integer
+                  example: 0
+                total_credit:
+                  type: integer
+                  example: 0
+            loan:
+              type: object
+              properties:
+                mortgage:
+                  type: object
+                  properties:
+                    total_net:
+                      type: integer
+                      example: 0
+                    total_debit:
+                      type: integer
+                      example: 0
+                    total_credit:
+                      type: integer
+                      example: 0
+                mca:
+                  type: object
+                  properties:
+                    total_net:
+                      type: integer
+                      example: 0
+                    total_debit:
+                      type: integer
+                      example: 0
+                    total_credit:
+                      type: integer
+                      example: 0
+                payday:
+                  type: object
+                  properties:
+                    total_net:
+                      type: integer
+                      example: 0
+                    total_debit:
+                      type: integer
+                      example: 0
+                    total_credit:
+                      type: integer
+                      example: 0
+                card_repayment:
+                  type: object
+                  properties:
+                    total_net:
+                      type: integer
+                      example: 0
+                    total_debit:
+                      type: integer
+                      example: 0
+                    total_credit:
+                      type: integer
+                      example: 0
+                auto_loan:
+                  type: object
+                  properties:
+                    total_net:
+                      type: integer
+                      example: 0
+                    total_debit:
+                      type: integer
+                      example: 0
+                    total_credit:
+                      type: integer
+                      example: 0
+                buy_now_pay_later:
+                  type: object
+                  properties:
+                    total_net:
+                      type: integer
+                      example: 0
+                    total_debit:
+                      type: integer
+                      example: 0
+                    total_credit:
+                      type: integer
+                      example: 0
+                total_net:
+                  type: integer
+                  example: 0
+                total_debit:
+                  type: integer
+                  example: 0
+                total_credit:
+                  type: integer
+                  example: 0
+            personnel:
+              type: object
+              properties:
+                total_net:
+                  type: integer
+                  example: 0
+                total_debit:
+                  type: integer
+                  example: 0
+                total_credit:
+                  type: integer
+                  example: 0
+            refund:
+              type: object
+              properties:
+                total_net:
+                  type: integer
+                  example: 0
+                total_debit:
+                  type: integer
+                  example: 0
+                total_credit:
+                  type: integer
+                  example: 0
+            retail:
+              type: object
+              properties:
+                food_and_drink:
+                  type: object
+                  properties:
+                    total_net:
+                      type: integer
+                      example: 0
+                    total_debit:
+                      type: integer
+                      example: 0
+                    total_credit:
+                      type: integer
+                      example: 0
+                groceries:
+                  type: object
+                  properties:
+                    total_net:
+                      type: integer
+                      example: 0
+                    total_debit:
+                      type: integer
+                      example: 0
+                    total_credit:
+                      type: integer
+                      example: 0
+                total_net:
+                  type: integer
+                  example: 0
+                total_debit:
+                  type: integer
+                  example: 0
+                total_credit:
+                  type: integer
+                  example: 0
+            self_transfer:
+              type: object
+              properties:
+                total_net:
+                  type: integer
+                  example: 0
+                total_debit:
+                  type: integer
+                  example: 0
+                total_credit:
+                  type: integer
+                  example: 0
+            tax:
+              type: object
+              properties:
+                total_net:
+                  type: integer
+                  example: 0
+                total_debit:
+                  type: integer
+                  example: 0
+                total_credit:
+                  type: integer
+                  example: 0
+            transport:
+              type: object
+              properties:
+                fuel:
+                  type: object
+                  properties:
+                    total_net:
+                      type: integer
+                      example: 0
+                    total_debit:
+                      type: integer
+                      example: 0
+                    total_credit:
+                      type: integer
+                      example: 0
+                total_net:
+                  type: integer
+                  example: 0
+                total_debit:
+                  type: integer
+                  example: 0
+                total_credit:
+                  type: integer
+                  example: 0
+            utilities:
+              type: object
+              properties:
+                total_net:
+                  type: integer
+                  example: 0
+                total_debit:
+                  type: integer
+                  example: 0
+                total_credit:
+                  type: integer
+                  example: 0
+            withdrawal:
+              type: object
+              properties:
+                total_net:
+                  type: integer
+                  example: 0
+                total_debit:
+                  type: integer
+                  example: 0
+                total_credit:
+                  type: integer
+                  example: 0
+        cashflow_by_method:
+          type: object
+          description: Cashflow insights specific to each transaction method. Transaction methods describes 'how' a transaction was completed (e.g. cash, check, bank transfer).
+          properties:
+            bank_transfer:
+              type: object
+              properties:
+                total_credits:
+                  type: integer
+                  example: 300
+                  description: The summed amount of all credit transactions relevant to this transaction method (in cents).
+                total_debits:
+                  type: integer
+                  example: 200
+                  description: The summed amount of all debit transactions relevant to this transaction method (in cents).
+                total_net:
+                  type: integer
+                  example: 100
+                  description: This is equivalent to total_credits minus total_debits.
+            card_payment:
+              type: object
+              properties:
+                total_credits:
+                  type: integer
+                  example: 300
+                  description: The summed amount of all credit transactions relevant to this transaction method (in cents).
+                total_debits:
+                  type: integer
+                  example: 200
+                  description: The summed amount of all debit transactions relevant to this transaction method (in cents).
+                total_net:
+                  type: integer
+                  example: 100
+                  description: This is equivalent to total_credits minus total_debits.
+            cash:
+              type: object
+              properties:
+                total_credits:
+                  type: integer
+                  example: 300
+                  description: The summed amount of all credit transactions relevant to this transaction method (in cents).
+                total_debits:
+                  type: integer
+                  example: 200
+                  description: The summed amount of all debit transactions relevant to this transaction method (in cents).
+                total_net:
+                  type: integer
+                  example: 100
+                  description: This is equivalent to total_credits minus total_debits.
+            check:
+              type: object
+              properties:
+                total_credits:
+                  type: integer
+                  example: 300
+                  description: The summed amount of all credit transactions relevant to this transaction method (in cents).
+                total_debits:
+                  type: integer
+                  example: 200
+                  description: The summed amount of all debit transactions relevant to this transaction method (in cents).
+                total_net:
+                  type: integer
+                  example: 100
+                  description: This is equivalent to total_credits minus total_debits.
+        daily_balances:
+          type: object
+          description: The balance for each day in the period (in cents). Daily balances are taken from the end of each day.
+          example:
+            '2022-12-23': 1341028
+            '2022-12-24': 1455800
+            '2022-12-25': 1455800
+            '2022-12-26': 1440853
+            '2022-12-27': 1440853
+            '2022-12-28': 1440853
+            '2022-12-29': 1440853
+            '2022-12-30': 1440853
+            '2022-12-31': 1440853
+            '2022-01-01': 1440853
+            '2022-01-02': 1316303
+            '2022-01-03': 1316303
+            '2022-01-04': 1316303
+            '2022-01-05': 1282373
+            '2022-01-06': 1282373
+            '2022-01-07': 1282373
+            '2022-01-08': 1282373
+            '2022-01-09': 1282373
+            '2022-01-10': 1282373
+            '2022-01-11': 1282373
+            '2022-01-12': 1257426
+            '2022-01-13': 1248295
+            '2022-01-14': 1247241
+            '2022-01-15': 1247241
+            '2022-01-16': 1247241
+            '2022-01-17': 1247241
+            '2022-01-18': 1247241
+            '2022-01-19': 1247241
+            '2022-01-20': 1164686
+            '2022-01-21': 1238802
+            '2022-01-22': 1237381
+          properties:
+            date:
+              type: string
+              format: date-time
+              description: The balance information for the given date (in cents).
+              example: '2022-01-22'
+        30_day_balance_change:
+          type: number
+          description: Balance change over the last 30 days for the account (in cents). This value will be set to null if the time period does not cover sufficient days.
+          example: -103647
+        60_day_balance_change:
+          type: number
+          description: Balance change over the last 60 days for the account (in cents). This value will be set to null if the time period does not cover sufficient days.
+          example: null
+        90_day_balance_change:
+          type: number
+          description: Balance change over the last 90 days for the account (in cents). This value will be set to null if the time period does not cover sufficient days.
+          example: null
+    CustomerCreditAnalysis:
+      type: object
+      properties:
+        summary_statistics:
+          $ref: '#/components/schemas/CreditSummaryStatistics'
+        bank_accounts:
+          type: array
+          description: A list of bank accounts associated with the customer.
+          items:
+            type: string
+            description: The respective UUID for the bank account.
+            example: http://.../customer/{customer_id}/bank_accounts/{bank_account_id}
+        metadata:
+          $ref: '#/components/schemas/metadata_insights'
+        confidence_score:
+          type: number
+          format: float
+          deprecated: true
+          description: The confidence score represents the degree of certainty for the accuracy of the Credit Insights outputs.  We calculate this score using a weighted combination of parsing and transaction categorization certainties.  Confidence scores above 0.5 represent high confidence. Also accessible under the `metadata` header.
+          example: 0.99
+        customer_contains_low_trust_documents:
+          type: boolean
+          deprecated: true
+          description: This value will be set to True if the customer contains any documents under a trust score threshold of 50. Else,  this will be set to False. Also accessible under the `metadata` header.
+          example: false
+    CreditAnalysisIncomeInsights:
+      type: object
+      properties:
+        personal_income:
+          type: object
+          description: Insights relating to personal income data.
+          properties:
+            transaction_data:
+              type: object
+              description: Personal income insights relating to transaction data (bank statements and open banking data).
+              properties:
+                estimated_annual_net:
+                  type: integer
+                  description: Estimated annual net income (in cents).
+                  example: 8866968
+                period_net:
+                  type: integer
+                  description: Net income over the period (in cents). The term `period` refers to the time interval covering the earliest date to the latest date found in the submitted data.
+                  example: 753085
+                count_deposits:
+                  type: integer
+                  description: Number of income deposit transactions.
+                  example: 24
+                average_deposit_amount:
+                  type: integer
+                  description: The average deposit amount across all uploaded personal income transactions.
+                  example: 10000
+                streams:
+                  type: object
+                  description: List of all income streams relating to transaction data.
+                  properties:
+                    sample_payer_1:
+                      type: array
+                      description: Income insights relating to income received from sample_payer_1.
+                      items:
+                        type: object
+                        properties:
+                          frequency:
+                            type: string
+                            description: The frequency of this income stream, either `daily`, `weekly`, `fortnightly`, `monthly`, `irregular`, or `unknown`.
+                            example: monthly
+                          estimated_annual_net:
+                            type: integer
+                            description: Estimated annual net income for this income stream (in cents).
+                            example: 7495769
+                          period_net:
+                            type: integer
+                            description: Net income over the period for this income stream (in cents). The term `period` refers to the time interval covering the earliest date to the latest date found in the submitted data.
+                            example: 636627
+                          transaction_ids:
+                            type: array
+                            description: List of transaction IDs relating to this income stream.
+                            items:
+                              type: string
+                              format: uuid
+                            example:
+                            - 0efae611-b3eb-4b84-8ed0-a4e92ad3bf4b
+                            - d0734cb2-eb23-11ed-a05b-0242ac120004
+                          category:
+                            type: string
+                            description: The Inscribe category that this revenue stream belongs to. The Inscribe category that this income stream belongs to. Options here include the top-level category `income`, or one of the subcategories `salary`, `retirement`, `social_security`, `commission_received`, or `interest_received`.
+                            example: salary
+                personal_income_by_payment_processor:
+                  type: object
+                  description: List of all income streams relating to transaction data split by payment processor.
+                  properties:
+                    sample_processor_1:
+                      type: array
+                      description: Income insights relating to personal income received via sample_processor_1.
+                      items:
+                        type: object
+                        properties:
+                          frequency:
+                            type: string
+                            description: The frequency of this income stream, either `daily`, `weekly`, `fortnightly`, `monthly`, `irregular`, or `unknown`.
+                            example: monthly
+                          estimated_annual_net:
+                            type: integer
+                            description: Estimated annual net income for this income stream (in cents).
+                            example: 7495769
+                          period_net:
+                            type: integer
+                            description: Net income over the period for this income stream (in cents). The term `period` refers to the time interval covering the earliest date to the latest date found in the submitted data.
+                            example: 636627
+                          transaction_ids:
+                            type: array
+                            description: List of transaction IDs relating to this income stream.
+                            items:
+                              type: string
+                              format: uuid
+                            example:
+                            - 0efae611-b3eb-4b84-8ed0-a4e92ad3bf4b
+                            - d0734cb2-eb23-11ed-a05b-0242ac120004
+                          category:
+                            type: string
+                            description: The Inscribe category that this revenue stream belongs to. The Inscribe category that this income stream belongs to. Options here include the top-level category `income`, or one of the subcategories `salary`, `retirement`, `social_security`, `commission_received`, or `interest_received`.
+                            example: salary
+            payslip_data:
+              type: object
+              description: Personal income insights relating to payslips.
+              properties:
+                estimated_annual_net:
+                  type: integer
+                  description: Estimated annual net income (in cents).
+                  example: 8866968
+                period_net:
+                  type: integer
+                  description: Net income over the period (in cents). The term `period` refers to the time interval covering the earliest date to the latest date found in the submitted data.
+                  example: 753085
+                estimated_annual_gross:
+                  type: integer
+                  description: Estimated annual gross income (in cents).
+                  example: 9866968
+                period_gross:
+                  type: integer
+                  description: Gross income over the period (in cents). The term `period` refers to the time interval covering the earliest date to the latest date found in the submitted data.
+                  example: 783085
+                streams:
+                  type: object
+                  description: List of all income streams relating to payslip data.
+                  properties:
+                    sample_payer_1:
+                      type: array
+                      description: Income insights relating to income received from sample_payer_1.
+                      items:
+                        type: object
+                        properties:
+                          frequency:
+                            type: string
+                            description: The frequency of this income stream, either `daily`, `weekly`, `fortnightly`, `monthly`, `irregular`, or `unknown`.
+                            example: monthly
+                          estimated_annual_net:
+                            type: integer
+                            description: Estimated annual net income for this income stream (in cents).
+                            example: 7495769
+                          period_net:
+                            type: integer
+                            description: Net income over the period for this income stream (in cents). The term `period` refers to the time interval covering the earliest date to the latest date found in the submitted data.
+                            example: 636627
+                          estimated_annual_gross:
+                            type: integer
+                            description: Estimated annual gross income for this income stream (in cents).
+                            example: 8495769
+                          period_gross:
+                            type: integer
+                            description: Gross income over the period for this income stream (in cents). The term `period` refers to the time interval covering the earliest date to the latest date found in the submitted data.
+                            example: 736627
+                          payslip_document_ids:
+                            type: array
+                            description: List of payslip document IDs related to this income stream.
+                            items:
+                              type: integer
+                              example: 25017
+        revenue:
+          type: object
+          description: Insights relating to revenue data.
+          properties:
+            transaction_data:
+              type: object
+              description: Revenue insights relating to transaction data (bank statements and open banking data).
+              properties:
+                estimated_annual_gross:
+                  type: integer
+                  description: Estimated annual gross revenue (in cents).
+                  example: 8866968
+                period_gross:
+                  type: integer
+                  description: Gross revenue over the period (in cents). The term `period` refers to the time interval covering the earliest date to the latest date found in the submitted data.
+                  example: 753085
+                count_deposits:
+                  type: integer
+                  description: Number of revenue deposit transactions.
+                  example: 24
+                average_deposit_amount:
+                  type: integer
+                  description: The average deposit amount across all uploaded revenue transactions.
+                  example: 10000
+                streams:
+                  type: object
+                  description: List of all revenue streams relating to transaction data.
+                  properties:
+                    sample_payer_1:
+                      type: array
+                      description: Revenue insights relating to income received from sample_payer_1.
+                      items:
+                        type: object
+                        properties:
+                          frequency:
+                            type: string
+                            description: The frequency of this revenue stream, either `daily`, `weekly`, `fortnightly`, `monthly`, `irregular`, or `unknown`.
+                            example: monthly
+                          estimated_annual_gross:
+                            type: integer
+                            description: Estimated annual gross revenue for this stream (in cents).
+                            example: 7495769
+                          period_gross:
+                            type: integer
+                            description: Gross revenue over the period for this stream (in cents). The term `period` refers to the time interval covering the earliest date to the latest date found in the submitted data.
+                            example: 636627
+                          transaction_ids:
+                            type: array
+                            description: List of transaction IDs for this revenue stream.
+                            items:
+                              type: string
+                              format: uuid
+                            example:
+                            - 0efae611-b3eb-4b84-8ed0-a4e92ad3bf4b
+                            - 160d1f86-eb24-11ed-a05b-0242ac120003
+                          category:
+                            type: string
+                            description: The Inscribe category that this revenue stream belongs to. The Inscribe category that this income stream belongs to. Options here include the top-level category `income`, or one of the subcategories `revenue`, `retirement`, `social_security`, `commission_received`, or `interest_received`.
+                            example: revenue
+                revenue_by_payment_processor:
+                  type: object
+                  description: List of all revenue streams relating to transaction data.
+                  properties:
+                    sample_processor_1:
+                      type: array
+                      description: Revenue insights relating to income received via sample_processor_1.
+                      items:
+                        type: object
+                        properties:
+                          frequency:
+                            type: string
+                            description: The frequency of this revenue stream, either `daily`, `weekly`, `fortnightly`, `monthly`, `irregular`, or `unknown`.
+                            example: monthly
+                          estimated_annual_gross:
+                            type: integer
+                            description: Estimated annual gross revenue for this stream (in cents).
+                            example: 7495769
+                          period_gross:
+                            type: integer
+                            description: Gross revenue over the period for this stream (in cents). The term `period` refers to the time interval covering the earliest date to the latest date found in the submitted data.
+                            example: 636627
+                          transaction_ids:
+                            type: array
+                            description: List of transaction IDs for this revenue stream.
+                            items:
+                              type: string
+                              format: uuid
+                            example:
+                            - 0efae611-b3eb-4b84-8ed0-a4e92ad3bf4b
+                            - 160d1f86-eb24-11ed-a05b-0242ac120003
+                          category:
+                            type: string
+                            description: The Inscribe category that this revenue stream belongs to. The Inscribe category that this income stream belongs to. Options here include the top-level category `income`, or one of the subcategories `revenue`, `retirement`, `social_security`, `commission_received`, or `interest_received`.
+                            example: revenue
+        metadata:
+          $ref: '#/components/schemas/metadata_insights'
+        confidence_score:
+          type: number
+          deprecated: true
+          format: float
+          description: The confidence score represents the degree of certainty for the accuracy of the Credit Insights outputs. We calculate this score using a weighted combination of parsing and transaction categorization certainties. Confidence scores above 0.5 represent high confidence.
+          example: 0.99
+    BankAccountCreditSummaryStatistics:
+      type: object
+      description: Summary statistics that contain inferred creditworthiness and income information (based on the submitted customer documents and transactions).
+      properties:
+        average_daily_balance:
+          type: integer
+          example: 10000
+          description: The average daily bank account balance (in cents).
+        credits_count:
+          type: integer
+          example: 3
+          description: The quantity of credit transactions within the bank account's transactions.
+        credits_total:
+          type: integer
+          description: Summed amounts of all credit transactions within the bank account's transactions (in cents). Can also be accessed via the alias `credits_total_gross`.
+          example: 200
+        debits_count:
+          type: integer
+          description: The quantity of debit transactions within the bank account's transactions.
+          example: 10
+        debits_total:
+          type: integer
+          description: Summed amounts of all debit transactions within the bank account's transactions (in cents). Can also be accessed via the alias `debits_total_gross`.
+          example: 300
+        maximum_balance:
+          type: integer
+          description: The maximum bank account balance found (in cents).
+          example: 15000
+        maximum_consecutive_days:
+          type: integer
+          description: The longest sequence of consecutive days that the uploaded customer bank account data covers.
+          example: 31
+        minimum_balance:
+          type: integer
+          description: The minimum bank account balance found (in cents).
+          example: 5000
+        personal_income_annual_net:
+          type: integer
+          description: The estimated net annual personal income inferred from the bank account's transactions (in cents). (Also still accessible via the deprecated alias `salary_annual_net`.)
+          example: 960
+        personal_income_period_net:
+          type: integer
+          description: The total net summed personal_income found within the bank account's transactions (in cents).  The term `period` refers to the time interval covering the earliest date to the latest date found in the submitted data. (Also still accessible via the deprecated alias `salary_period_net`.)
+          example: 80
+        revenue_annual_gross:
+          type: integer
+          description: The estimated gross annual revenue inferred from the bank account's transactions (in cents).
+          example: 1200
+        revenue_period_gross:
+          type: integer
+          description: The total gross summed revenue found within the bank account's transactions (in cents).  The term `period` refers to the time interval covering the earliest date to the latest date found in the submitted data.
+          example: 100
+        total_net:
+          type: integer
+          description: The summed debit amounts minus the summed credit amounts (in cents).
+          example: -100
+        transfers_count:
+          type: integer
+          description: The quantity of transfer transactions within the bank account's transactions.
+          example: 6
+        transfers_credits_total:
+          type: integer
+          description: Summed amounts of all credit transfer transactions within the bank account's transactions (in cents). (Also still accessible via the deprecated alias `transfers_credits_total_gross`.)
+          example: 100
+        transfers_debits_total:
+          type: integer
+          description: Summed amounts of all debit transfer transactions within the bank account's transactions (in cents). (Also still accessible via the deprecated alias `transfers_debits_total_gross`.)
+          example: 200
+        unique_days_count:
+          type: integer
+          description: Number of distinct days covered by the bank account statements and transactions.
+          example: 31
+    CreditAnalysisLoanInsights:
+      type: object
+      properties:
+        count_loan_repayments:
+          type: integer
+          example: 1
+          description: The quantity of loan repayment transactions.
+        total_loan_repayments:
+          type: integer
+          example: 119100
+          description: The summed amount of all loan repayment transactions (in cents).
+        count_loan_disbursements:
+          type: integer
+          example: 0
+          description: The quantity of loan disbursement (income) transactions.
+        total_loan_disbursements:
+          type: integer
+          example: 0
+          description: The summed amount of all loan disbursement (income) transactions (in cents).
+        loans:
+          type: object
+          description: All found loans, split by lender. Each lender has an array of loans, as there may be more than one loan per lender (e.g. a customer may have a car loan and a mortgage with the same lender).
+          example:
+            pnc bank association:
+            - repayment_transaction_ids:
+              - d1cdcb04-e9fa-4a5a-a61c-04bf33edb0da
+              disbursement_transaction_ids: []
+              repayment_frequency: unknown
+              first_seen: '2022-01-02'
+              total_repayments: 119100
+              total_disbursements: 0
+              category: mortgage
+          properties:
+            lender_name:
+              type: array
+              items:
+                type: object
+                properties:
+                  repayment_transaction_ids:
+                    type: array
+                    description: An array of all loan repayment transaction ids for the given loan.
+                    items:
+                      type: string
+                      format: uuid
+                      description: Unique identifier of a loan repayment transaction.
+                      example: d1cdcb04-e9fa-4a5a-a61c-04bf33edb0da
+                  disbursement_transaction_ids:
+                    type: array
+                    description: An array of all loan disbursement transaction ids for the given loan.
+                    items:
+                      description: Unique identifier of a loan disbursement transaction.
+                      type: string
+                      format: uuid
+                      example: f1ddcb04-e9fa-4a6a-a61c-74bf33edb0ee
+                  repayment_frequency:
+                    type: string
+                    example: monthly
+                    description: The frequency of this loan repayment, either `daily`, `weekly`, `fortnightly`, `monthly`, `irregular`, or `unknown`.
+                  first_seen:
+                    type: string
+                    format: date
+                    description: The earliest date that a repayment transaction was seen for this loan.
+                    example: '2022-01-02'
+                  total_repayments:
+                    type: integer
+                    description: The summed total of all loan repayment transactions for this loan (in cents).
+                    example: 119100
+                  total_disbursements:
+                    type: integer
+                    description: The summed total of all loan disbursement (income) transactions for this loan (in cents).
+                    example: 0
+                  category:
+                    type: string
+                    description: The Inscribe loan category that this loan belongs to. Options here include the top-level category `loan`, or the subcategories `mortgage`, `card_repayment`, `mca`, `payday`, `auto_loan`, or `buy_now_pay_later`.
+                    example: mortgage
+        metadata:
+          $ref: '#/components/schemas/metadata_insights'
+        confidence_score:
+          type: number
+          deprecated: true
+          format: float
+          description: The confidence score represents the degree of certainty for the accuracy of the Credit Insights outputs. We calculate this score using a weighted combination of parsing and transaction categorization certainties. Confidence scores above 0.5 represent high confidence.
+          example: 0.99
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+          example: error message
+      required:
+      - message
+    CreditSummaryStatistics:
+      type: object
+      description: Summary statistics that contain inferred creditworthiness and income information (based on the submitted customer documents and transactions).
+      properties:
+        credits_count:
+          type: integer
+          example: 3
+          description: The quantity of credit transactions within the customer's transactions.
+        credits_total:
+          type: integer
+          description: Summed amounts of all credit transactions within the customer's transactions (in cents). (Also still accessible via the deprecated alias `credits_total_gross`.)
+          example: 200
+        debits_count:
+          type: integer
+          description: The quantity of debit transactions within the customer's transactions.
+          example: 10
+        debits_total:
+          type: integer
+          description: Summed amounts of all debit transactions within the customer's transactions (in cents). (Also still accessible via the deprecated alias `debits_total_gross`.)
+          example: 300
+        maximum_consecutive_days:
+          type: integer
+          description: The longest sequence of consecutive days that the uploaded customer data covers.
+          example: 31
+        personal_income_annual_gross:
+          type: integer
+          description: The estimated gross annual personal income for the customer inferred from submitted payslips (in cents). (Also still accessible via the deprecated alias `salary_annual_gross`.)
+          example: 1200
+        personal_income_annual_net:
+          type: integer
+          description: The estimated net annual personal income for the customer inferred from their transactions and/or payslips (in cents). (Also still accessible via the deprecated alias `salary_annual_net`.)
+          example: 960
+        personal_income_period_gross:
+          type: integer
+          description: The total gross summed personal income found within the customer's submitted payslips (in cents). The term `period` refers to the time interval covering the earliest date to the latest date found in the submitted data. (Also still accessible via the deprecated alias `salary_period_gross`.)
+          example: 100
+        personal_income_period_net:
+          type: integer
+          description: The total net summed personal income found within the customer's transactions and/or payslips (in cents). The term `period` refers to the time interval covering the earliest date to the latest date found in the submitted data. (Also still accessible via the deprecated alias `salary_period_net`.)
+          example: 80
+        revenue_annual_gross:
+          type: integer
+          description: The estimated gross annual revenue for the customer inferred from their transactions (in cents).
+          example: 1200
+        revenue_period_gross:
+          type: integer
+          description: The total gross summed revenue found within the customer's transactions (in cents). The term `period` refers to the time interval covering the earliest date to the latest date found in the submitted data.
+          example: 100
+        total_net:
+          type: integer
+          description: The summed debit amounts minus the summed credit amounts (in cents).
+          example: -100
+        transfers_count:
+          type: integer
+          description: The quantity of transfer transactions within the customer's transactions.
+          example: 6
+        transfers_credits_total:
+          type: integer
+          description: Summed amounts of all credit transfer transactions within the customer's transactions (in cents). (Also still accessible via the deprecated alias `transfers_credits_total_gross`.)
+          example: 100
+        transfers_debits_total:
+          type: integer
+          description: Summed amounts of all debit transfer transactions within the customer's transactions (in cents). (Also still accessible via the deprecated alias `transfers_debits_total_gross`.)
+          example: 200
+        unique_days_count:
+          type: integer
+          description: Number of distinct days covered by the customer's bank statements and transactions.
+          example: 31
+    CreditAnalysisExpenditureInsights:
+      type: object
+      properties:
+        total_spend:
+          type: integer
+          example: 359606
+          description: The summed amounts of all spend (debit) transactions (in cents).
+        spend_by_vendor:
+          type: object
+          description: The summed amounts of all spend (debit) transactions split by vendor (in cents). It is important to note that not all transactions will have assigned vendors.
+          properties:
+            vendor:
+              description: The summed amounts of all spend (debit) transactions associated to this vendor (in cents).
+              type: object
+              properties:
+                total:
+                  type: integer
+                  example: 10692
+          example:
+            AMAZON:
+              total: 10692
+            ATRIUM:
+              total: 2500
+            ATT&T:
+              total: 74
+            COSTCO:
+              total: 2057
+            EBAY:
+              total: 12884
+            FRED'S FISH:
+              total: 13359
+            MAGNOLIA CENTER:
+              total: 6000
+            PADDY'S PIES:
+              total: 2542
+            SBC-CA:
+              total: 74
+            WALMART:
+              total: 9190
+        spend_by_payment_processor:
+          type: object
+          description: The summed amounts of all spend (debit) transactions split by payment processor (in cents). It is important to note that not all transactions will have assigned payment processors.
+          properties:
+            payment_processor:
+              description: The summed amounts of all spend (debit) transactions associated to this payment processor (in cents).
+              type: object
+              properties:
+                total:
+                  type: integer
+                  example: 10692
+          example:
+            APPLE CASH:
+              total: 10692
+            AFFIRM:
+              total: 2500
+            AFTERPAY:
+              total: 74
+            CASH APP:
+              total: 2057
+            KLARNA:
+              total: 12884
+            PAYPAL:
+              total: 13359
+            VENMO:
+              total: 6000
+            ZELLE:
+              total: 2542
+        spend_by_category:
+          type: object
+          description: The summed amounts of all spend (debit) transactions split by Inscribe's transaction categories (in cents). Total spend can be accessed for each category, as well as each subcategory. It is important to note that not all transactions will have assigned categories.
+          properties:
+            accommodation:
+              type: object
+              properties:
+                rent:
+                  type: object
+                  properties:
+                    total:
+                      type: integer
+                      example: 0
+                hotels:
+                  type: object
+                  properties:
+                    total:
+                      type: integer
+                      example: 0
+                total:
+                  type: integer
+                  example: 0
+            bank_charge:
+              type: object
+              properties:
+                overdraft:
+                  type: object
+                  properties:
+                    total:
+                      type: integer
+                      example: 0
+                nsf:
+                  type: object
+                  properties:
+                    total:
+                      type: integer
+                      example: 0
+                interest_paid:
+                  type: object
+                  properties:
+                    total:
+                      type: integer
+                      example: 0
+                total:
+                  type: integer
+                  example: 0
+            entertainment:
+              type: object
+              properties:
+                gambling:
+                  type: object
+                  properties:
+                    total:
+                      type: integer
+                      example: 0
+                total:
+                  type: integer
+                  example: 0
+            infrastructure:
+              type: object
+              properties:
+                total:
+                  type: integer
+                  example: 0
+            insurance:
+              type: object
+              properties:
+                total:
+                  type: integer
+                  example: 0
+            investments:
+              type: object
+              properties:
+                savings:
+                  type: object
+                  properties:
+                    total:
+                      type: integer
+                      example: 0
+                sweep_transfer:
+                  type: object
+                  properties:
+                    total:
+                      type: integer
+                      example: 0
+                trading:
+                  type: object
+                  properties:
+                    crypto_trading:
+                      type: object
+                      properties:
+                        total:
+                          type: integer
+                          example: 0
+                    total:
+                      type: integer
+                      example: 0
+                total:
+                  type: integer
+                  example: 0
+            loan:
+              type: object
+              properties:
+                mortgage:
+                  type: object
+                  properties:
+                    total:
+                      type: integer
+                      example: 119100
+                mca:
+                  type: object
+                  properties:
+                    total:
+                      type: integer
+                      example: 0
+                payday:
+                  type: object
+                  properties:
+                    total:
+                      type: integer
+                      example: 0
+                card_repayment:
+                  type: object
+                  properties:
+                    total:
+                      type: integer
+                      example: 0
+                auto_loan:
+                  type: object
+                  properties:
+                    total:
+                      type: integer
+                      example: 0
+                buy_now_pay_later:
+                  type: object
+                  properties:
+                    total:
+                      type: integer
+                      example: 0
+                total:
+                  type: integer
+                  example: 119100
+            personnel:
+              type: object
+              properties:
+                total:
+                  type: integer
+                  example: 0
+            retail:
+              type: object
+              properties:
+                food_and_drink:
+                  type: object
+                  properties:
+                    total:
+                      type: integer
+                      example: 0
+                groceries:
+                  type: object
+                  properties:
+                    total:
+                      type: integer
+                      example: 0
+                total:
+                  type: integer
+                  example: 0
+            tax:
+              type: object
+              properties:
+                total:
+                  type: integer
+                  example: 0
+            transport:
+              type: object
+              properties:
+                fuel:
+                  type: object
+                  properties:
+                    total:
+                      type: integer
+                      example: 0
+                total:
+                  type: integer
+                  example: 0
+            utilities:
+              type: object
+              properties:
+                total:
+                  type: integer
+                  example: 0
+            withdrawal:
+              type: object
+              properties:
+                total:
+                  type: integer
+                  example: 0
+        metadata:
+          $ref: '#/components/schemas/metadata_insights'
+        confidence_score:
+          type: number
+          deprecated: true
+          format: float
+          description: The confidence score represents the degree of certainty for the accuracy of the Credit Insights outputs. We calculate this score using a weighted combination of parsing and transaction categorization certainties. Confidence scores above 0.5 represent high confidence.
+          example: 0.99
+    BankAccountCreditAnalysis:
+      type: object
+      properties:
+        summary_statistics:
+          $ref: '#/components/schemas/BankAccountCreditSummaryStatistics'
+        metadata:
+          $ref: '#/components/schemas/metadata_insights'
+        confidence_score:
+          type: number
+          deprecated: true
+          format: float
+          description: The confidence score represents the degree of certainty for the accuracy of the Credit Insights outputs.  We calculate this score using a weighted combination of parsing and transaction categorization certainties.  Confidence scores above 0.5 represent high confidence.
+          example: 0.99
+        customer_contains_low_trust_documents:
+          type: boolean
+          deprecated: true
+          description: This value will be set to True if the customer contains any documents under a trust score threshold of 50. Else,  this will be set to False.
+    CreditAnalysisRiskInsights:
+      type: object
+      description: Insights about risk specific to the listed customer or bank account.
+      properties:
+        count_atm_withdrawal:
+          type: number
+          format: int
+          description: The quantity of ATM withdrawal transactions.
+          example: 4
+        total_atm_withdrawal:
+          type: number
+          format: int
+          description: The summed amount of all ATM withdrawal transactions (in cents).
+          example: 10000
+        count_nsf:
+          type: number
+          format: int
+          description: The quantity of non-sufficient fund transactions. Excluding refund transactions.
+          example: 2
+        count_nsf_days:
+          type: number
+          format: int
+          description: The number of unique days on which non-sufficient fund transactions occurred. Excluding refund transactions.
+          example: 2
+        count_overdraft:
+          type: number
+          format: int
+          description: The quantity of overdraft transactions. Excluding refund transactions.
+          example: 2
+        count_overdraft_days:
+          type: number
+          format: int
+          description: The number of unique days on which overdraft transactions occurred. Excluding refund transactions.
+          example: 1
+        gambling_net:
+          type: number
+          format: int
+          description: This is the total gambling income minus the total gambling losses (in cents).
+          example: -10000
+        total_gambling_spend:
+          type: number
+          format: int
+          description: The summed amount of all gambling spend transactions (in cents).
+          example: 10000
+        expenditure_exceeds_income:
+          type: boolean
+          description: A boolean which checks if total expenditure exceeded total income. For example, this will be set to True if total expenditure is $100 and total income is $50.
+          example: true
+        large_deposits:
+          type: array
+          description: The quantity of large deposits that exceed defined thresholds.
+          items:
+            type: object
+            properties:
+              threshold_amount:
+                type: number
+                format: int
+                description: The static threshold_amount determines if a deposit is significantly large or not. e.g., If 100000 is returned in this key, then the number of deposits over $1000.00 (100000 cents) will be returned in the quantity field
+              threshold_monthly_income_percentage:
+                type: number
+                format: int
+                description: The percentage threshold determines if a deposit is significantly large or not based on an income percentage. e.g., If 50 is returned in this key, then the number of deposits which amount to over 50% of monthly income will be returned in the quantity field
+              quantity:
+                type: number
+                format: int
+                description: 'The number of deposits whose amount exceeds the defined thresholds. For example, let''s imagine deposit amounts of [1000, 200000, 12000000, 21000000] (in cents) and a predicted monthly income of 150000.
+
+
+                  If: threshold_amount = 1000000 Then: quantity = 2 (There are only 2 deposits whose amount is greater than 1000000 cents)
+
+
+                  If: threshold_monthly_income_percentage: 50 (50% of total monthly income, which is 50% of 150000 = 75000) Then: quantity = 3 (There are 3 deposits whose amount is greater than 50% of monthly income  (75000))'
+            example:
+            - threshold_amount: 100000
+              quantity: 123
+            - threshold_amount: 1000000
+              quantity: 10
+            - threshold_amount: 10000000
+              quantity: 0
+            - threshold_monthly_income_percentage: 50,
+              quantity: 15
+        large_withdrawals:
+          type: array
+          description: The quantity of large withdrawals based on defined thresholds.
+          items:
+            type: object
+            properties:
+              threshold_amount:
+                type: number
+                format: int
+                description: The static threshold_amount determines if a withdrawal is significantly large or not. e.g., If 100000 is returned in this key, then the number of withdrawals over $1000.00 (100000 cents) will be returned in the quantity field
+              quantity:
+                type: number
+                format: int
+                description: The number of withdrawals whose amounts exceed the threshold given by the threshold_amount field
+            example:
+            - threshold_amount: 100000
+              quantity: 123
+            - threshold_amount: 1000000
+              quantity: 10
+            - threshold_amount: 10000000
+              quantity: 0
+        count_crypto_trading:
+          type: number
+          format: int
+          description: The quantity of crypto trading transactions.
+          example: 2
+        crypto_trading_net:
+          type: number
+          format: int
+          description: The summed amount of all crypto trading transactions (in cents).
+          example: 500000
+        count_negative_balance_days:
+          type: number
+          format: int
+          description: The number of days for which there was a negative balance. Daily balances are taken from the end of each day.
+          example: 0
+        daily_balance_volatility:
+          type: number
+          format: int
+          description: This is the [standard deviation](<https://en.wikipedia.org/wiki/Standard_deviation>) of all daily balances. This represents the volatility of the customers bank account balances. For customers with multiple bank accounts, we calculate the [standard deviation of the sum ](<https://online.stat.psu.edu/stat500/book/export/html/572>)of the bank account balance variables.
+          example: 119
+        metadata:
+          $ref: '#/components/schemas/metadata_insights'
+        confidence_score:
+          type: number
+          deprecated: true
+          format: float
+          description: The confidence score represents the degree of certainty for the accuracy of the Credit Insights outputs. We calculate this score using a weighted combination of parsing and transaction categorization certainties. Confidence scores above 0.5 represent high confidence.
+          example: 0.99
+  parameters:
+    document_ids:
+      name: document_ids
+      in: query
+      description: A comma separated list of document UUIDs. Only data from these documents will be considered (as well as open banking data). This helps in filtering data to include/exclude certain documents.
+      required: false
+      example: 3616baa9-9caf-434e-b4d0-8a32c644dfd4,3616baa9-9caf-434e-b4d0-8a32c644dfe5
+      schema:
+        type: string
+    include_unreconciled_documents:
+      name: include_unreconciled_documents
+      in: query
+      description: Unreconciled bank statements are statements where the difference between the parsed opening and closing balances is not explained by the sum of the parsed transaction amounts. Statements are typically unreconciled if the uploaded document has poor quality or is missing some of its original pages. It can also happen when the parsing models fail to parse and extract all relevant data. If this parameter is set to False, unreconciled bank statements will be excluded from the credit insights. This parameter defaults to True, keeping all documents included.
+      required: false
+      example: true
+      schema:
+        type: boolean
+    start_date:
+      name: start_date
+      in: query
+      description: Specifies the start date for data retrieval. Only data with a date on or after this will be considered. This helps in filtering the data to a specific time frame of interest.
+      required: false
+      example: '2024-01-01'
+      schema:
+        type: string
+        format: date
+    end_date:
+      name: end_date
+      in: query
+      description: Specifies the end date for data retrieval. Only data with a date before this will be considered. This helps in filtering data to a specific time frame of interest.
+      required: false
+      example: '2024-12-31'
+      schema:
+        type: string
+        format: date
+  responses:
+    PermissionDenied:
+      description: You do not have permission to access this resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    TooManyRequests:
+      description: Too many requests. The request has been rate limited. For more information, visit our [documentation on rate limiting](https://docs.inscribe.ai/docs/are-the-endpoints-rate-limited).
+      content:
+        text/plain:
+          example: Requests are limited to 200 requests over a 5 minute period. Please try again in 30 seconds
+      headers:
+        Retry-After:
+          description: The number of seconds to wait before retrying the request.
+          schema:
+            type: integer
+            example: 30
+    BadRequest:
+      description: You have provided incorrect data.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      x-default: Inscribe <API KEY>
+externalDocs:
+  description: Find out more about Swagger
+  url: http://swagger.io
+x-explorer-enabled: false
+x-samples-enabled: false
+x-samples-languages:
+- curl
+- python
+- node
+x-provenance:
+  method: searched
+  source: https://docs.inscribe.ai/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://docs.inscribe.ai/reference/addcustomer.md
+  - https://docs.inscribe.ai/reference/adddocumentrequest.md
+  - https://docs.inscribe.ai/reference/createsession.md
+  - https://docs.inscribe.ai/reference/deletecustomer.md
+  - https://docs.inscribe.ai/reference/deletedocument.md
+  - https://docs.inscribe.ai/reference/deletedocumentrequest.md
+  - https://docs.inscribe.ai/reference/deleteopenbankingdata.md
+  - https://docs.inscribe.ai/reference/deleteplaidassetreport.md
+  - https://docs.inscribe.ai/reference/getbankaccount.md
+  - https://docs.inscribe.ai/reference/getbankaccountcreditanalysis.md
+  - https://docs.inscribe.ai/reference/getbankaccountcreditanalysiscashflowinsights.md
+  - https://docs.inscribe.ai/reference/getbankaccountcreditanalysisexpenditureinsights.md
+  - https://docs.inscribe.ai/reference/getbankaccountcreditanalysisincomeinsights.md
+  - https://docs.inscribe.ai/reference/getbankaccountcreditanalysisloaninsights.md
+  - https://docs.inscribe.ai/reference/getbankaccountcreditanalysisriskinsights.md
+  - https://docs.inscribe.ai/reference/getbankaccounts.md
+  - https://docs.inscribe.ai/reference/getbankaccounttransactions.md
+  - https://docs.inscribe.ai/reference/getcollectsession.md
+  - https://docs.inscribe.ai/reference/getcollectsessions.md
+  - https://docs.inscribe.ai/reference/getcustomer.md
+  - https://docs.inscribe.ai/reference/getcustomercreditanalysis.md
+  - https://docs.inscribe.ai/reference/getcustomercreditanalysiscashflowinsights.md
+  - https://docs.inscribe.ai/reference/getcustomercreditanalysisexpenditureinsights.md
+  - https://docs.inscribe.ai/reference/getcustomercreditanalysisincomeinsights.md
+  - https://docs.inscribe.ai/reference/getcustomercreditanalysisloaninsights.md
+  - https://docs.inscribe.ai/reference/getcustomercreditanalysisriskinsights.md
+  - https://docs.inscribe.ai/reference/getcustomers.md
+  - https://docs.inscribe.ai/reference/getcustomertransactions.md
+  - https://docs.inscribe.ai/reference/getdocumentresults.md
+  - https://docs.inscribe.ai/reference/getdocuments.md
+  - https://docs.inscribe.ai/reference/getopenbankingdata.md
+  - https://docs.inscribe.ai/reference/getplaidassetreport.md
+  - https://docs.inscribe.ai/reference/gettransactioncategories.md
+  - https://docs.inscribe.ai/reference/reachability-check-2.md
+  - https://docs.inscribe.ai/reference/recategorizetransactions.md
+  - https://docs.inscribe.ai/reference/updatecollectsession.md
+  - https://docs.inscribe.ai/reference/updatecustomer.md
+  - https://docs.inscribe.ai/reference/updatedocument.md
+  - https://docs.inscribe.ai/reference/uploaddocuments.md
+  - https://docs.inscribe.ai/reference/uploadinscribeopenbankingdata.md
+  - https://docs.inscribe.ai/reference/uploadmxaggregatedopenbankingdata.md
+  - https://docs.inscribe.ai/reference/uploadplaidassetreport.md
+  - https://docs.inscribe.ai/reference/uploadplaidassetreportopenbankingdata.md
+  merge:
+    pages: 43
+    deduped: 485
+    conflicts_kept_first: 0

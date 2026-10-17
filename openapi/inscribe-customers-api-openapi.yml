@@ -1,0 +1,1806 @@
+openapi: 3.2.0
+info:
+  description: Inscribe Fraud Detection API Documentation
+  version: 2.0.0
+  title: Core Resources Customers API
+  termsOfService: http://swagger.io/terms/
+  contact:
+    email: api@inscribe.ai
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+servers:
+- url: https://api.inscribe.ai/api/v2
+security:
+- ApiKeyAuth: []
+tags:
+- name: Customers
+  description: Customer objects are created to easily track and store documents. You can create, get, update, delete, and list your customers. Customers are identified by an id.
+paths:
+  /customers:
+    post:
+      tags:
+      - Customers
+      summary: Create a Customer
+      description: Creates a customer object to easily track and store documents.
+      operationId: addCustomer
+      responses:
+        '201':
+          description: Successfully created a new customer.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '403':
+          $ref: '#/components/responses/PermissionDenied'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+      requestBody:
+        $ref: '#/components/requestBodies/CustomerCreateRequest'
+    get:
+      tags:
+      - Customers
+      summary: List all Customers
+      description: Returns a paginated list of your customers based on optional query parameters. If the customer search query parameter is used, the list is sorted by relevance, otherwise, the customers are returned sorted by creation date, with the most recently created customers appearing first.
+      operationId: getCustomers
+      parameters:
+      - in: query
+        name: limit
+        description: Set a limit on the number of customers to be returned. The limit can range between 1 and 100, the default is 10.
+        example: 10
+        schema:
+          type: integer
+          format: int64
+          minimum: 1
+          maximum: 100
+      - in: query
+        name: page
+        description: Indicate which page of the customer list to return, the default is 1.
+        example: 1
+        schema:
+          type: integer
+          format: int64
+          minimum: 1
+      - in: query
+        name: search
+        description: Filter by a customer's name. Any order parameters will be ignored and results will be ordered by similarity to the search term.
+        example: Frank Abagnale
+        schema:
+          type: string
+      - in: query
+        name: status
+        description: 'Filter by the customer''s status. This parameter can accept multiple values, allowing for a combination of status filters. Separate each status with a comma. The available filter options are: ''approved'', ''rejected'', and ''unknown'', which reflect the customer approved field set by you as true, false, and null respectively. For example, ''?status=approved,rejected'' will filter customers whose status is either ''approved'' or ''rejected''.'
+        style: form
+        explode: false
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - approved
+            - rejected
+            - unknown
+      - in: query
+        name: status_reasons
+        description: 'Filter customers by a comma-separated list of review status reasons. Reasons are only present when the status is ''rejected''. The available filter options are: ''fraud'', ''credit_risk'', and ''other''.'
+        style: form
+        explode: false
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - fraud
+            - credit_risk
+            - other
+      - in: query
+        name: order
+        description: 'Option to order the list of customers. There are two options: ''created_at'' and ''-created_at'' where customers are returned sorted by creation date in ascending or descending order respectively.'
+        schema:
+          type: string
+          enum:
+          - created_at
+          - -created_at
+      - in: query
+        name: startDate
+        description: The date filter allows you to filter customers by date intervals. The value must be in the format yyyy-MM-dd or yyyy-MM-dd'T'HH:mm:ssZ for precise filtering. The filter includes everything from the start date up to but not including the end date. startDate and endDate must both be set to filter by date.
+        schema:
+          type: string
+      - in: query
+        name: endDate
+        description: The date filter allows you to filter customers by date intervals. The value must be in the format yyyy-MM-dd or yyyy-MM-dd'T'HH:mm:ssZ for precise filtering. The filter includes everything from the start date up to but not including the end date. endDate and startDate must both be set to filter by date.
+        schema:
+          type: string
+      - in: query
+        name: creator
+        description: Filter customers created only by this user id. This user must be in your organisation and you must have permission to access their customers.
+        schema:
+          type: string
+          format: uuid
+      - in: query
+        name: tag
+        description: Filter customers where at least one document has been marked with the descriptive tag supplied.
+        schema:
+          type: string
+      - in: query
+        name: customer_ids
+        description: A comma separated list of customer UUIDs. This will filter the customers to only include the ones with the given UUIDs.
+        required: false
+        example: 3616baa9-9caf-434e-b4d0-8a32c644dfd4,3616baa9-9caf-434e-b4d0-8a32c644dfe5
+        schema:
+          type: string
+      responses:
+        '200':
+          description: A map with a data property that contains an array of up to the limit of customers. Each entry in the array is a separate customer object. If no customers are available, the resulting array will be empty.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customers'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '403':
+          $ref: '#/components/responses/PermissionDenied'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /customers/{customer_id}:
+    get:
+      tags:
+      - Customers
+      summary: Retrieve a Customer
+      description: Retrieves the details of an existing customer. Supply the unique customer id from either a customer creation request or the customer list.
+      operationId: getCustomer
+      parameters:
+      - name: customer_id
+        in: path
+        description: The id of the customer to return.
+        example: 0efae611-b3eb-4b84-8ed0-a4e92ad3bf4b
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: Successfully retrieved customer
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '403':
+          $ref: '#/components/responses/PermissionDenied'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+    put:
+      tags:
+      - Customers
+      summary: Update a Customer
+      description: Updates the specific customer by setting the values of the parameters passed. Any non-required parameters not provided will be left unchanged.
+      operationId: updateCustomer
+      parameters:
+      - name: customer_id
+        in: path
+        description: The id of the customer to update.
+        example: 0efae611-b3eb-4b84-8ed0-a4e92ad3bf4b
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: Successfully updated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '403':
+          $ref: '#/components/responses/PermissionDenied'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+      requestBody:
+        $ref: '#/components/requestBodies/CustomerUpdateRequest'
+    delete:
+      tags:
+      - Customers
+      summary: Delete a Customer
+      description: Permanently deletes a customer and all documents associated with this customer. It cannot be undone.
+      operationId: deleteCustomer
+      parameters:
+      - name: customer_id
+        in: path
+        description: The id of the customer to be deleted.
+        example: 0efae611-b3eb-4b84-8ed0-a4e92ad3bf4b
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '204':
+          description: Successfully deleted.
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '403':
+          $ref: '#/components/responses/PermissionDenied'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+components:
+  requestBodies:
+    CustomerUpdateRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CustomerUpdateRequest'
+      description: A customer object.
+      required: true
+    CustomerCreateRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CustomerCreateRequest'
+      description: A customer object.
+      required: true
+  schemas:
+    CanonicalItem:
+      type: object
+      description: A single canonical value extracted for a customer, along with the kind of source it was derived from.
+      properties:
+        value:
+          type:
+          - string
+          - 'null'
+          description: The canonical value derived for this attribute. `null` when no value could be determined.
+          example: Acme Inc
+        source:
+          type:
+          - string
+          - 'null'
+          description: "The kind of source the value was derived from:\n  - `DOCUMENT` — extracted from a customer-uploaded document.\n  - `CUSTOMER` — provided directly by the customer (e.g. on the create-customer API call).\n  - `WEB_SEARCH` — sourced from an online lookup, such as a business registry or the company website.\n  - `PHONE_NUMBER` — inferred from a phone-number lookup.\n"
+          enum:
+          - DOCUMENT
+          - CUSTOMER
+          - WEB_SEARCH
+          - PHONE_NUMBER
+          example: DOCUMENT
+    CustomerFraudRating:
+      type:
+      - string
+      - 'null'
+      description: The fraud rating of the customer. This field can be either 'HIGH_RISK', 'LOW_RISK', 'UNCERTAIN_RISK', or null. More information can be found at https://help.inscribe.ai/en/articles/8631969-fraud-rating
+      enum:
+      - HIGH_RISK
+      - LOW_RISK
+      - UNCERTAIN_RISK
+      - null
+    BusinessComplianceAnalyst:
+      type: object
+      description: 'AI-powered Business Compliance Analyst results that perform deep KYB due diligence on the company and its associated individuals.
+
+        NOTE: This feature requires explicit access. Please contact your Customer Success Manager or sales@inscribe.ai to enable this feature.
+
+        '
+      properties:
+        run_id:
+          type: string
+          description: A unique identifier for the specific run of the Business Compliance Analyst
+          example: '1234567'
+        customer_id:
+          type: string
+          format: uuid
+          description: A unique identifier for the customer object
+          example: 07f1fe87-dece-4a46-915f-3dc3fa8d57fa
+        status:
+          type: string
+          description: 'The current status of the compliance check process.
+
+            `RUNNING`: The review process is currently in progress.
+
+            `FINISHED`: The review process has been successfully completed.
+
+            `FAILED`: The review process encountered an error and could not be completed.
+
+            '
+          enum:
+          - RUNNING
+          - FINISHED
+          - FAILED
+          example: FINISHED
+        started_at:
+          type: string
+          format: date-time
+          description: The timestamp when the Business Compliance review started. In the format yyyy-MM-dd'T'HH:mm:ssZ
+          example: '2024-11-18T15:31:39.759Z'
+        finished_at:
+          type: string
+          format: date-time
+          description: The timestamp when the Business Compliance review finished. In the format yyyy-MM-dd'T'HH:mm:ssZ
+          example: '2024-11-18T15:32:32.452Z'
+        output:
+          $ref: '#/components/schemas/BusinessComplianceAnalystOutput'
+          description: The output of the Business Compliance review. This field can be `null` when the status is not `FINISHED`.
+    Persons:
+      type: array
+      items:
+        $ref: '#/components/schemas/Person'
+      description: List of persons associated with the customer record
+    BusinessComplianceAnalystOutput:
+      type: object
+      properties:
+        result:
+          type: string
+          description: 'The overall compliance status of the company after review.
+
+            `PASS`: The company passed the compliance review - no issues were identified.
+
+            `FAIL`: The company failed the compliance review - issues were identified.
+
+            `INCONCLUSIVE`: The company''s compliance status is inconclusive - unable to determine PASS or FAIL, typically due to insufficient information.
+
+            `NOT_APPLICABLE`: The company''s compliance status is not applicable, usually due to insufficient data.
+
+            '
+          enum:
+          - PASS
+          - FAIL
+          - INCONCLUSIVE
+          - NOT_APPLICABLE
+          example: PASS
+        analysis:
+          type: string
+          description: A detailed analysis summarizing the compliance review findings
+          example: The company appears to be legitimate based on our comprehensive review. It has a valid incorporation status, strong web presence, and no adverse media findings.
+        canonical_profile:
+          $ref: '#/components/schemas/BusinessComplianceAnalystCanonicalProfile'
+        company_checks:
+          type: array
+          description: Array of compliance checks performed on the company
+          items:
+            $ref: '#/components/schemas/BusinessComplianceAnalystCompanyCheck'
+        beneficial_owner_checks:
+          type: array
+          description: Array of checks performed on beneficial owners
+          items:
+            $ref: '#/components/schemas/BusinessComplianceAnalystBeneficialOwnerCheck'
+    BusinessComplianceAnalystBeneficialOwnerCheck:
+      type: object
+      properties:
+        beneficial_owner_full_name:
+          type: string
+          description: Full name of the beneficial owner
+          example: John Smith
+        checks:
+          type: array
+          description: Array of checks performed on the beneficial owner
+          items:
+            allOf:
+            - type: object
+              properties:
+                type:
+                  type: string
+                  description: 'Type of check.
+
+                    For more information about the beneficial owner checks, see [this page](https://docs.inscribe.ai/docs/business-compliance-analyst-checks#beneficial-owner-checks).
+
+                    '
+                  enum:
+                  - CONNECTION_TO_COMPANY
+                  - ADVERSE_MEDIA
+                  example: CONNECTION_TO_COMPANY
+                title:
+                  type: string
+                  description: Human-readable title of the check
+                  enum:
+                  - Connection to Company
+                  - Adverse Media
+                  example: Connection to Company
+                sub_checks:
+                  type: array
+                  description: Array of sub-checks that contribute to this check's result (currently empty for beneficial owner checks)
+                  items:
+                    $ref: '#/components/schemas/BusinessComplianceAnalystBaseCheck'
+                  default: []
+            - $ref: '#/components/schemas/BusinessComplianceAnalystBaseCheck'
+    CustomerWithoutVerifications:
+      type: object
+      required:
+      - name
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique identifier for the object.
+          example: 0efae611-b3eb-4b84-8ed0-a4e92ad3bf4b
+        name:
+          type: string
+          maxLength: 128
+          example: Frank Abagnale
+          description: A unique name that was given to the customer by you.
+        created_at:
+          type: string
+          format: date-time
+          description: 'Time at which the object was created. In the format: yyyy-MM-dd''T''HH:mm:ssZ'
+          example: '2019-12-12T15:35:08.460Z'
+        approved:
+          type:
+          - boolean
+          - 'null'
+          description: Has the value false if you have identified the customer as fraudulent, true is legitimate, and null if unknown. The default is null.
+          example: true
+          deprecated: true
+        review:
+          $ref: '#/components/schemas/Review'
+        notes:
+          type:
+          - string
+          - 'null'
+          description: Additional notes that you have recorded about this customer.
+          example: Pay stub references Acme Inc, which appears as inactive in multiple business registries.
+        no_of_documents:
+          type: integer
+          description: A whole number representing the number of documents attached to this customer.
+          example: 3
+        no_of_fraudulent_documents:
+          type: integer
+          description: A whole number representing the number of attached documents that have been identified as fraudulent.
+          example: 1
+        urls:
+          type: object
+          properties:
+            web_app:
+              type: string
+              description: A URL to the location of this customer on our web app.
+              example: https://app.inscribe.ai/#/customer/0efae611-b3eb-4b84-8ed0-a4e92ad3bf4b
+            api:
+              type: string
+              description: A URL to the location of this customer on our API.
+              example: https://api.inscribe.ai/api/v2/customers/0efae611-b3eb-4b84-8ed0-a4e92ad3bf4b
+        creator:
+          type: object
+          properties:
+            id:
+              type: string
+              format: uuid
+              description: Unique identifier of the user who created this customer.
+              example: dca9cbb0-d41a-408b-8fd1-99af7e10bf87
+            email:
+              type: string
+              format: email
+              description: The email address of the user who created this customer.
+              example: mary.johnson@fraudchecker.com
+            type:
+              type: string
+              enum:
+              - USER
+              - API
+              description: Indicates whether the creator is a human dashboard user or an API key. When the value is `API`, the `email` field will contain the string `"API User"` rather than an email address.
+              example: USER
+        organisation:
+          type: object
+          properties:
+            id:
+              type: string
+              format: uuid
+              description: Unique identifier of the organisation this customer belongs to.
+              example: 15ee827f-2a76-42de-b8b8-36f11430f5a2
+        risk_assessment:
+          $ref: '#/components/schemas/CustomerRiskAssessment'
+        persons:
+          $ref: '#/components/schemas/Persons'
+        company:
+          allOf:
+          - $ref: '#/components/schemas/Company'
+        fraud_rating:
+          deprecated: true
+          description: 'Deprecated: This field is being phased out. Use `risk_assessment.risk_level` instead. The value is `null` when no fraud rating has been determined.'
+          allOf:
+          - $ref: '#/components/schemas/CustomerFraudRating'
+        canonical_profile:
+          description: Structured profile information aggregated from documents and verification sources for this customer. The value is `null` when no canonical profile has been generated.
+          allOf:
+          - $ref: '#/components/schemas/CanonicalProfile'
+        business_compliance_agent_v1:
+          deprecated: true
+          description: 'Deprecated: This field is deprecated. Compliance insights can now be found in the risk_assessment object.'
+          allOf:
+          - $ref: '#/components/schemas/BusinessComplianceAnalyst'
+    Customer:
+      type: object
+      required:
+      - name
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique identifier for the object.
+          example: 0efae611-b3eb-4b84-8ed0-a4e92ad3bf4b
+        name:
+          type: string
+          maxLength: 128
+          example: Frank Abagnale
+          description: A unique name that was given to the customer by you.
+        created_at:
+          type: string
+          format: date-time
+          description: 'Time at which the object was created. In the format: yyyy-MM-dd''T''HH:mm:ssZ'
+          example: '2019-12-12T15:35:08.460Z'
+        approved:
+          type:
+          - boolean
+          - 'null'
+          description: Has the value false if you have identified the customer as fraudulent, true is legitimate, and null if unknown. The default is null.
+          example: true
+          deprecated: true
+        review:
+          $ref: '#/components/schemas/Review'
+        notes:
+          type:
+          - string
+          - 'null'
+          description: Additional notes that you have recorded about this customer.
+          example: Pay stub references Acme Inc, which appears as inactive in multiple business registries.
+        no_of_documents:
+          type: integer
+          description: A whole number representing the number of documents attached to this customer.
+          example: 3
+        no_of_fraudulent_documents:
+          type: integer
+          description: A whole number representing the number of attached documents that have been identified as fraudulent.
+          example: 1
+        urls:
+          type: object
+          properties:
+            web_app:
+              type: string
+              description: A URL to the location of this customer on our web app.
+              example: https://app.inscribe.ai/#/customer/0efae611-b3eb-4b84-8ed0-a4e92ad3bf4b
+            api:
+              type: string
+              description: A URL to the location of this customer on our API.
+              example: https://api.inscribe.ai/api/v2/customers/0efae611-b3eb-4b84-8ed0-a4e92ad3bf4b
+        creator:
+          type: object
+          properties:
+            id:
+              type: string
+              format: uuid
+              description: Unique identifier of the user who created this customer.
+              example: dca9cbb0-d41a-408b-8fd1-99af7e10bf87
+            email:
+              type: string
+              format: email
+              description: The email address of the user who created this customer.
+              example: mary.johnson@fraudchecker.com
+            type:
+              type: string
+              enum:
+              - USER
+              - API
+              description: Indicates whether the creator is a human dashboard user or an API key. When the value is `API`, the `email` field will contain the string `"API User"` rather than an email address.
+              example: USER
+        organisation:
+          type: object
+          properties:
+            id:
+              type: string
+              format: uuid
+              description: Unique identifier of the organisation this customer belongs to.
+              example: 15ee827f-2a76-42de-b8b8-36f11430f5a2
+        risk_assessment:
+          $ref: '#/components/schemas/CustomerRiskAssessment'
+        persons:
+          $ref: '#/components/schemas/Persons'
+        company:
+          allOf:
+          - $ref: '#/components/schemas/Company'
+        fraud_rating:
+          deprecated: true
+          description: 'Deprecated: This field is being phased out. Use `risk_assessment.risk_level` instead. The value is `null` when no fraud rating has been determined.'
+          allOf:
+          - $ref: '#/components/schemas/CustomerFraudRating'
+        verify_entity:
+          $ref: '#/components/schemas/VerifyEntityResponse'
+        canonical_profile:
+          description: Structured profile information aggregated from documents and verification sources for this customer. The value is `null` when no canonical profile has been generated.
+          allOf:
+          - $ref: '#/components/schemas/CanonicalProfile'
+        business_compliance_agent_v1:
+          deprecated: true
+          description: 'Deprecated: This field is deprecated. Compliance insights can now be found in the risk_assessment object.'
+          allOf:
+          - $ref: '#/components/schemas/BusinessComplianceAnalyst'
+    VerifyEntityResponse:
+      type: object
+      description: Entities that have been requested to be verified.
+      properties:
+        income:
+          type: object
+          description: Income entities that have requested to be verified. This service is currently only available for Inscribe Credit customers. The `personal_income` and `revenue` fields will only be returned if they were included in the initial verification request when creating the customer.
+          properties:
+            personal_income:
+              description: This is the personal income verification request.
+              type: object
+              properties:
+                lower_income_tolerance:
+                  description: The tolerance with which found incomes below the `input` amount are verified. For example, if this value is set to 0.1, an income will verified if it is at least 90% (1-`lower_income_tolerance`) of the `input` amount.
+                  type: number
+                  example: 0.1
+                under_reported_tolerance:
+                  description: The tolerance with which found incomes above the `input` amount are set to `under_reported`. For example, if this value is set to 0.1, an income will set to `under_reported` if it is at least 110% (1+`under_reported_tolerance`) of the `input` amount.
+                  type: number
+                  example: 0.1
+                input:
+                  description: This is the expected income amount to be verified (in cents).
+                  type: number
+                  example: 10000
+                frequency:
+                  description: This is frequency of the income to check. Currently, the only income that can be checked is `annual` income.
+                  type: string
+                  example: annual
+                verified:
+                  description: This is the status of the verification request. This will be set to `true` if the found income was greater than or equal to the `input` value (adjusted by any given `lower_income_tolerance`). It will be set to `false` if the `input` value did not meet that threshold. If no relevant documents have been provided, this value is set to `null`.
+                  type: boolean
+                  example: true
+                matched:
+                  description: This is the found income amount (in cents).
+                  type: number
+                  example: 10000
+                amount_type:
+                  description: This is the type of the found income.
+                  type: string
+                  enum:
+                  - gross
+                  - net
+                under_reported:
+                  description: This value is set to `true` if the found income exceeded the `input` amount. It is set to `false` if the found income did not. It is set to `null` if no relevant documents were provided or if the income was not verified.
+                  type: boolean
+                  example: false
+            revenue:
+              description: This is the revenue verification request.
+              type: object
+              properties:
+                lower_income_tolerance:
+                  description: The tolerance with which found incomes below the `input` amount are verified. For example, if this value is set to 0.1, an income will verified if it is at least 90% (1-`lower_income_tolerance`) of the `input` amount.
+                  type: number
+                  example: 0.1
+                under_reported_tolerance:
+                  description: The tolerance with which found incomes above the `input` amount are set to `under_reported`. For example, if this value is set to 0.1, an income will set to `under_reported` if it is at least 110% (1+`under_reported_tolerance`) of the `input` amount.
+                  type: number
+                  example: 0.1
+                input:
+                  description: This is the expected revenue amount to be verified (in cents).
+                  type: number
+                  example: 50000
+                frequency:
+                  description: This is frequency of the revenue to check. Currently, the only revenue that can be checked is `annual` income.
+                  type: string
+                  example: annual
+                verified:
+                  description: This is the status of the verification request. This will be set to `true` if the found revenue was greater than or equal to the `input` value (adjusted by any given `lower_income_tolerance`). It will be set to `false` if the `input` value did not meet that threshold. If no relevant documents have been provided, this value is set to `null`.
+                  type: boolean
+                  example: true
+                matched:
+                  description: This is the found revenue amount (in cents).
+                  type: number
+                  example: 49000
+                amount_type:
+                  description: This is the type of the found revenue.
+                  type: string
+                  enum:
+                  - gross
+                  - net
+                under_reported:
+                  description: This value is set to `true` if the found revenue exceeded the `input` amount. It is set to `false` if the found revenue did not. It is set to `null` if no relevant documents were provided or if the revenue was not verified.
+                  type: boolean
+                  example: false
+            confidence_score:
+              type: number
+              format: float
+              description: The confidence score represents the degree of certainty for the income verification decision.  We calculate this score using a weighted combination of parsing and transaction categorization certainties.  Confidence scores above 0.5 represent high confidence.
+              example: 0.99
+    VerifyEntityRequest:
+      type: object
+      description: Entities that are requested to be verified.
+      properties:
+        income:
+          description: Income entities that are requested to be verified. This service is currently only available for Inscribe Credit customers. It is possible to have verification requests on both `personal_income` and `revenue` for a given customer.
+          type: object
+          properties:
+            personal_income:
+              description: This is the personal income verification request.
+              type: object
+              properties:
+                lower_income_tolerance:
+                  description: The tolerance with which found incomes below the `input` amount are verified. For example, if this value is set to 0.1, an income will verified if it is at least 90% (1-`lower_income_tolerance`) of the `input` amount.
+                  type: number
+                  example: 0.1
+                under_reported_tolerance:
+                  description: The tolerance with which found incomes above the `input` amount are set to `under_reported`. For example, if this value is set to 0.1, an income will set to `under_reported` if it is at least 110% (1+`under_reported_tolerance`) of the `input` amount.
+                  type: number
+                  example: 0.1
+                input:
+                  description: This is the expected income amount to be verified (in cents).
+                  type: number
+                  example: 10000
+                frequency:
+                  description: This is frequency of the income to check. Currently, the only income that can be checked is `annual` income.
+                  type: string
+                  example: annual
+            revenue:
+              description: This is the revenue verification request.
+              type: object
+              properties:
+                lower_income_tolerance:
+                  description: The tolerance with which found incomes below the `input` amount are verified. For example, if this value is set to 0.1, an income will verified if it is at least 90% (1-`lower_income_tolerance`) of the `input` amount.
+                  type: number
+                  example: 0.1
+                under_reported_tolerance:
+                  description: The tolerance with which found incomes above the `input` amount are set to `under_reported`. For example, if this value is set to 0.1, an income will set to `under_reported` if it is at least 110% (1+`under_reported_tolerance`) of the `input` amount.
+                  type: number
+                  example: 0.1
+                input:
+                  description: This is the expected revenue amount to be verified (in cents).
+                  type: number
+                  example: 50000
+                frequency:
+                  description: This is frequency of the revenue to check. Currently, the only revenue that can be checked is `annual` income.
+                  type: string
+                  example: annual
+    CanonicalProfile:
+      type: object
+      description: Structured profile information aggregated from documents and verification sources for this customer. Each value carries the kind of source it was derived from.
+      properties:
+        individual:
+          type: object
+          description: Canonical profile fields relating to the individual.
+          properties:
+            name:
+              allOf:
+              - $ref: '#/components/schemas/CanonicalItem'
+              example:
+                value: Frank Abagnale
+                source: DOCUMENT
+            address:
+              allOf:
+              - $ref: '#/components/schemas/CanonicalAddress'
+              example:
+                full_address: 742 Evergreen Terrace, Springfield, IL 62704, USA
+                city: Springfield
+                state: IL
+                country: USA
+                post_code: '62704'
+                source: DOCUMENT
+            employer:
+              type: object
+              description: Employer details associated with the individual.
+              properties:
+                name:
+                  allOf:
+                  - $ref: '#/components/schemas/CanonicalItem'
+                  example:
+                    value: Acme Inc
+                    source: DOCUMENT
+                address:
+                  allOf:
+                  - $ref: '#/components/schemas/CanonicalAddress'
+                  example:
+                    full_address: 1000 Walnut St, Kansas City, MO 64106, USA
+                    city: Kansas City
+                    state: MO
+                    country: USA
+                    post_code: '64106'
+                    source: DOCUMENT
+        company:
+          type: object
+          description: Canonical profile fields relating to the company.
+          properties:
+            legal_name:
+              allOf:
+              - $ref: '#/components/schemas/CanonicalItem'
+              example:
+                value: Acme Inc
+                source: WEB_SEARCH
+            address:
+              allOf:
+              - $ref: '#/components/schemas/CanonicalAddress'
+              example:
+                full_address: 1000 Walnut St, Kansas City, MO 64106, USA
+                city: Kansas City
+                state: MO
+                country: USA
+                post_code: '64106'
+                source: WEB_SEARCH
+            phone_number:
+              allOf:
+              - $ref: '#/components/schemas/CanonicalItem'
+              example:
+                value: +1 415 555 0123
+                source: WEB_SEARCH
+            company_structure:
+              allOf:
+              - $ref: '#/components/schemas/CanonicalItem'
+              example:
+                value: CORPORATION
+                source: WEB_SEARCH
+            associated_persons:
+              type: array
+              description: Individuals associated with the company (e.g. directors, owners).
+              items:
+                type: object
+                properties:
+                  full_name:
+                    allOf:
+                    - $ref: '#/components/schemas/CanonicalItem'
+                    example:
+                      value: Jane Smith
+                      source: WEB_SEARCH
+                  address:
+                    allOf:
+                    - $ref: '#/components/schemas/CanonicalAddress'
+                    example:
+                      full_address: 200 Park Avenue, New York, NY 10166, USA
+                      city: New York
+                      state: NY
+                      country: USA
+                      post_code: '10166'
+                      source: WEB_SEARCH
+                  role:
+                    allOf:
+                    - $ref: '#/components/schemas/CanonicalItem'
+                    example:
+                      value: Director
+                      source: WEB_SEARCH
+            source_of_funds_claim:
+              allOf:
+              - $ref: '#/components/schemas/CanonicalItem'
+              example:
+                value: Revenue from product sales
+                source: CUSTOMER
+            business_type:
+              allOf:
+              - $ref: '#/components/schemas/CanonicalItem'
+              example:
+                value: Technology
+                source: WEB_SEARCH
+            business_description:
+              allOf:
+              - $ref: '#/components/schemas/CanonicalItem'
+              example:
+                value: Acme Inc designs and manufactures novelty products for the entertainment industry.
+                source: WEB_SEARCH
+            ownership_structure:
+              type:
+              - object
+              - 'null'
+              description: A description of the company's ownership structure, with a rationale for the determination. `null` when no ownership structure could be derived.
+              properties:
+                description:
+                  type: string
+                  description: A summary of the ownership structure.
+                  example: Acme Inc is wholly owned by John Doe.
+                rationale:
+                  type: string
+                  description: The reasoning behind the determined ownership structure.
+                  example: Company filings list John Doe as the sole shareholder.
+                related_inscribe_document_ids:
+                  type: array
+                  description: IDs of Inscribe documents that informed this determination.
+                  items:
+                    type: string
+                  example:
+                  - 3616baa9-9caf-434e-b4d0-8a32c644dfd4
+                source:
+                  type:
+                  - string
+                  - 'null'
+                  description: "The kind of source the ownership structure was derived from:\n  - `DOCUMENT` — extracted from a customer-uploaded document.\n  - `CUSTOMER` — provided directly by the customer (e.g. on the create-customer API call).\n  - `WEB_SEARCH` — sourced from an online lookup, such as a business registry or the company website.\n  - `PHONE_NUMBER` — inferred from a phone-number lookup.\n"
+                  enum:
+                  - DOCUMENT
+                  - CUSTOMER
+                  - WEB_SEARCH
+                  - PHONE_NUMBER
+                  example: DOCUMENT
+            website:
+              allOf:
+              - $ref: '#/components/schemas/CanonicalItem'
+              example:
+                value: https://acme.example.com
+                source: WEB_SEARCH
+            registry_data:
+              type:
+              - object
+              - 'null'
+              description: Company registry data sourced from a business registry provider. `null` when no registry data is available.
+              properties:
+                url:
+                  type: string
+                  description: URL of the company's record in the registry.
+                  example: https://corporatedatastore.com/companies/us_de/12345
+                name:
+                  type: string
+                  description: The name of the company as recorded in the registry.
+                  example: Acme Inc
+                jurisdiction_code:
+                  type: string
+                  description: The jurisdiction the company is registered in (ISO 3166-2).
+                  example: us_de
+                company_type:
+                  type:
+                  - string
+                  - 'null'
+                  description: The company type as recorded in the registry.
+                  example: CORPORATION
+    CustomerCreateRequest:
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          maxLength: 128
+          example: Frank Abagnale
+          description: A unique name that was given to the customer by you.
+        approved:
+          type: boolean
+          description: Set the value true if you have approved the customer, false if you have rejected the customer. The default is null.
+          example: false
+          deprecated: true
+        review:
+          description: A manual review decision for the customer. This field is ignored if `approved` is also provided.
+          allOf:
+          - $ref: '#/components/schemas/Review'
+        notes:
+          type: string
+          description: Additional notes that you want to record about this customer.
+          example: John is a new customer
+        persons:
+          type: array
+          items:
+            $ref: '#/components/schemas/Person'
+          description: List of persons associated with the customer record
+        company:
+          $ref: '#/components/schemas/Company'
+        verify_entity:
+          $ref: '#/components/schemas/VerifyEntityRequest'
+    Review:
+      type: object
+      description: Represents a manual review decision.
+      properties:
+        status:
+          type: string
+          description: The new status of the review decision.
+          example: REJECTED
+          enum:
+          - ACCEPTED
+          - REJECTED
+          - REQUIRES_REVIEW
+        reason:
+          type:
+          - string
+          - 'null'
+          description: The reason for rejection. This field is only supported when `status` is `REJECTED`. `null` when no reason has been set.
+          example: FRAUD
+          enum:
+          - FRAUD
+          - CREDIT_RISK
+          - OTHER
+        comment:
+          type:
+          - string
+          - 'null'
+          maxLength: 2000
+          description: A free-text comment providing additional context for the review decision.
+          example: Rejected due to suspected fraudulent activity
+    CustomerRiskAssessment:
+      type: object
+      description: Contains customer risk assessment data, including risk indicators and related insights.
+      properties:
+        id:
+          type:
+          - string
+          - 'null'
+          format: uuid
+          description: Unique identifier of the latest customer review agent run for this customer. `null` if no run exists yet.
+          example: 1d5d7a72-7a89-4e3f-9b14-2a3c1c86bbb0
+        status:
+          type:
+          - string
+          - 'null'
+          description: The status of the latest customer review agent run. `null` if no run exists yet.
+          enum:
+          - PENDING
+          - RUNNING
+          - FINISHED
+          - FAILED
+          example: FINISHED
+        started_at:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          description: Time at which the latest customer review agent run started. `null` if no run exists yet.
+          example: '2026-04-09T15:35:08.460Z'
+        finished_at:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          description: Time at which the latest customer review agent run finished. `null` if no run exists yet, or the run is still in progress.
+          example: '2026-04-09T15:36:12.120Z'
+        risk_level:
+          type:
+          - string
+          - 'null'
+          description: The risk level assigned to the customer. `null` if no risk level has been determined yet.
+          enum:
+          - LOW
+          - MEDIUM
+          - HIGH
+          - NOT_APPLICABLE
+          example: HIGH
+        summary:
+          type:
+          - string
+          - 'null'
+          description: A summary of the customer analysis. `null` if no analysis has completed yet.
+          example: High risk assessment due to company status showing as inactive across multiple verification sources.
+        insights:
+          type: array
+          description: 'List of relevant customer-level insights. An insight can be derived from a customer fraud signal, or a verification. An insight can be configured to be turned on or off. Not all insights are enabled by default. You can contact Inscribe <a href="#" onclick="Intercom(''showNewMessage'')">via intercom</a> to enquire about enabling or disabling individual insights.
+
+            '
+          items:
+            $ref: '#/components/schemas/CustomerInsight'
+    BusinessComplianceAnalystCanonicalProfile:
+      type: object
+      properties:
+        legal_name:
+          type: string
+          description: Legal name of the company
+          example: Acme Corporation
+        address:
+          type: string
+          description: Full address of the company
+          example: 123 Main Street, Suite 100, San Francisco, CA 94105
+        address_city:
+          type: string
+          description: City
+          example: San Francisco
+        address_state:
+          type: string
+          description: State/Province/Region
+          example: CA
+        address_country:
+          type: string
+          description: Country
+          example: United States
+        phone_number:
+          type: string
+          description: Contact phone number
+          example: +1 (555) 123-4567
+        company_structure:
+          type: string
+          description: Business structure type
+          example: CORPORATION
+        business_type:
+          type: string
+          description: Type of business/industry based on NAICS (North American Industry Classification System)
+          enum:
+          - Agriculture, Forestry, Fishing and Hunting
+          - Mining, Quarrying, and Oil and Gas Extraction
+          - Utilities
+          - Construction
+          - Manufacturing
+          - Wholesale Trade
+          - Retail Trade
+          - Transportation and Warehousing
+          - Information
+          - Finance and Insurance
+          - Real Estate and Rental and Leasing
+          - Professional, Scientific, and Technical Services
+          - Management of Companies and Enterprises
+          - Administrative and Support and Waste Management and Remediation Services
+          - Educational Services
+          - Health Care and Social Assistance
+          - Arts, Entertainment, and Recreation
+          - Accommodation and Food Services
+          - Public Administration
+          - Other Services
+          example: Professional, Scientific, and Technical Services
+        business_description:
+          type: string
+          description: Detailed description of business activities
+          example: Software development company specializing in financial technology solutions
+        ownership_structure:
+          type: string
+          description: Description of company ownership
+          example: Privately held company with 3 major shareholders
+        beneficial_owners:
+          type: array
+          description: List of beneficial owners
+          items:
+            type: object
+            properties:
+              full_name:
+                type: string
+                description: Full name of the beneficial owner
+                example: John Smith
+              address:
+                type: string
+                description: Address of the beneficial owner
+                example: 456 Oak St, San Francisco, CA 94105
+              address_city:
+                type: string
+                description: City of the beneficial owner
+                example: San Francisco
+              address_state:
+                type: string
+                description: State/Province/Region of the beneficial owner
+                example: CA
+              address_country:
+                type: string
+                description: Country of the beneficial owner
+                example: United States
+              role:
+                type: string
+                description: Role of the beneficial owner in the company
+                example: CEO
+          example:
+          - full_name: John Smith
+            address: 456 Oak St, San Francisco, CA 94105
+            address_city: San Francisco
+            address_state: CA
+            address_country: United States
+            role: CEO
+        source_of_funds_claim:
+          type: string
+          description: Claimed source of company funds
+          example: Revenue from software licensing and professional services
+        opencorporates_data:
+          type:
+          - object
+          - 'null'
+          description: Data from OpenCorporates. If no match has been found or searching OpenCorporates is not enabled, this will be null.
+          properties:
+            name:
+              type: string
+              description: Name of the company as it appears on OpenCorporates
+              example: Acme Corporation
+            company_type:
+              type:
+              - string
+              - 'null'
+              description: Type of company as it appears on OpenCorporates
+              example: Corporation
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+          example: error message
+      required:
+      - message
+    Address:
+      type: object
+      description: The structured address. Any or all of these fields can be empty
+      properties:
+        line_1:
+          type:
+          - string
+          - 'null'
+          description: First line of the address
+          example: 742 Evergreen Terrace
+        line_2:
+          type:
+          - string
+          - 'null'
+          description: Second line of the address
+          example: Springfield
+        city:
+          type:
+          - string
+          - 'null'
+          description: City of the address
+          example: Springfield
+        post_code:
+          type:
+          - string
+          - 'null'
+          description: Post code of the address
+          example: '62704'
+        state:
+          type:
+          - string
+          - 'null'
+          description: State field of the address
+          example: IL
+        country:
+          type:
+          - string
+          - 'null'
+          description: Country of the address
+          example: USA
+    Company:
+      type: object
+      description: The company associated with the customer record
+      properties:
+        name:
+          type:
+          - string
+          - 'null'
+          description: Company name
+          example: Acme Inc
+        address:
+          allOf:
+          - $ref: '#/components/schemas/Address'
+        id_number:
+          type:
+          - string
+          - 'null'
+          description: The ID number of the company, this could be the EIN or any other tax number
+          example: 01-1234567
+        structure:
+          type:
+          - string
+          - 'null'
+          description: The structure of the company
+          example: CORPORATION
+          enum:
+          - SOLE_PROPRIETORSHIP
+          - PARTNERSHIP
+          - CORPORATION
+          - LIMITED_LIABILITY_COMPANY
+          - PRIVATE_LIMITED_COMPANY
+          - NON_PROFIT
+        phone_number:
+          type:
+          - string
+          - 'null'
+          description: Phone number of the company
+          example: +1 415 555 0123
+        website_url:
+          type:
+          - string
+          - 'null'
+          description: Website URL of the company
+          example: https://acme.example.com
+        source_of_funds_claim:
+          type:
+          - string
+          - 'null'
+          description: 'A customer-provided declaration of where the company''s funds originate (e.g. revenue, investment, loans). This raw input feeds the `SOURCE_OF_FUNDS` insight and is reconciled against documents and web evidence to produce the canonical `canonical_profile.company.source_of_funds_claim`. Defaults to `null` when not provided.
+
+            '
+          example: Revenue from product sales
+    Person:
+      type: object
+      description: Person associated with the customer record
+      properties:
+        first_name:
+          type:
+          - string
+          - 'null'
+          description: First name of the person
+          example: Frank
+        last_name:
+          type:
+          - string
+          - 'null'
+          description: Last name of the person
+          example: Abagnale
+        date_of_birth:
+          type:
+          - string
+          - 'null'
+          format: date
+          description: Date of birth of the person in YYYY-MM-DD format.
+          example: '1994-12-31'
+        address:
+          allOf:
+          - $ref: '#/components/schemas/Address'
+        email:
+          type:
+          - string
+          - 'null'
+          format: email
+          description: Email address of the person
+          example: frank.abagnale@example.com
+        phone_number:
+          type:
+          - string
+          - 'null'
+          description: Phone number of the person
+          example: +353 85 123 4567
+        id_number:
+          type:
+          - string
+          - 'null'
+          description: The ID number of the person, this could be the SSN, PPSN or any other tax number
+          example: 078-05-1120
+    CustomerInsight:
+      type: object
+      description: A customer-level insight derived from a customer fraud signal or a verification.
+      properties:
+        type:
+          type: string
+          description: 'The type of customer insight. (`SALARY_CROSS_CHECK` is deprecated: new insights of this type are no longer generated, but it may still be returned for customers where it was previously created.)'
+          enum:
+          - COMPANY_ADDRESS_EXISTENCE
+          - COMPANY_EXISTENCE
+          - COMPANY_WEB_PRESENCE
+          - CONNECTION_BETWEEN_COMPANY_AND_ADDRESS
+          - CONNECTION_BETWEEN_PERSON_AND_ADDRESS
+          - CONNECTION_BETWEEN_PERSON_AND_COMPANY
+          - MULTIPLE_DOCUMENT_RISK_SIGNALS
+          - MULTIPLE_HIGH_RISK_DOCUMENTS
+          - PERSON_ADDRESS_EXISTENCE
+          - PREVIOUS_HIGH_RISK_APPLICATIONS
+          - SALARY_CROSS_CHECK
+          - UNUSUAL_TRANSACTION_PATTERNS
+          - INCORPORATION_STATUS
+          - WEB_PRESENCE
+          - ADVERSE_MEDIA
+          - ADDRESS_VERIFICATION
+          - COUNTRY_RISK_SCREENING
+          - INDUSTRY_RISK_SCREENING
+          - TRANSACTION_ACTIVITY
+          - SOURCE_OF_FUNDS
+          - CONNECTION_TO_COMPANY
+          - ADVERSE_MEDIA_INDIVIDUAL
+          - CUSTOM_INSIGHT
+          example: COMPANY_EXISTENCE
+        result:
+          type: string
+          description: The result of the customer insight.
+          enum:
+          - PASS
+          - INCONCLUSIVE
+          - FAIL
+          example: FAIL
+        title:
+          type:
+          - string
+          - 'null'
+          description: A title describing the customer insight.
+          example: Existence of Acme Inc
+        rationale:
+          type:
+          - string
+          - 'null'
+          description: Detailed explanation of customer insight.
+          example: Company appears as inactive or dissolved in multiple business registries and verification sources.
+        urls:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+          description: URLs with the sources that support the customer insight.
+          example:
+          - https://example.com/business-registry/123
+          - https://example.com/company-verification/456
+        scopes:
+          type: array
+          items:
+            type: string
+            enum:
+            - FRAUD
+          description: Categories this insight belongs to. Currently, the only supported scope is "FRAUD", which indicates that the insight contributes to assessing risk_level. In the future, additional scopes may be introduced to represent other types of risk beyond fraud.
+          example:
+          - FRAUD
+        target:
+          type: string
+          description: 'Indicates what entity this insight pertains to. `COMPANY` — the insight relates to a company-level check (e.g. web presence, adverse media, incorporation status, company existence). `INDIVIDUAL` — the insight relates to checks on an individual person (e.g. adverse media for an individual, connection to company, person address existence). `APPLICATION` — the insight relates to the application as a whole rather than a specific entity (e.g. document fraud signals, previous high-risk applications). This field is always present.
+
+            '
+          enum:
+          - COMPANY
+          - INDIVIDUAL
+          - APPLICATION
+          example: COMPANY
+        sub_insights:
+          type:
+          - array
+          - 'null'
+          description: List of sub-insights that provide additional detail for this insight. This field is only included when sub-insights are present.
+          items:
+            type: object
+            properties:
+              type:
+                type: string
+                description: The type of sub-insight.
+                example: WEBSITE_PRESENCE
+              title:
+                type: string
+                description: A title describing the sub-insight.
+                example: Website Presence
+              result:
+                type: string
+                description: The result of the sub-insight.
+                enum:
+                - PASS
+                - INCONCLUSIVE
+                - FAIL
+                example: PASS
+              rationale:
+                type: string
+                description: Detailed explanation of the sub-insight result.
+                example: A website for this company exists.
+              urls:
+                type:
+                - array
+                - 'null'
+                items:
+                  type: string
+                description: URLs with the sources that support the sub-insight. This field is excluded from the response if the array is empty.
+                example:
+                - https://example.com/sub-insight-source
+        owner_name:
+          type:
+          - string
+          - 'null'
+          description: The name of the owner associated with this insight, if applicable. This field is only included when an owner name is present.
+          example: John Doe
+    CustomerUpdateRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 128
+          example: Frank Abagnale
+          description: A unique name that was given to the customer by you.
+        approved:
+          type: boolean
+          description: Set the value true if you have approved the customer, false if you have rejected the customer. The default is null.
+          example: false
+          deprecated: true
+        review:
+          description: A manual review decision for the customer. This field is ignored if `approved` is also provided.
+          allOf:
+          - $ref: '#/components/schemas/Review'
+        notes:
+          type: string
+          description: Additional notes that you want to record about this customer.
+          example: John is a new customer
+        verify_entity:
+          $ref: '#/components/schemas/VerifyEntityRequest'
+        company:
+          $ref: '#/components/schemas/Company'
+    BusinessComplianceAnalystCompanyCheck:
+      allOf:
+      - type: object
+        properties:
+          type:
+            type: string
+            description: 'Type of check.
+
+              For more information about the company checks, see [this page](https://docs.inscribe.ai/docs/business-compliance-analyst-checks#company-checks).
+
+              '
+            enum:
+            - INCORPORATION_STATUS
+            - WEB_PRESENCE
+            - ADVERSE_MEDIA
+            - ADDRESS_VERIFICATION
+            - COUNTRY_RISK_SCREENING
+            - INDUSTRY_RISK_SCREENING
+            - TRANSACTION_ACTIVITY
+            - SOURCE_OF_FUNDS
+            example: INCORPORATION_STATUS
+          title:
+            type: string
+            description: Human-readable title of the check
+            enum:
+            - Incorporation Status
+            - Web Presence
+            - Adverse Media
+            - Address Verification
+            - Country Risk Screening
+            - Industry Risk Screening
+            - Transaction Activity
+            - Source of Funds
+            example: Incorporation Status
+          sub_checks:
+            type: array
+            description: Array of sub-checks that contribute to this check's result
+            items:
+              allOf:
+              - $ref: '#/components/schemas/BusinessComplianceAnalystBaseCheck'
+              - type: object
+                properties:
+                  type:
+                    type: string
+                    description: Type identifier of the sub-check
+                    enum:
+                    - WEBSITE_PRESENCE
+                    - SOCIAL_MEDIA_PRESENCE
+                    - SOURCE_OF_FUNDS_FROM_DOCUMENTS
+                    - SOURCE_OF_FUNDS_FROM_WEB_SEARCH
+                    - SOURCE_OF_FUNDS_DOCS_RISK
+                    - INCORPORATION_STATUS_FROM_WEB
+                    - INCORPORATION_DOCS_RISK
+                    - PO_BOX_ADDRESS
+                    - PRIVATE_MAILBOX_ADDRESS
+                    - ADDRESS_VERIFICATION_FROM_WEB
+                    - TRANSACTION_ACTIVITY_FROM_DOCUMENTS
+                    - TRANSACTION_ACTIVITY_DOCS_RISK
+                  title:
+                    type: string
+                    description: Human-readable title of the sub-check
+                    enum:
+                    - Website Presence
+                    - Social Media Presence
+                    - Source of Funds from Documents
+                    - Source of Funds from Web Search
+                    - Fraud Risk from Documents
+                    - Incorporation Status from Web
+                    - Address PO Box Screening
+                    - Address Private Mailbox Screening
+                    - Address verified from Web Presence
+                    - Transaction Activity from Documents
+            default: []
+            example:
+            - type: INCORPORATION_STATUS_FROM_WEB
+              title: Incorporation Status from Web
+              result: PASS
+              rationale: Found evidence of proper incorporation from web sources.
+              urls:
+              - https://example.org/verification
+              related_inscribe_document_ids: []
+      - $ref: '#/components/schemas/BusinessComplianceAnalystBaseCheck'
+    Customers:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            allOf:
+            - $ref: '#/components/schemas/CustomerWithoutVerifications'
+            - not:
+                properties:
+                  verify_entity: {}
+          description: A map with a data property that contains an array of up to the limit of customers. Each entry in the array is a separate customer object. If no customers are available, the resulting array will be empty.
+        metadata:
+          type: object
+          properties:
+            pagination:
+              type: object
+              properties:
+                limit:
+                  type: integer
+                  description: The limit on the number of customers that can be returned per page.
+                  example: 10
+                current_page:
+                  type: integer
+                  description: The current page number.
+                  example: 1
+                number_of_pages:
+                  type: integer
+                  description: The total number of pages available with the current query parameters.
+                  example: 1
+                total:
+                  type: integer
+                  description: The total number of customers available with the current query parameters.
+                  example: 1
+    CanonicalAddress:
+      type: object
+      description: A canonical address derived for a customer, along with the kind of source it was extracted from.
+      properties:
+        full_address:
+          type:
+          - string
+          - 'null'
+          description: The full address as a single string.
+          example: 1000 Walnut St, Kansas City, MO 64106, USA
+        city:
+          type:
+          - string
+          - 'null'
+          description: City of the address.
+          example: Kansas City
+        state:
+          type:
+          - string
+          - 'null'
+          description: State of the address.
+          example: MO
+        country:
+          type:
+          - string
+          - 'null'
+          description: Country of the address.
+          example: USA
+        post_code:
+          type:
+          - string
+          - 'null'
+          description: Post code of the address.
+          example: '64106'
+        source:
+          type:
+          - string
+          - 'null'
+          description: "The kind of source the address was derived from:\n  - `DOCUMENT` — extracted from a customer-uploaded document.\n  - `CUSTOMER` — provided directly by the customer (e.g. on the create-customer API call).\n  - `WEB_SEARCH` — sourced from an online lookup, such as a business registry or the company website.\n  - `PHONE_NUMBER` — inferred from a phone-number lookup, e.g. address fields derived from the registered phone number.\n"
+          enum:
+          - DOCUMENT
+          - CUSTOMER
+          - WEB_SEARCH
+          - PHONE_NUMBER
+          example: DOCUMENT
+    BusinessComplianceAnalystBaseCheck:
+      allOf:
+      - type: object
+        properties:
+          type:
+            type: string
+          title:
+            type: string
+      - type: object
+        properties:
+          result:
+            type: string
+            description: 'Result of the check.
+
+              `PASS`: The check passed - no issues were identified.
+
+              `FAIL`: The check failed - issues were identified.
+
+              `INCONCLUSIVE`: The check is inconclusive - unable to determine PASS or FAIL, typically due to insufficient information.
+
+              `NOT_APPLICABLE`: The check does not apply to this entity, usually due to insufficient data.
+
+              '
+            enum:
+            - PASS
+            - FAIL
+            - INCONCLUSIVE
+            - NOT_APPLICABLE
+            example: PASS
+          rationale:
+            type: string
+            description: Detailed explanation of the check result
+            example: The check passed based on verified information from reliable sources.
+          urls:
+            type: array
+            description: Relevant URLs supporting the check
+            items:
+              type: string
+              format: uri
+            example:
+            - https://example.com/verification
+          related_inscribe_document_ids:
+            type: array
+            description: IDs of related documents
+            items:
+              type: string
+            example:
+            - '42'
+  responses:
+    PermissionDenied:
+      description: You do not have permission to access this resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Conflict:
+      description: The name you have provided for the customer already exists.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: error message
+              id:
+                type: string
+                format: uuid
+                example: ce1d4123-b482-4409-8177-cdf363bea111
+                description: Unique identifier of the customer with the same name within your organisation.
+            required:
+            - message
+            - id
+    TooManyRequests:
+      description: Too many requests. The request has been rate limited. For more information, visit our [documentation on rate limiting](https://docs.inscribe.ai/docs/are-the-endpoints-rate-limited).
+      content:
+        text/plain:
+          example: Requests are limited to 200 requests over a 5 minute period. Please try again in 30 seconds
+      headers:
+        Retry-After:
+          description: The number of seconds to wait before retrying the request.
+          schema:
+            type: integer
+            example: 30
+    NotFound:
+      description: The specified resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: You have provided incorrect data.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      x-default: Inscribe <API KEY>
+externalDocs:
+  description: Find out more about Swagger
+  url: http://swagger.io
+x-explorer-enabled: false
+x-samples-enabled: false
+x-samples-languages:
+- curl
+- python
+- node
+x-provenance:
+  method: searched
+  source: https://docs.inscribe.ai/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://docs.inscribe.ai/reference/addcustomer.md
+  - https://docs.inscribe.ai/reference/adddocumentrequest.md
+  - https://docs.inscribe.ai/reference/createsession.md
+  - https://docs.inscribe.ai/reference/deletecustomer.md
+  - https://docs.inscribe.ai/reference/deletedocument.md
+  - https://docs.inscribe.ai/reference/deletedocumentrequest.md
+  - https://docs.inscribe.ai/reference/deleteopenbankingdata.md
+  - https://docs.inscribe.ai/reference/deleteplaidassetreport.md
+  - https://docs.inscribe.ai/reference/getbankaccount.md
+  - https://docs.inscribe.ai/reference/getbankaccountcreditanalysis.md
+  - https://docs.inscribe.ai/reference/getbankaccountcreditanalysiscashflowinsights.md
+  - https://docs.inscribe.ai/reference/getbankaccountcreditanalysisexpenditureinsights.md
+  - https://docs.inscribe.ai/reference/getbankaccountcreditanalysisincomeinsights.md
+  - https://docs.inscribe.ai/reference/getbankaccountcreditanalysisloaninsights.md
+  - https://docs.inscribe.ai/reference/getbankaccountcreditanalysisriskinsights.md
+  - https://docs.inscribe.ai/reference/getbankaccounts.md
+  - https://docs.inscribe.ai/reference/getbankaccounttransactions.md
+  - https://docs.inscribe.ai/reference/getcollectsession.md
+  - https://docs.inscribe.ai/reference/getcollectsessions.md
+  - https://docs.inscribe.ai/reference/getcustomer.md
+  - https://docs.inscribe.ai/reference/getcustomercreditanalysis.md
+  - https://docs.inscribe.ai/reference/getcustomercreditanalysiscashflowinsights.md
+  - https://docs.inscribe.ai/reference/getcustomercreditanalysisexpenditureinsights.md
+  - https://docs.inscribe.ai/reference/getcustomercreditanalysisincomeinsights.md
+  - https://docs.inscribe.ai/reference/getcustomercreditanalysisloaninsights.md
+  - https://docs.inscribe.ai/reference/getcustomercreditanalysisriskinsights.md
+  - https://docs.inscribe.ai/reference/getcustomers.md
+  - https://docs.inscribe.ai/reference/getcustomertransactions.md
+  - https://docs.inscribe.ai/reference/getdocumentresults.md
+  - https://docs.inscribe.ai/reference/getdocuments.md
+  - https://docs.inscribe.ai/reference/getopenbankingdata.md
+  - https://docs.inscribe.ai/reference/getplaidassetreport.md
+  - https://docs.inscribe.ai/reference/gettransactioncategories.md
+  - https://docs.inscribe.ai/reference/reachability-check-2.md
+  - https://docs.inscribe.ai/reference/recategorizetransactions.md
+  - https://docs.inscribe.ai/reference/updatecollectsession.md
+  - https://docs.inscribe.ai/reference/updatecustomer.md
+  - https://docs.inscribe.ai/reference/updatedocument.md
+  - https://docs.inscribe.ai/reference/uploaddocuments.md
+  - https://docs.inscribe.ai/reference/uploadinscribeopenbankingdata.md
+  - https://docs.inscribe.ai/reference/uploadmxaggregatedopenbankingdata.md
+  - https://docs.inscribe.ai/reference/uploadplaidassetreport.md
+  - https://docs.inscribe.ai/reference/uploadplaidassetreportopenbankingdata.md
+  merge:
+    pages: 43
+    deduped: 485
+    conflicts_kept_first: 0

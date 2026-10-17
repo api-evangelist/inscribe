@@ -1,0 +1,920 @@
+openapi: 3.2.0
+info:
+  description: Inscribe Fraud Detection API Documentation
+  version: 2.0.0
+  title: Core Resources Transactions API
+  termsOfService: http://swagger.io/terms/
+  contact:
+    email: api@inscribe.ai
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+servers:
+- url: https://api.inscribe.ai/api/v2
+security:
+- ApiKeyAuth: []
+tags:
+- name: Transactions
+  description: Transaction objects are created to store transaction data. These objects describe characteristics of transactions, such as the date, amount, description, and category. You can list all of your transactions using these endpoints. Transactions are identified by an id.
+paths:
+  /customers/{customer_id}/bank_accounts/{bank_account_id}/transactions:
+    get:
+      tags:
+      - Transactions
+      summary: List Transactions for a Bank Account
+      description: 'Returns a list of transactions for a customer''s bank account. The list is sorted by creation date, with the most recently created transactions appearing first.
+
+        Most query parameters should be passed only once for filtering. However, there are two exceptions:
+
+
+        - `category`: This parameter can be passed multiple times to filter transactions by category.
+
+        - `data_source`: This parameter can also be passed multiple times to filter transactions by data source.
+
+
+        Please refer to the individual parameter descriptions for more details on usage.'
+      operationId: getBankAccountTransactions
+      parameters:
+      - name: customer_id
+        in: path
+        description: The Inscribe customer id.
+        example: 0efae611-b3eb-4b84-8ed0-a4e92ad3bf4b
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: bank_account_id
+        in: path
+        description: The id of the corresponding bank account.
+        example: 506d3678-1bde-473e-b884-64189d48f9e7
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - in: query
+        name: size
+        description: Set the number of transactions to be returned by request.
+        example: 15
+        required: true
+        schema:
+          type: integer
+          format: int64
+          minimum: 1
+          maximum: 10000
+      - in: query
+        name: cursor
+        description: Send a cursor to retrieve the next set of transactions, starting after the cursor. If no cursor is sent, the first set of transactions will be returned.
+        example: 9361c7fb-934b-4cac-8e07-4897e590ab94
+        schema:
+          type: string
+          format: uuid
+      - in: query
+        name: transaction_ids
+        required: false
+        description: Filter transactions to include only those with the specified transaction IDs. To filter by multiple transaction IDs, separate each ID with a comma (,). For example, `transaction_ids=uuid1,uuid2`.
+        example: 3616baa9-9caf-434e-b4d0-8a32c644dfd4
+        schema:
+          type: string
+      - in: query
+        name: document_ids
+        required: false
+        description: Filter transactions to include only those from the specified document IDs. To filter by multiple document IDs, separate each ID with a comma (,). For example, `document_ids=uuid1,uuid2`. No transactions from open banking data will be returned.
+        example: 73e78eae-e7ce-4707-b2b2-322af448a1dd,2281526e-a535-4532-8ea0-60bb96e97840
+        schema:
+          type: string
+      - in: query
+        name: document_pages
+        description: Filter transactions to include only those that exist on specific pages of documents. To filter by multiple pages, separate each page number with a comma (,). For examples, `document_pages=1,2`. No transactions from open banking data will be returned.
+        example: 1,2
+        schema:
+          type: string
+      - in: query
+        name: search
+        description: Filter transactions where the description or merchant contains the specified search term.
+        example: TAX
+        schema:
+          type: string
+          maxLength: 50
+      - in: query
+        name: sort_by
+        description: Specify the field by which transactions should be sorted.
+        example: date
+        schema:
+          type: string
+          enum:
+          - amount
+          - category
+          - date
+          - merchant
+      - in: query
+        name: sort_direction
+        description: Choose between 'ascending' or 'descending' to define the sorting order.
+        example: asc
+        schema:
+          type: string
+          enum:
+          - asc
+          - desc
+      - in: query
+        name: start_date
+        description: Filter transactions to include only those with a date greater than or equal to the specified start date.
+        example: '2023-01-01'
+        schema:
+          type: string
+          format: date
+      - in: query
+        name: end_date
+        description: Filter transactions to include only those with a date less than the specified end date.
+        example: '2023-02-01'
+        schema:
+          type: string
+          format: date
+      - in: query
+        name: min_amount
+        description: Filter transactions to include only those with an amount greater than or equal to the specified minimum amount.
+        example: 0
+        schema:
+          type: integer
+          format: int64
+      - in: query
+        name: max_amount
+        description: Filter transactions to include only those with an amount less than the specified maximum amount.
+        example: 100000
+        schema:
+          type: integer
+          format: int64
+      - in: query
+        name: data_source
+        description: Set a data source by which to filter transactions. Only transactions in this data source will be returned. If no data source is set, all transactions will be returned.
+        example: bank_statement
+        schema:
+          type: string
+          enum:
+          - BANK_STATEMENT
+          - OPEN_BANKING
+      - in: query
+        name: category
+        description: Set a category by which to filter transactions. Only transactions in this category will be returned. If no category is set, all transactions will be returned.
+        example: income
+        schema:
+          type: string
+          enum:
+          - accommodation
+          - rent
+          - hotels
+          - bank_charge
+          - overdraft
+          - nsf
+          - interest_paid
+          - entertainment
+          - gambling
+          - income
+          - revenue
+          - salary
+          - interest_received
+          - retirement
+          - social_security
+          - commission_received
+          - infrastructure
+          - insurance
+          - investments
+          - savings
+          - trading
+          - crypto_trading
+          - loan
+          - mortgage
+          - card_repayment
+          - mca
+          - payday
+          - auto_loan
+          - buy_now_pay_later
+          - personnel
+          - refund
+          - retail
+          - food_and_drink
+          - groceries
+          - self_transfer
+          - sweep_transfer
+          - tax
+          - transport
+          - fuel
+          - utilities
+          - withdrawal
+      - $ref: '#/components/parameters/include_unreconciled_documents'
+      responses:
+        '200':
+          description: Returns back a list of Transaction objects.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListTransactions'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '403':
+          $ref: '#/components/responses/PermissionDenied'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /customers/{customer_id}/transactions:
+    get:
+      tags:
+      - Transactions
+      summary: List Transactions for a Customer
+      description: 'Returns a list of transactions for a customer. The list is sorted by data source, with transactions from bank statements listed first, followed by transactions from open banking data. Within each of the data sources, the transactions are ordered by creation date, with the most recently created transactions appearing first.
+
+        Most query parameters should be passed only once for filtering. However, there are two exceptions:
+
+
+        - `category`: This parameter can be passed multiple times to filter transactions by category.
+
+        - `data_source`: This parameter can also be passed multiple times to filter transactions by data source.
+
+
+        Please refer to the individual parameter descriptions for more details on usage.'
+      operationId: getCustomerTransactions
+      parameters:
+      - name: customer_id
+        in: path
+        description: The Inscribe customer id.
+        example: 0efae611-b3eb-4b84-8ed0-a4e92ad3bf4b
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - in: query
+        name: size
+        description: Set the number of transactions to be returned by request.
+        example: 15
+        required: true
+        schema:
+          type: integer
+          format: int64
+          minimum: 1
+          maximum: 10000
+      - in: query
+        name: cursor
+        description: Send a cursor to retrieve the next set of transactions, starting after the cursor. If no cursor is sent, the first set of transactions will be returned.
+        example: 9361c7fb-934b-4cac-8e07-4897e590ab94
+        schema:
+          type: string
+          format: uuid
+      - in: query
+        name: transaction_ids
+        required: false
+        description: Filter transactions to include only those with the specified transaction IDs. To filter by multiple transaction IDs, separate each ID with a comma (,). For example, `transaction_ids=uuid1,uuid2`.
+        example: 3616baa9-9caf-434e-b4d0-8a32c644dfd4
+        schema:
+          type: string
+      - in: query
+        name: document_ids
+        required: false
+        description: Filter transactions to include only those from the specified document IDs. To filter by multiple document IDs, separate each ID with a comma (,). For example, `document_ids=uuid1,uuid2`. No transactions from open banking data will be returned unless you explicitly request them using the `open_banking_data_ids` parameter.
+        example: 73e78eae-e7ce-4707-b2b2-322af448a1dd,2281526e-a535-4532-8ea0-60bb96e97840
+        schema:
+          type: string
+      - in: query
+        name: document_pages
+        description: Filter transactions to include only those that exist on specific pages of documents. To filter by multiple pages, separate each page number with a comma (,). For examples, `document_pages=1,2`. No transactions from open banking data will be returned unless you explicitly request them using the `open_banking_data_ids` parameter.
+        example: 1,2
+        schema:
+          type: string
+      - in: query
+        name: open_banking_data_ids
+        required: false
+        description: Filter transactions to include only those from the specified open banking data uploads. To filter by multiple open banking data uploads, separate each ID with a comma (,). For example, `open_banking_data_ids=uuid1,uuid2`. No transactions from documents will be returned unless you explicitly request them using the `document_ids` parameter.
+        example: 73e78eae-e7ce-4707-b2b2-322af448a1dd,2281526e-a535-4532-8ea0-60bb96e97840
+        schema:
+          type: string
+      - in: query
+        name: search
+        description: Filter transactions where the description or merchant contains the specified search term.
+        example: TAX
+        schema:
+          type: string
+          maxLength: 50
+      - in: query
+        name: sort_by
+        description: Specify the field by which transactions should be sorted.
+        example: date
+        schema:
+          type: string
+          enum:
+          - amount
+          - category
+          - date
+          - merchant
+      - in: query
+        name: sort_direction
+        description: Choose between 'ascending' or 'descending' to define the sorting order.
+        example: asc
+        schema:
+          type: string
+          enum:
+          - asc
+          - desc
+      - in: query
+        name: start_date
+        description: Filter transactions to include only those with a date greater than or equal to the specified start date.
+        example: '2023-01-01'
+        schema:
+          type: string
+          format: date
+      - in: query
+        name: end_date
+        description: Filter transactions to include only those with a date less than the specified end date.
+        example: '2023-02-01'
+        schema:
+          type: string
+          format: date
+      - in: query
+        name: min_amount
+        description: Filter transactions to include only those with an amount greater than or equal to the specified minimum amount.
+        example: 0
+        schema:
+          type: integer
+          format: int64
+      - in: query
+        name: max_amount
+        description: Filter transactions to include only those with an amount less than the specified maximum amount.
+        example: 100000
+        schema:
+          type: integer
+          format: int64
+      - in: query
+        name: data_source
+        description: Set a data source by which to filter transactions. Only transactions in this data source will be returned. If no data source is set, all transactions will be returned.
+        example: bank_statement
+        schema:
+          type: string
+          enum:
+          - BANK_STATEMENT
+          - OPEN_BANKING
+      - in: query
+        name: category
+        description: Set a category by which to filter transactions. Only transactions in this category will be returned. If no category is set, all transactions will be returned.
+        example: income
+        schema:
+          type: string
+          enum:
+          - accommodation
+          - rent
+          - hotels
+          - bank_charge
+          - overdraft
+          - nsf
+          - interest_paid
+          - entertainment
+          - gambling
+          - income
+          - revenue
+          - salary
+          - interest_received
+          - retirement
+          - social_security
+          - commission_received
+          - infrastructure
+          - insurance
+          - investments
+          - savings
+          - trading
+          - crypto_trading
+          - loan
+          - mortgage
+          - card_repayment
+          - mca
+          - payday
+          - auto_loan
+          - buy_now_pay_later
+          - personnel
+          - refund
+          - retail
+          - food_and_drink
+          - groceries
+          - self_transfer
+          - sweep_transfer
+          - tax
+          - transport
+          - fuel
+          - utilities
+          - withdrawal
+      - $ref: '#/components/parameters/include_unreconciled_documents'
+      responses:
+        '200':
+          description: Returns back a list of Transaction objects.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListTransactions'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '403':
+          $ref: '#/components/responses/PermissionDenied'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /customers/{customer_id}/transactions/categories/{category}:
+    patch:
+      tags:
+      - Transactions
+      summary: Recategorize Transactions
+      description: Assign a new category to a group of transaction ids
+      operationId: recategorizeTransactions
+      parameters:
+      - name: customer_id
+        in: path
+        description: The Inscribe customer id.
+        example: efae18a0-05fa-41d2-be8c-481b44aeeee8
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: category
+        in: path
+        description: The category to be assigned to all the transactions in the list. If the desired transaction category is null, choose null.
+        example: salary
+        required: true
+        schema:
+          type: string
+          enum:
+          - accommodation
+          - rent
+          - hotels
+          - bank_charge
+          - overdraft
+          - nsf
+          - interest_paid
+          - entertainment
+          - gambling
+          - income
+          - revenue
+          - salary
+          - interest_received
+          - retirement
+          - social_security
+          - commission_received
+          - infrastructure
+          - insurance
+          - investments
+          - savings
+          - trading
+          - crypto_trading
+          - loan
+          - mortgage
+          - card_repayment
+          - mca
+          - payday
+          - auto_loan
+          - buy_now_pay_later
+          - personnel
+          - refund
+          - retail
+          - food_and_drink
+          - groceries
+          - self_transfer
+          - sweep_transfer
+          - tax
+          - transport
+          - fuel
+          - utilities
+          - withdrawal
+          - 'null'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: false
+              required:
+              - transaction_ids
+              properties:
+                transaction_ids:
+                  type: array
+                  items:
+                    type: string
+                    format: uuid
+              example:
+                transaction_ids:
+                - 2c7cf785-94c0-4cef-bfdb-310f7136ad40
+                - ebaee07a-8920-4170-96df-5e27f5e2fb36
+                - c66e7df2-3f7e-4eb9-bcab-958fada36804
+      responses:
+        '204':
+          description: Successfully recategorized Transactions.
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '403':
+          $ref: '#/components/responses/PermissionDenied'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /transactions/categories:
+    get:
+      tags:
+      - Transactions
+      summary: List Inscribe Transaction Categories
+      description: Retrieves the hierarchy of transaction categories that Inscribe uses in its transaction enrichment. Every uploaded transaction will be assigned one of these transaction categories (or null if no category is found). Inscribe categories are presented in the form of a hierarchy. More information is available via our guides.
+      operationId: getTransactionCategories
+      responses:
+        '200':
+          description: Successfully retrieved transaction categories.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionCategories'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '403':
+          $ref: '#/components/responses/PermissionDenied'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+components:
+  schemas:
+    metadata_transactions_accounts:
+      type: object
+      description: Additional data which provides context about Inscribe's Credit Insights response.
+      properties:
+        customer_contains_low_trust_score_documents:
+          type: boolean
+          description: This value will be set to True if the customer contains any documents under a trust score threshold of 50. Else, this will be set to False.
+          example: false
+        included_data_sources:
+          type: object
+          description: Lists all documents and open banking data which were used to create the Inscribe Credit Insights.
+          properties:
+            documents:
+              type: array
+              items:
+                type: object
+                properties:
+                  document_id:
+                    type: string
+                    format: uuid
+                    example: b3de84cf-97aa-4321-a223-51640d5d8fca
+            open_banking:
+              type: array
+              items:
+                type: object
+                properties:
+                  open_banking_data_id:
+                    type: string
+                    format: uuid
+                    example: e959ed48-a9e4-44f3-a6f8-b9dddd21f27c
+        excluded_data_sources:
+          type: object
+          description: Lists all documents and open banking data which were excluded from the Inscribe Credit Insights. Documents can be excluded if they are duplicate documents, or when the include_unreconciled_documents query parameter is set to False.
+          properties:
+            documents:
+              type: array
+              items:
+                type: object
+                properties:
+                  document_id:
+                    type: string
+                    format: uuid
+                    example: fd7abd7d-5d62-42d0-b49e-62eae1fd4e22
+                  exclusion_reason:
+                    format: string
+                    example: UNRECONCILED_BANK_ACCOUNT
+            open_banking:
+              type: array
+              items:
+                type: object
+                properties:
+                  open_banking_data_id:
+                    type: string
+                    format: uuid
+                    example: 920b148f-db30-46fe-8da9-3de2c9e55b04
+        query_parameters:
+          type: object
+          description: Lists the query parameters which were used in the original endpoint request.
+    TransactionCategories:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              category_id:
+                type: string
+                description: The category identifier.
+                example: ACCOMMODATION
+              category_key:
+                type: string
+                description: The category key.
+                example: ACCOMMODATION
+              subcategories:
+                description: List of all subcategories for this category.
+                type: array
+                items:
+                  type: object
+                  properties:
+                    category_id:
+                      type: string
+                      description: The subcategory identifier.
+                      example: RENT
+                    category_key:
+                      type: string
+                      description: The subcategory key.
+                      example: RENT
+                    subcategories:
+                      type: array
+                      items:
+                        type: object
+                      example: []
+          description: An array of category objects.
+    Transaction:
+      type: object
+      description: A transaction object which contains information about the transaction.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique identifier for the object.
+          example: 0efae611-b3eb-4b84-8ed0-a4e92ad3bf4b
+        guid:
+          type:
+          - string
+          - 'null'
+          description: An identifier for the transaction submitted by the data provider.
+          example: 0efae611-b3eb-4b84-8ed0-a4e92ad3bf4b
+        date:
+          type: string
+          format: date
+          description: Date of the transaction.
+          example: '2022-07-25'
+        description:
+          type: string
+          description: Description of the transaction.
+          example: Deposit from Stripe acc 0000XXXX1234
+        amount:
+          type: integer
+          description: Amount of the transaction (in cents).
+          example: 860000
+        currency_code:
+          type:
+          - string
+          - 'null'
+          description: The ISO 4217 currency code of the transaction.
+          example: USD
+        category:
+          description: Category of the transaction. This value will be set to null if no category is identified.
+          example: OVERDRAFT
+          enum:
+          - ACCOMMODATION
+          - RENT
+          - HOTELS
+          - BANK_CHARGE
+          - OVERDRAFT
+          - NSF
+          - INTEREST_PAID
+          - ENTERTAINMENT
+          - GAMBLING
+          - INCOME
+          - REVENUE
+          - SALARY
+          - INTEREST_RECEIVED
+          - RETIREMENT
+          - SOCIAL_SECURITY
+          - COMMISSION_RECEIVED
+          - INFRASTRUCTURE
+          - INSURANCE
+          - INVESTMENTS
+          - SAVINGS
+          - TRADING
+          - CRYPTO_TRADING
+          - LOAN
+          - MORTGAGE
+          - CARD_REPAYMENT
+          - MCA
+          - PAYDAY
+          - AUTO_LOAN
+          - BUY_NOW_PAY_LATER
+          - PERSONNEL
+          - REFUND
+          - RETAIL
+          - FOOD_AND_DRINK
+          - GROCERIES
+          - SELF_TRANSFER
+          - SWEEP_TRANSFER
+          - TAX
+          - TRANSPORT
+          - FUEL
+          - UTILITIES
+          - WITHDRAWAL
+          - OTHER
+          - PEER_TO_PEER_TRANSFER
+        method:
+          type:
+          - string
+          - 'null'
+          description: Method by which the transaction was made. This value will be set to null if no method is identified.
+          example: BANK_TRANSFER
+          enum:
+          - BANK_TRANSFER
+          - CARD_PAYMENT
+          - CASH
+          - CHECK
+        vendor:
+          type: string
+          description: This has been deprecated. Please use merchant instead.
+          example: AMAZON
+          deprecated: true
+        merchant:
+          type:
+          - string
+          - 'null'
+          description: The merchant associated with the transaction. This value will be set to null if no merchant is identified.
+          example: AMAZON
+        data_source:
+          type: string
+          description: The source of the transaction. The transaction can be from either a bank statement or open banking data.
+          enum:
+          - BANK_STATEMENT
+          - OPEN_BANKING
+    ListTransactions:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Transaction'
+          description: A map with a data property that contains an array of transactions. Each entry in the array is a separate transaction object.
+        pagination:
+          type: object
+          properties:
+            cursor:
+              type: string
+              format: uuid
+              description: A cursor for use in pagination. This cursor is to be used in the next request's cursor parameter to request the next set of transactions.
+              example: 9361c7fb-934b-4cac-8e07-4897e590ab94
+        metadata:
+          $ref: '#/components/schemas/metadata_transactions_accounts'
+      example:
+        data:
+        - id: 0efae611-b3eb-4b84-8ed0-a4e92ad3bf4b
+          date: '2022-07-25'
+          description: Deposit
+          amount: 860000
+          currency_code: USD
+          category: REVENUE
+          method: BANK_TRANSFER
+          vendor: Smith & Sons
+          merchant: Smith & Sons
+          data_source: BANK_STATEMENT
+          guid: 123e4567-e89b-12d3-a456-426614174001
+        - id: 3efae611-b3eb-5b84-9ed1-a3e93ad4bf6c
+          date: '2022-07-28'
+          description: NSF fee on account
+          amount: -3500
+          currency_code: USD
+          category: NSF
+          method: BANK_TRANSFER
+          vendor: null
+          merchant: null
+          data_source: BANK_STATEMENT
+          guid: 123e4567-e89b-12d3-a456-426614174002
+        - id: 4efae611-b3eb-5b84-9ed1-a3e93ad4bf6c
+          date: '2022-07-30'
+          description: Chase ATM withdrawal from account
+          amount: -50000
+          currency_code: USD
+          category: WITHDRAWAL
+          method: CASH
+          vendor: CHASE
+          merchant: CHASE
+          data_source: BANK_STATEMENT
+          guid: 123e4567-e89b-12d3-a456-426614174003
+        pagination:
+          cursor: 9361c7fb-934b-4cac-8e07-4897e590ab94
+        metadata:
+          customer_contains_low_trust_score_documents: false
+          included_data_sources:
+            documents:
+            - document_id: e959ed48-a9e4-44f3-a6f8-b9dddd21f27c
+            open_banking: []
+          excluded_data_sources:
+            documents:
+            - document_id: 1ae90a8e-8126-41aa-9b01-1d80e2e0817d
+              exclusion_reason: UNRECONCILED_BANK_ACCOUNT
+            open_banking: []
+          query_parameters: {}
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+          example: error message
+      required:
+      - message
+  responses:
+    PermissionDenied:
+      description: You do not have permission to access this resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    TooManyRequests:
+      description: Too many requests. The request has been rate limited. For more information, visit our [documentation on rate limiting](https://docs.inscribe.ai/docs/are-the-endpoints-rate-limited).
+      content:
+        text/plain:
+          example: Requests are limited to 200 requests over a 5 minute period. Please try again in 30 seconds
+      headers:
+        Retry-After:
+          description: The number of seconds to wait before retrying the request.
+          schema:
+            type: integer
+            example: 30
+    BadRequest:
+      description: You have provided incorrect data.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The specified resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    include_unreconciled_documents:
+      name: include_unreconciled_documents
+      in: query
+      description: Unreconciled bank statements are statements where the difference between the parsed opening and closing balances is not explained by the sum of the parsed transaction amounts. Statements are typically unreconciled if the uploaded document has poor quality or is missing some of its original pages. It can also happen when the parsing models fail to parse and extract all relevant data. If this parameter is set to False, unreconciled bank statements will be excluded from the credit insights. This parameter defaults to True, keeping all documents included.
+      required: false
+      example: true
+      schema:
+        type: boolean
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      x-default: Inscribe <API KEY>
+externalDocs:
+  description: Find out more about Swagger
+  url: http://swagger.io
+x-explorer-enabled: false
+x-samples-enabled: false
+x-samples-languages:
+- curl
+- python
+- node
+x-provenance:
+  method: searched
+  source: https://docs.inscribe.ai/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://docs.inscribe.ai/reference/addcustomer.md
+  - https://docs.inscribe.ai/reference/adddocumentrequest.md
+  - https://docs.inscribe.ai/reference/createsession.md
+  - https://docs.inscribe.ai/reference/deletecustomer.md
+  - https://docs.inscribe.ai/reference/deletedocument.md
+  - https://docs.inscribe.ai/reference/deletedocumentrequest.md
+  - https://docs.inscribe.ai/reference/deleteopenbankingdata.md
+  - https://docs.inscribe.ai/reference/deleteplaidassetreport.md
+  - https://docs.inscribe.ai/reference/getbankaccount.md
+  - https://docs.inscribe.ai/reference/getbankaccountcreditanalysis.md
+  - https://docs.inscribe.ai/reference/getbankaccountcreditanalysiscashflowinsights.md
+  - https://docs.inscribe.ai/reference/getbankaccountcreditanalysisexpenditureinsights.md
+  - https://docs.inscribe.ai/reference/getbankaccountcreditanalysisincomeinsights.md
+  - https://docs.inscribe.ai/reference/getbankaccountcreditanalysisloaninsights.md
+  - https://docs.inscribe.ai/reference/getbankaccountcreditanalysisriskinsights.md
+  - https://docs.inscribe.ai/reference/getbankaccounts.md
+  - https://docs.inscribe.ai/reference/getbankaccounttransactions.md
+  - https://docs.inscribe.ai/reference/getcollectsession.md
+  - https://docs.inscribe.ai/reference/getcollectsessions.md
+  - https://docs.inscribe.ai/reference/getcustomer.md
+  - https://docs.inscribe.ai/reference/getcustomercreditanalysis.md
+  - https://docs.inscribe.ai/reference/getcustomercreditanalysiscashflowinsights.md
+  - https://docs.inscribe.ai/reference/getcustomercreditanalysisexpenditureinsights.md
+  - https://docs.inscribe.ai/reference/getcustomercreditanalysisincomeinsights.md
+  - https://docs.inscribe.ai/reference/getcustomercreditanalysisloaninsights.md
+  - https://docs.inscribe.ai/reference/getcustomercreditanalysisriskinsights.md
+  - https://docs.inscribe.ai/reference/getcustomers.md
+  - https://docs.inscribe.ai/reference/getcustomertransactions.md
+  - https://docs.inscribe.ai/reference/getdocumentresults.md
+  - https://docs.inscribe.ai/reference/getdocuments.md
+  - https://docs.inscribe.ai/reference/getopenbankingdata.md
+  - https://docs.inscribe.ai/reference/getplaidassetreport.md
+  - https://docs.inscribe.ai/reference/gettransactioncategories.md
+  - https://docs.inscribe.ai/reference/reachability-check-2.md
+  - https://docs.inscribe.ai/reference/recategorizetransactions.md
+  - https://docs.inscribe.ai/reference/updatecollectsession.md
+  - https://docs.inscribe.ai/reference/updatecustomer.md
+  - https://docs.inscribe.ai/reference/updatedocument.md
+  - https://docs.inscribe.ai/reference/uploaddocuments.md
+  - https://docs.inscribe.ai/reference/uploadinscribeopenbankingdata.md
+  - https://docs.inscribe.ai/reference/uploadmxaggregatedopenbankingdata.md
+  - https://docs.inscribe.ai/reference/uploadplaidassetreport.md
+  - https://docs.inscribe.ai/reference/uploadplaidassetreportopenbankingdata.md
+  merge:
+    pages: 43
+    deduped: 485
+    conflicts_kept_first: 0

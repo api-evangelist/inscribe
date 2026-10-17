@@ -162,17 +162,19 @@ common:
   url: json-ld/inscribe-context.jsonld
 
 apis:
-- aid: inscribe:inscribe-core-resources
+- aid: inscribe:inscribe-bank-accounts-api
   name: Inscribe Bank Accounts API
-  description: Bank account objects are created to store bank account data. These objects describe characteristics of bank accounts, such as the
-    account name, number, and type. You can get and list bank accounts using these endpoints. Bank accounts are identified by an id.
+  description: >-
+    Bank account objects are created to store bank account data. These objects describe characteristics
+    of bank accounts, such as the account name, number, and type. You can get and list bank accounts using
+    these endpoints. Bank accounts are identified by an id.
   humanURL: https://docs.inscribe.ai/reference/overview
   baseURL: https://api.inscribe.ai/api/v2
   tags:
   - Bank Accounts
   properties:
   - type: OpenAPI
-    url: openapi/inscribe-core-resources-openapi.yml
+    url: openapi/inscribe-bank-accounts-api-openapi.yml
   - type: Documentation
     url: https://docs.inscribe.ai/reference/overview
   - type: JSONSchema
@@ -187,7 +189,188 @@ apis:
     url: json-schema/inscribe-credit-analysis-risk-insights-schema.json
   - type: JSONSchema
     url: json-schema/inscribe-credit-analysis-expenditure-insights-schema.json
-
+- aid: inscribe:inscribe-collect-sessions-api
+  name: Inscribe Collect Sessions API
+  description: >-
+    Collect sessions allow you to automate each step of your document collection process, from customer
+    contact to fraud checks and verification. Sessions are identified by an id.
+  humanURL: https://docs.inscribe.ai/reference/overview
+  baseURL: https://api.inscribe.ai/api/v2
+  tags:
+  - Collect Sessions
+  properties:
+  - type: OpenAPI
+    url: openapi/inscribe-collect-sessions-api-openapi.yml
+  - type: Documentation
+    url: https://docs.inscribe.ai/reference/overview
+  - type: JSONSchema
+    url: json-schema/inscribe-document-schema.json
+  - type: JSONSchema
+    url: json-schema/inscribe-customer-credit-analysis-cashflow-insights-schema.json
+  - type: JSONSchema
+    url: json-schema/inscribe-credit-analysis-income-insights-schema.json
+  - type: JSONSchema
+    url: json-schema/inscribe-mxaggregated-data-upload-request-schema.json
+  - type: JSONSchema
+    url: json-schema/inscribe-credit-analysis-risk-insights-schema.json
+  - type: JSONSchema
+    url: json-schema/inscribe-credit-analysis-expenditure-insights-schema.json
+- aid: inscribe:inscribe-credit-insights-api
+  name: Inscribe Credit Insights API
+  description: >-
+    Credit Insights provides inferred creditworthiness datapoints relating to a specific customer or bank
+    account.
+  humanURL: https://docs.inscribe.ai/reference/overview
+  baseURL: https://api.inscribe.ai/api/v2
+  tags:
+  - Credit Insights
+  properties:
+  - type: OpenAPI
+    url: openapi/inscribe-credit-insights-api-openapi.yml
+  - type: Documentation
+    url: https://docs.inscribe.ai/reference/overview
+  - type: JSONSchema
+    url: json-schema/inscribe-document-schema.json
+  - type: JSONSchema
+    url: json-schema/inscribe-customer-credit-analysis-cashflow-insights-schema.json
+  - type: JSONSchema
+    url: json-schema/inscribe-credit-analysis-income-insights-schema.json
+  - type: JSONSchema
+    url: json-schema/inscribe-mxaggregated-data-upload-request-schema.json
+  - type: JSONSchema
+    url: json-schema/inscribe-credit-analysis-risk-insights-schema.json
+  - type: JSONSchema
+    url: json-schema/inscribe-credit-analysis-expenditure-insights-schema.json
+- aid: inscribe:inscribe-customers-api
+  name: Inscribe Customers API
+  description: >-
+    Customer objects are created to easily track and store documents. You can create, get, update, delete,
+    and list your customers. Customers are identified by an id.
+  humanURL: https://docs.inscribe.ai/reference/overview
+  baseURL: https://api.inscribe.ai/api/v2
+  tags:
+  - Customers
+  properties:
+  - type: OpenAPI
+    url: openapi/inscribe-customers-api-openapi.yml
+  - type: Documentation
+    url: https://docs.inscribe.ai/reference/overview
+  - type: JSONSchema
+    url: json-schema/inscribe-document-schema.json
+  - type: JSONSchema
+    url: json-schema/inscribe-customer-credit-analysis-cashflow-insights-schema.json
+  - type: JSONSchema
+    url: json-schema/inscribe-credit-analysis-income-insights-schema.json
+  - type: JSONSchema
+    url: json-schema/inscribe-mxaggregated-data-upload-request-schema.json
+  - type: JSONSchema
+    url: json-schema/inscribe-credit-analysis-risk-insights-schema.json
+  - type: JSONSchema
+    url: json-schema/inscribe-credit-analysis-expenditure-insights-schema.json
+- aid: inscribe:inscribe-documents-api
+  name: Inscribe Documents API
+  description: >-
+    Document objects are created to store a document. You can create, get, delete, and list your documents
+    against a customer. Documents are identified by an id.
+  humanURL: https://docs.inscribe.ai/reference/overview
+  baseURL: https://api.inscribe.ai/api/v2
+  tags:
+  - Documents
+  properties:
+  - type: OpenAPI
+    url: openapi/inscribe-documents-api-openapi.yml
+  - type: Documentation
+    url: https://docs.inscribe.ai/reference/overview
+  - type: JSONSchema
+    url: json-schema/inscribe-document-schema.json
+  - type: JSONSchema
+    url: json-schema/inscribe-customer-credit-analysis-cashflow-insights-schema.json
+  - type: JSONSchema
+    url: json-schema/inscribe-credit-analysis-income-insights-schema.json
+  - type: JSONSchema
+    url: json-schema/inscribe-mxaggregated-data-upload-request-schema.json
+  - type: JSONSchema
+    url: json-schema/inscribe-credit-analysis-risk-insights-schema.json
+  - type: JSONSchema
+    url: json-schema/inscribe-credit-analysis-expenditure-insights-schema.json
+- aid: inscribe:inscribe-open-banking-api
+  name: Inscribe Open Banking API
+  description: >-
+    This endpoint allows you to associate open banking data with an Inscribe customer. There are 2 types
+    of open banking data supported: Plaid and MX. Credit insights for this customer are then generated
+    from this data.
+  humanURL: https://docs.inscribe.ai/reference/overview
+  baseURL: https://api.inscribe.ai/api/v2
+  tags:
+  - Open Banking
+  properties:
+  - type: OpenAPI
+    url: openapi/inscribe-open-banking-api-openapi.yml
+  - type: Documentation
+    url: https://docs.inscribe.ai/reference/overview
+  - type: JSONSchema
+    url: json-schema/inscribe-document-schema.json
+  - type: JSONSchema
+    url: json-schema/inscribe-customer-credit-analysis-cashflow-insights-schema.json
+  - type: JSONSchema
+    url: json-schema/inscribe-credit-analysis-income-insights-schema.json
+  - type: JSONSchema
+    url: json-schema/inscribe-mxaggregated-data-upload-request-schema.json
+  - type: JSONSchema
+    url: json-schema/inscribe-credit-analysis-risk-insights-schema.json
+  - type: JSONSchema
+    url: json-schema/inscribe-credit-analysis-expenditure-insights-schema.json
+- aid: inscribe:inscribe-reachability-check-api
+  name: Inscribe Reachability Check API
+  description: The Reachability Check API from Inscribe — 1 operation(s) for reachability check.
+  humanURL: https://docs.inscribe.ai/reference/overview
+  baseURL: https://api.inscribe.ai/api/v2
+  tags:
+  - Reachability Check
+  properties:
+  - type: OpenAPI
+    url: openapi/inscribe-reachability-check-api-openapi.yml
+  - type: Documentation
+    url: https://docs.inscribe.ai/reference/overview
+  - type: JSONSchema
+    url: json-schema/inscribe-document-schema.json
+  - type: JSONSchema
+    url: json-schema/inscribe-customer-credit-analysis-cashflow-insights-schema.json
+  - type: JSONSchema
+    url: json-schema/inscribe-credit-analysis-income-insights-schema.json
+  - type: JSONSchema
+    url: json-schema/inscribe-mxaggregated-data-upload-request-schema.json
+  - type: JSONSchema
+    url: json-schema/inscribe-credit-analysis-risk-insights-schema.json
+  - type: JSONSchema
+    url: json-schema/inscribe-credit-analysis-expenditure-insights-schema.json
+- aid: inscribe:inscribe-transactions-api
+  name: Inscribe Transactions API
+  description: >-
+    Transaction objects are created to store transaction data. These objects describe characteristics
+    of transactions, such as the date, amount, description, and category. You can list all of your transactions
+    using these endpoints. Transactions are identified by an id.
+  humanURL: https://docs.inscribe.ai/reference/overview
+  baseURL: https://api.inscribe.ai/api/v2
+  tags:
+  - Transactions
+  properties:
+  - type: OpenAPI
+    url: openapi/inscribe-transactions-api-openapi.yml
+  - type: Documentation
+    url: https://docs.inscribe.ai/reference/overview
+  - type: JSONSchema
+    url: json-schema/inscribe-document-schema.json
+  - type: JSONSchema
+    url: json-schema/inscribe-customer-credit-analysis-cashflow-insights-schema.json
+  - type: JSONSchema
+    url: json-schema/inscribe-credit-analysis-income-insights-schema.json
+  - type: JSONSchema
+    url: json-schema/inscribe-mxaggregated-data-upload-request-schema.json
+  - type: JSONSchema
+    url: json-schema/inscribe-credit-analysis-risk-insights-schema.json
+  - type: JSONSchema
+    url: json-schema/inscribe-credit-analysis-expenditure-insights-schema.json
 x-readme-harvest:
   date: '2026-10-14'
   ops: 43

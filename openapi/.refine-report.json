@@ -1,0 +1,28 @@
+{
+  "provider": "inscribe",
+  "sources": [
+    "inscribe-core-resources-openapi.yml"
+  ],
+  "outputs": [
+    "inscribe-bank-accounts-api-openapi.yml",
+    "inscribe-collect-sessions-api-openapi.yml",
+    "inscribe-credit-insights-api-openapi.yml",
+    "inscribe-customers-api-openapi.yml",
+    "inscribe-documents-api-openapi.yml",
+    "inscribe-open-banking-api-openapi.yml",
+    "inscribe-reachability-check-api-openapi.yml",
+    "inscribe-transactions-api-openapi.yml"
+  ],
+  "archived": [
+    "archived openapi/inscribe-core-resources-openapi.yml"
+  ],
+  "errors": [],
+  "warnings": [],
+  "notes": [
+    "sourced from openapi/_original/ (0 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "inscribe-core-resources-openapi.yml: upgraded openapi 3.0.0 -> OpenAPI 3.2.0",
+    "inscribe-core-resources-openapi.yml: declared missing tag: Reachability Check",
+    "apis.yml register: written (+8 apis, 8 total)"
+  ],
+  "skipped": []
+}

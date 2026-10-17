@@ -1,0 +1,131 @@
+openapi: 3.2.0
+info:
+  description: Inscribe Fraud Detection API Documentation
+  version: 2.0.0
+  title: Core Resources Reachability Check API
+  termsOfService: http://swagger.io/terms/
+  contact:
+    email: api@inscribe.ai
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+servers:
+- url: https://api.inscribe.ai/api/v2
+security:
+- ApiKeyAuth: []
+tags:
+- name: Reachability Check
+paths:
+  /health:
+    get:
+      tags:
+      - Reachability Check
+      summary: Reachability Check
+      description: 'By querying this endpoint, you can check if it''s possible to reach Inscribe''s services from your own infrastructure. This endpoint does not require any authentication but is rate limited.
+
+        It does not indicate that all services are working without an error. For those notifications, please subscribe to our status page at .'
+      operationId: reachability-check
+      responses:
+        '200':
+          description: Reachability check succeeded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Health'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+components:
+  responses:
+    TooManyRequests:
+      description: Too many requests. The request has been rate limited. For more information, visit our [documentation on rate limiting](https://docs.inscribe.ai/docs/are-the-endpoints-rate-limited).
+      content:
+        text/plain:
+          example: Requests are limited to 200 requests over a 5 minute period. Please try again in 30 seconds
+      headers:
+        Retry-After:
+          description: The number of seconds to wait before retrying the request.
+          schema:
+            type: integer
+            example: 30
+  schemas:
+    Health:
+      type: object
+      description: Response for the reachability check endpoint
+      properties:
+        success:
+          type: boolean
+          description: Did the request succeed?
+          example: true
+        status:
+          type: integer
+          description: http status code
+          example: 200
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      x-default: Inscribe <API KEY>
+externalDocs:
+  description: Find out more about Swagger
+  url: http://swagger.io
+x-explorer-enabled: false
+x-samples-enabled: false
+x-samples-languages:
+- curl
+- python
+- node
+x-provenance:
+  method: searched
+  source: https://docs.inscribe.ai/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://docs.inscribe.ai/reference/addcustomer.md
+  - https://docs.inscribe.ai/reference/adddocumentrequest.md
+  - https://docs.inscribe.ai/reference/createsession.md
+  - https://docs.inscribe.ai/reference/deletecustomer.md
+  - https://docs.inscribe.ai/reference/deletedocument.md
+  - https://docs.inscribe.ai/reference/deletedocumentrequest.md
+  - https://docs.inscribe.ai/reference/deleteopenbankingdata.md
+  - https://docs.inscribe.ai/reference/deleteplaidassetreport.md
+  - https://docs.inscribe.ai/reference/getbankaccount.md
+  - https://docs.inscribe.ai/reference/getbankaccountcreditanalysis.md
+  - https://docs.inscribe.ai/reference/getbankaccountcreditanalysiscashflowinsights.md
+  - https://docs.inscribe.ai/reference/getbankaccountcreditanalysisexpenditureinsights.md
+  - https://docs.inscribe.ai/reference/getbankaccountcreditanalysisincomeinsights.md
+  - https://docs.inscribe.ai/reference/getbankaccountcreditanalysisloaninsights.md
+  - https://docs.inscribe.ai/reference/getbankaccountcreditanalysisriskinsights.md
+  - https://docs.inscribe.ai/reference/getbankaccounts.md
+  - https://docs.inscribe.ai/reference/getbankaccounttransactions.md
+  - https://docs.inscribe.ai/reference/getcollectsession.md
+  - https://docs.inscribe.ai/reference/getcollectsessions.md
+  - https://docs.inscribe.ai/reference/getcustomer.md
+  - https://docs.inscribe.ai/reference/getcustomercreditanalysis.md
+  - https://docs.inscribe.ai/reference/getcustomercreditanalysiscashflowinsights.md
+  - https://docs.inscribe.ai/reference/getcustomercreditanalysisexpenditureinsights.md
+  - https://docs.inscribe.ai/reference/getcustomercreditanalysisincomeinsights.md
+  - https://docs.inscribe.ai/reference/getcustomercreditanalysisloaninsights.md
+  - https://docs.inscribe.ai/reference/getcustomercreditanalysisriskinsights.md
+  - https://docs.inscribe.ai/reference/getcustomers.md
+  - https://docs.inscribe.ai/reference/getcustomertransactions.md
+  - https://docs.inscribe.ai/reference/getdocumentresults.md
+  - https://docs.inscribe.ai/reference/getdocuments.md
+  - https://docs.inscribe.ai/reference/getopenbankingdata.md
+  - https://docs.inscribe.ai/reference/getplaidassetreport.md
+  - https://docs.inscribe.ai/reference/gettransactioncategories.md
+  - https://docs.inscribe.ai/reference/reachability-check-2.md
+  - https://docs.inscribe.ai/reference/recategorizetransactions.md
+  - https://docs.inscribe.ai/reference/updatecollectsession.md
+  - https://docs.inscribe.ai/reference/updatecustomer.md
+  - https://docs.inscribe.ai/reference/updatedocument.md
+  - https://docs.inscribe.ai/reference/uploaddocuments.md
+  - https://docs.inscribe.ai/reference/uploadinscribeopenbankingdata.md
+  - https://docs.inscribe.ai/reference/uploadmxaggregatedopenbankingdata.md
+  - https://docs.inscribe.ai/reference/uploadplaidassetreport.md
+  - https://docs.inscribe.ai/reference/uploadplaidassetreportopenbankingdata.md
+  merge:
+    pages: 43
+    deduped: 485
+    conflicts_kept_first: 0
