@@ -353,6 +353,8 @@ apis:
   humanURL: https://docs.inscribe.ai/reference/overview
   baseURL: https://api.inscribe.ai/api/v2
   tags:
+  - Transaction
+  tags_raw:
   - Transactions
   properties:
   - type: OpenAPI
