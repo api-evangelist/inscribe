@@ -1,4 +1,4 @@
-# Inscribe (inscribe)
+# Inscribe
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -64,58 +64,157 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Inscribe is an AI-powered document fraud detection platform founded in 2017, serving banks, credit unions, fintechs, and lending institutions. The platform uses agentic AI trained by fraud experts to detect forged, manipulated, and AI-generated documents including bank statements, pay stubs, tax forms, invoices, and identity documents. Inscribe's REST API provides programmatic access to fraud detection, document verification, credit insights, and transaction enrichment workflows at scale. Financial institutions integrate the API to automate underwriting, onboarding, KYC/KYB, and bank account verification decisions, with results delivered via webhook or polling.
+Inscribe is an AI-powered document fraud detection platform founded in 2017, serving banks, credit unions, fintechs, and lending institutions. The platform uses agentic AI trained by fraud experts to detect forged, manipulated, and AI-generated documents including bank statements, pay stubs, tax forms, invoices, and identity documents. Inscribe's REST API provides programmatic access to fraud detection, document verification, credit insights, and transaction enrichment workflows at scale. Financial institutions integrate the API to automate underwriting, onboarding, KYC/KYB, and bank account verification decisions, with results delivered via webhook or polling. The platform processes millions of applications annually and serves notable customers including Bluevine, Ramp, Plaid, and BHG Financial.
 
-**APIs.json:** https://raw.githubusercontent.com/api-evangelist/inscribe/refs/heads/main/apis.yml
+**Areas:** Fraud Prevention · Document Verification · Financial Services · KYC · KYB · Bank Statements · Paystubs · Identity Verification · Risk Management · Fintech · Artificial Intelligence · Machine Learning
 
-**Naftiko:** https://github.com/naftiko/fleet?utm_source=api-evangelist&utm_medium=readme&utm_campaign=inscribe-api-evangelist&utm_content=repo
+## Inscribe on APIs.io
 
-## Tags
+Everything profiled for Inscribe is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/inscribe/](https://apis.io/providers/inscribe/)** — or go straight to one of the APIs or properties below.
 
-Fraud Detection, Document Verification, Financial Services, KYC, KYB, Bank Statements, Pay Stubs, Identity Verification, Risk Management, Fintech, AI, Machine Learning
+### APIs (8)
 
-## APIs
+- [Inscribe Bank Accounts API](https://apis.io/apis/inscribe/inscribe-bank-accounts-api/) — Bank account objects are created to store bank account data. These objects describe characteristics of bank accounts, such as the account name, number, and…
+- [Inscribe Collect Sessions API](https://apis.io/apis/inscribe/inscribe-collect-sessions-api/) — Collect sessions allow you to automate each step of your document collection process, from customer contact to fraud checks and verification. Sessions are…
+- [Inscribe Credit Insights API](https://apis.io/apis/inscribe/inscribe-credit-insights-api/) — Credit Insights provides inferred creditworthiness datapoints relating to a specific customer or bank account.
+- [Inscribe Customers API](https://apis.io/apis/inscribe/inscribe-customers-api/) — Customer objects are created to easily track and store documents. You can create, get, update, delete, and list your customers. Customers are identified by…
+- [Inscribe Documents API](https://apis.io/apis/inscribe/inscribe-documents-api/) — Document objects are created to store a document. You can create, get, delete, and list your documents against a customer. Documents are identified by an id.
+- [Inscribe Open Banking API](https://apis.io/apis/inscribe/inscribe-open-banking-api/) — This endpoint allows you to associate open banking data with an Inscribe customer. There are 2 types of open banking data supported: Plaid and MX. Credit…
+- [Inscribe Reachability Check API](https://apis.io/apis/inscribe/inscribe-reachability-check-api/) — The Reachability Check API from Inscribe — 1 operation(s) for reachability check.
+- [Inscribe Transactions API](https://apis.io/apis/inscribe/inscribe-transactions-api/) — Transaction objects are created to store transaction data. These objects describe characteristics of transactions, such as the date, amount, description,…
 
-### Inscribe Document Fraud Detection API
+### Published properties
 
-RESTful API for uploading and analyzing financial documents for fraud detection and data extraction. Supports bank statements, pay stubs, tax forms, invoices, and identity documents. Provides fraud signals, forensic analysis, and structured data extraction with results delivered via webhook or polling. Includes customer management, bank account analysis, collect sessions, open banking data ingestion, and transaction enrichment endpoints.
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-- **Base URL:** https://api.inscribe.ai/api/v2
-- **API Reference:** https://docs.inscribe.ai/reference/overview
-- **OpenAPI / llms.txt:** https://docs.inscribe.ai/llms.txt
+#### MCP servers (1)
 
-**Key Endpoint Groups:**
-- Customer Management (create, retrieve, list, update, delete)
-- Bank Accounts (retrieve, list, credit analysis)
-- Documents (upload, retrieve, list, update, delete) — max 50 MB, 350 pages per PDF
-- Collect Sessions (create, retrieve, list, update)
-- Open Banking Data (Inscribe Financial Data Format, MX, Plaid Asset Reports)
-- Transactions (list, categorize, recategorize)
-- Credit Insights (cashflow, income, risk, expenditure, loan summaries)
+Model Context Protocol servers that expose the API to agents.
 
-## Plans / Rate Limits / FinOps
+- [inscribe-mcp.yml](https://apis.io/servers/inscribe/inscribe-mcp-yml/)
 
-- **Plans:** [plans/inscribe-plans-pricing.yml](plans/inscribe-plans-pricing.yml) — Custom enterprise pricing; median ~$24,500/yr, range $1K–$60K
-- **Rate Limits:** [rate-limits/inscribe-rate-limits.yml](rate-limits/inscribe-rate-limits.yml) — Default: 300 req/2 min; Elevated: 3,000 req/5 min (on request)
-- **FinOps:** [finops/inscribe-finops.yml](finops/inscribe-finops.yml) — Usage-metered; primary cost driver is documents processed
+#### Agentic access (1)
 
-## Timestamps
+Which operations an agent can call, which act, and which need a human in the loop.
 
-- **Created:** 2026-06-12
-- **Modified:** 2026-06-12
+- [Inscribe Agentic Access](https://apis.io/agentic-access/inscribe/inscribe-agentic-access/)
 
-## Common Properties
+#### JSON Schema (6)
 
-| Type | URL |
-|------|-----|
-| Website | https://www.inscribe.ai/ |
-| Documentation | https://docs.inscribe.ai/reference/overview |
-| GitHub Organization | https://github.com/InscribeAI |
-| LinkedIn | https://www.linkedin.com/company/inscribeai/ |
-| X (Twitter) | https://twitter.com/inscribeai |
-| Blog | https://www.inscribe.ai/blog |
-| Status Page | https://status.inscribe.ai/ |
+The data models the API reads and writes.
 
-## Maintainers
+- [CreditAnalysisExpenditureInsights](https://apis.io/schemas/inscribe/inscribe-credit-analysis-expenditure-insights/)
+- [CreditAnalysisIncomeInsights](https://apis.io/schemas/inscribe/inscribe-credit-analysis-income-insights/)
+- [CreditAnalysisRiskInsights](https://apis.io/schemas/inscribe/inscribe-credit-analysis-risk-insights/)
+- [CustomerCreditAnalysisCashflowInsights](https://apis.io/schemas/inscribe/inscribe-customer-credit-analysis-cashflow-insights/)
+- [Document](https://apis.io/schemas/inscribe/inscribe-document/)
+- [MXAggregatedDataUploadRequest](https://apis.io/schemas/inscribe/inscribe-mxaggregated-data-upload-request/)
 
-- **Kin Lane** — kin@apievangelist.com
+#### JSON-LD (1)
+
+Linked-data contexts for the provider's vocabulary.
+
+- [Inscribe Context](https://apis.io/jsonld/inscribe/inscribe-context/)
+
+#### Governance rules (1)
+
+Spectral rulesets for the provider's contracts.
+
+- [Inscribe API Rules](https://apis.io/rules/inscribe/inscribe-rules/)
+
+#### Security (3)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Inscribe Authentication](https://apis.io/security/inscribe/inscribe-authentication/)
+- [Inscribe Domain Security](https://apis.io/security/inscribe/inscribe-domain-security/)
+- [Inscribe Vulnerability Disclosure](https://apis.io/security/inscribe/inscribe-vulnerability-disclosure/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Inscribe Plans Pricing](https://apis.io/plans/inscribe/inscribe-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Inscribe Rate Limits](https://apis.io/rate-limits/inscribe/inscribe-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Inscribe Finops](https://apis.io/finops/inscribe/inscribe-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://www.inscribe.ai/)
+- [Documentation](https://docs.inscribe.ai/reference/overview)
+- [Pricing](https://www.inscribe.ai/pricing)
+- [Support](https://help.inscribe.ai/en/)
+- [Blog](https://www.inscribe.ai/blog)
+- [Security](https://www.inscribe.ai/disclosures)
+- [Trust centre](https://trust.inscribe.ai)
+- [Terms of service](https://www.inscribe.ai/terms)
+- [Privacy policy](https://www.inscribe.ai/privacy)
+- [GitHub](https://github.com/InscribeAI)
+- [Status](https://status.inscribe.ai/)
+
+## API Evangelist rating
+
+**Kin Score 45.8** — developing · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 73.2 |
+| Contract quality | 68.1 |
+| Contract governance | 22.0 |
+| Operational transparency | 34.2 |
+| Developer ergonomics | 31.0 |
+| Access clarity | 39.5 |
+
+**Agent readiness 30.3** — agent-ready
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | derived (partial credit) |
+| OpenAPI Examples | verified |
+| Rate Limit Signal | verified |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | partial |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 26.7** — Banking & Open Finance
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/inscribe/](https://apis.io/providers/inscribe/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Inscribe: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/inscribe/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
